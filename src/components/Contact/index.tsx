@@ -40,7 +40,7 @@ const Contact: React.FC = () => {
       setMessageSuccess(true);
       setTimeout(() => {
         router.reload();
-      }, 1500);
+      }, 3500);
     } catch(err) {
       console.log(err);
       setMessageError('Erro ao enviar mensagem, tente novamente...' + err);
