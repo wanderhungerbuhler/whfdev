@@ -38,7 +38,9 @@ const Contact: React.FC = () => {
     try {
       await api.post('/mail', dataSend);
       setMessageSuccess(true);
-      router.reload();
+      setTimeout(() => {
+        router.reload();
+      }, 1500);
     } catch(err) {
       console.log(err);
       setMessageError('Erro ao enviar mensagem, tente novamente...' + err);
