@@ -28,6 +28,16 @@ const Customers: React.FC  = () => (
         </a>
       </article>
       <article>
+        <a href="http://www.cge.rj.gov.br/" target="_blank">
+          <Image
+            src="/images/logo-cge.svg"
+            width={100}
+            height={100}
+            alt="Controladoria Geral do Estado"
+          />
+        </a>
+      </article>
+      <article>
         <a href="http://guiadeturismo.rj.gov.br/" target="_blank">
           <Image
             src="/images/logo-guiadeturismo.svg"
