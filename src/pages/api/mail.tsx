@@ -4,18 +4,17 @@ import nodemailer from 'nodemailer';
 export default (request: NextApiRequest, response: NextApiResponse) => {
   const { nome, email, assunto, empresa, descricao } = request.body;
 
-  const user = "contato@whfdev.com.br";
-  const pass = `${process.env.NEXT_PUBLIC_NODEMAILER_PASS}`;
-
   const transporter = nodemailer.createTransport({
-    host: "mail.whfdev.com.br",
+    host: process.env.EMAIL_SERVER,
     port: 465,
-    auth: { user, pass }
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS}
   });
 
   transporter.sendMail({
     from: `"${nome}" <${email}>`,
-    to: user,
+    to: process.env.EMAIL_USER,
     subject: `${assunto}`,
     text: 'Empresa:' + `${empresa}\n\n` + 'Assunto:\n' + `${descricao}`
 
