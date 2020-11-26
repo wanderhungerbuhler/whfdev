@@ -9,6 +9,7 @@ import Customers from '@/components/Customers';
 import Contact from '@/components/Contact';
 
 const Home: React.FC = () => {
+  console.log(process.env.NODEMAILER_URL);
   return (
     <>
       <Head>
