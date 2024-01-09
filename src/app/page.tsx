@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 import LogoSVG from '@/app/assets/logo.svg';
-import AvatarSVG from '@/app/assets/avatar.svg';
 import FlagENSVG from '@/app/assets/flag-en.svg';
 import FlagFRSVG from '@/app/assets/flag-fr.svg';
 import FlagBRSVG from '@/app/assets/flag-br.svg';
@@ -20,14 +19,15 @@ import CGEIMG from '@/app/assets/brands/cge.svg';
 import AGJoiasIMG from '@/app/assets/brands/agjoias.svg';
 
 export default function Home() {
-  const [flag, setFlag] = useState('');
+  const [flag, setFlag] = useState('en');
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-   if(flag === 'en' && audioRef.current) {
-    audioRef.current.play();
-   }
-  }, [flag])
+    // Play the initial audio when the component mounts
+    if (audioRef.current && flag === 'en') {
+      audioRef.current.play();
+    }
+  }, []);
 
 
   function handleChangeLanguage(language: string) {
@@ -105,7 +105,10 @@ export default function Home() {
             {flag === 'en' ? (
               <>
                 <Image
-                  src={AvatarSVG}
+                  width={70}
+                  height={70}
+                  className="rounded-full border-[3px] border-gray-300"
+                  src="https://github.com/wanderhungerbuhler.png"
                   alt="Wander Hungerbühler - Profile"
                 />
                 <div className="flex flex-col w-[630px] max-sm:justify-center max-sm:items-center max-sm:text-center">
@@ -123,7 +126,10 @@ export default function Home() {
             ) : flag === 'fr' ? (
               <>
                 <Image
-                  src={AvatarSVG}
+                  width={70}
+                  height={70}
+                  className="rounded-full border-[3px] border-gray-300"
+                  src="https://github.com/wanderhungerbuhler.png"
                   alt="Wander Hungerbühler - Profile"
                 />
                 <div className="flex flex-col w-[630px] max-sm:justify-center max-sm:items-center max-sm:text-center">
@@ -142,7 +148,10 @@ export default function Home() {
             ) : flag === 'br' && (
               <>
                 <Image
-                  src={AvatarSVG}
+                  width={70}
+                  height={70}
+                  className="rounded-full border-[3px] border-gray-300"
+                  src="https://github.com/wanderhungerbuhler.png"
                   alt="Wander Hungerbühler - Profile"
                 />
                 <div className="flex flex-col w-[630px] max-sm:justify-center max-sm:items-center max-sm:text-center">
