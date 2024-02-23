@@ -1,15 +1,9 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'github.com',
-        port: '',
-        pathname: '/**'
-      }
-    ]
-  }
-}
+/* eslint-disable @typescript-eslint/no-var-requires */
+const createNextIntlPlugin = require('next-intl/plugin')
 
-module.exports = nextConfig
+const withNextIntl = createNextIntlPlugin()
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {}
+
+module.exports = withNextIntl(nextConfig)
