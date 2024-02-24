@@ -34,7 +34,7 @@ export default function Home() {
   const { locale } = useParams()
 
   const [flag, setFlag] = useState(locale)
-  const [theme, setTheme] = useState<string | null>('')
+  const [theme, setTheme] = useState<string | null>('light')
 
   const [switchMode, setSwitchMode] = useState(false)
 
@@ -86,14 +86,15 @@ export default function Home() {
   return (
     <div className="w-full bg-white transition-colors dark:bg-primary">
       <div className="m-auto w-full max-w-[1080px]">
-        <div className="grid grid-cols-1 items-center justify-between gap-5 px-10 py-5 md:flex md:gap-0 md:px-0">
+        <div className="grid grid-cols-1 items-center justify-between gap-5 px-10 py-5 md:flex md:gap-0">
           <div className="m-auto flex flex-col items-center justify-center gap-2 md:m-0">
             <Image
               src={theme === 'light' ? ImageBlackSvg : ImageWhiteSvg}
               className="m-auto md:order-none md:m-0"
               width={100}
               height={50}
-              alt="Logo"
+              quality={100}
+              alt="WHFdev Logo"
             />
             <div className="flex gap-2">
               <button
@@ -161,7 +162,7 @@ export default function Home() {
           </div>
 
           <div className="flex max-w-[860px] flex-col items-center justify-center">
-            <span className="text-xl font-normal uppercase text-gray-400 transition-colors dark:text-gray-200">
+            <span className="text-xl font-normal uppercase text-gray-400 transition-colors dark:text-gray-300">
               {t('DO YOU NEED')}
             </span>
             <h1 className="text-[50px] font-black uppercase text-gray-400 transition-colors dark:text-gray-200">
@@ -242,7 +243,7 @@ export default function Home() {
           </div>
 
           <div className="mb-32 mt-32 flex max-w-[860px] flex-col items-center justify-center">
-            <span className="text-xl font-normal uppercase text-gray-400 transition-colors dark:text-gray-200">
+            <span className="text-xl font-normal uppercase text-gray-400 transition-colors dark:text-gray-300">
               {t('DO YOU NEED')}
             </span>
             <h1 className="mb-10 text-[50px] font-black uppercase text-gray-400 transition-colors dark:text-gray-200">
