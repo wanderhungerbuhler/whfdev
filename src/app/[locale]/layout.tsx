@@ -1,8 +1,10 @@
+import '@/styles/global.css'
+
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import '@/styles/global.css'
-import Head from './head'
 import { NextIntlClientProvider, useMessages } from 'next-intl'
+
+import Head from './head'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,7 +25,7 @@ export default function RootLayout({
   const messages = useMessages()
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className="bg-foreground">
       <NextIntlClientProvider messages={messages}>
         <Head />
         <body className={inter.className}>{children}</body>

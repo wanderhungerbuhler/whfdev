@@ -1,159 +1,74 @@
 'use client'
-import React, { startTransition, useEffect, useState } from 'react'
+import { IconChartTreemap, IconHome, IconMessage } from '@tabler/icons-react'
 import Image from 'next/image'
+import Link from 'next/link'
+import { useTranslations } from 'next-intl'
+import React from 'react'
 
-import FlagENSVG from '@/assets/flag-en.svg'
-import FlagFRSVG from '@/assets/flag-fr.svg'
-import FlagBRSVG from '@/assets/flag-br.svg'
-import ImageWhiteSvg from '@/assets/logo-white.svg'
-import ImageBlackSvg from '@/assets/logo-black.svg'
-import SicNoticiasSvg from '@/assets/sicnoticias.svg'
-import ZionStorySvg from '@/assets/zionstory.svg'
-import ExpressoSvg from '@/assets/expresso.svg'
-import IconAppStoreSvg from '@/assets/icon-appstore.svg'
-import IconPlayStore from '@/assets/icon-playstore.svg'
-import SicnoticiasIMG from '@/assets/brands/sicnoticias.svg'
-import ExpressoIMG from '@/assets/brands/expresso.svg'
-import ZionStoryIMG from '@/assets/brands/zionstory.svg'
+import AGJoiasIMG from '@/assets/brands/agjoias.svg'
 import BCNOutdoorIMG from '@/assets/brands/bcnoutdoor.svg'
+import CGEIMG from '@/assets/brands/cge.svg'
+import ExpressoIMG from '@/assets/brands/expresso.svg'
 import GeventIMG from '@/assets/brands/gevent.svg'
+import CoachGuth from '@/assets/brands/gh.svg'
+import GuiaTurismoIMG from '@/assets/brands/guiaturismo.svg'
 import JPIMG from '@/assets/brands/jp.svg'
 import RJIMG from '@/assets/brands/rj.svg'
 import SeturIMG from '@/assets/brands/secturismo.svg'
-import GuiaTurismoIMG from '@/assets/brands/guiaturismo.svg'
-import CGEIMG from '@/assets/brands/cge.svg'
-import AGJoiasIMG from '@/assets/brands/agjoias.svg'
-import Link from 'next/link'
-import { Moon, Sun } from 'phosphor-react'
-import { useRouter, useParams } from 'next/navigation'
-import { useTranslations } from 'next-intl'
+import SicnoticiasIMG from '@/assets/brands/sicnoticias.svg'
+import ZionStoryIMG from '@/assets/brands/zionstory.svg'
+import ExpressoSvg from '@/assets/expresso.svg'
+import IconAppStoreSvg from '@/assets/icon-appstore.svg'
+import IconPlayStore from '@/assets/icon-playstore.svg'
+import SicNoticiasSvg from '@/assets/sicnoticias.svg'
+import ZionStorySvg from '@/assets/zionstory.svg'
+import { Menu } from '@/components/ui/menu'
 
 export default function Home() {
   const t = useTranslations('Index')
-  const router = useRouter()
-  const { locale } = useParams()
 
-  const [flag, setFlag] = useState(locale)
-  const [theme, setTheme] = useState<string | null>('light')
-
-  const [switchMode, setSwitchMode] = useState(false)
-
-  function handleChangeLanguage(language: string) {
-    const nextLocale = language
-    setFlag(language)
-
-    startTransition(() => {
-      router.replace(`/${nextLocale}`)
-    })
-
-    if (typeof window !== 'undefined') {
-      const storedData = localStorage.setItem('@whfdev-idioms', language)
-      return storedData
-    }
-  }
-
-  useEffect(() => {
-    function getTheme() {
-      if (typeof window !== 'undefined') {
-        const system = localStorage.getItem('mobato-theme')
-        setTheme(system)
-        return system
-      }
-    }
-
-    getTheme()
-  }, [])
-
-  useEffect(() => {
-    if (theme === 'dark') {
-      document.querySelector('html')?.classList.add('dark')
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('mobato-theme', 'dark')
-      }
-    } else {
-      document.querySelector('html')?.classList.remove('dark')
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('mobato-theme', 'light')
-      }
-    }
-  }, [theme])
-
-  const handleChangeTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'))
-    setSwitchMode(!switchMode)
-  }
+  const navItems = [
+    {
+      name: `${t('Home')}`,
+      link: '#home',
+      icon: <IconHome className="h-4 w-4 text-neutral-500 dark:text-white" />,
+    },
+    {
+      name: `${t('Cases')}`,
+      link: '#cases',
+      icon: (
+        <IconChartTreemap className="h-4 w-4 text-neutral-500 dark:text-white" />
+      ),
+    },
+    {
+      name: `${t('Partners')}`,
+      link: '#partners',
+      icon: (
+        <IconMessage className="h-4 w-4 text-neutral-500 dark:text-white" />
+      ),
+    },
+  ]
 
   return (
-    <div className="w-full bg-white transition-colors dark:bg-primary">
+    <div
+      id="home"
+      className="w-full bg-foreground transition-colors dark:bg-primary"
+    >
       <div className="m-auto w-full max-w-[1080px]">
         <div className="grid grid-cols-1 items-center justify-between gap-5 px-10 py-5 md:flex md:gap-0">
-          <div className="m-auto flex flex-col items-center justify-center gap-2 md:m-0">
-            <Image
-              src={theme === 'light' ? ImageBlackSvg : ImageWhiteSvg}
-              className="m-auto md:order-none md:m-0"
-              width={100}
-              height={50}
-              quality={100}
-              alt="WHFdev Logo"
-            />
-            <div className="flex gap-2">
-              <button
-                onClick={() => handleChangeLanguage('pt')}
-                disabled={flag === 'pt'}
-                className="opacity-[0.5] disabled:opacity-[1]"
-              >
-                <Image src={FlagBRSVG} alt="Flag BR" />
-              </button>
-              <button
-                onClick={() => handleChangeLanguage('en')}
-                disabled={flag === 'en'}
-                className="opacity-[0.5] disabled:opacity-[1]"
-              >
-                <Image src={FlagENSVG} alt="Flag EN" />
-              </button>
-              <button
-                onClick={() => handleChangeLanguage('fr')}
-                disabled={flag === 'fr'}
-                className="opacity-[0.5] disabled:opacity-[1]"
-              >
-                <Image src={FlagFRSVG} alt="Flag FR" />
-              </button>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-center gap-5">
-            {theme === 'dark' ? (
-              <Moon
-                weight="fill"
-                className="cursor-pointer text-primary dark:text-white"
-                onClick={handleChangeTheme}
-              />
-            ) : (
-              theme === 'light' && (
-                <Sun
-                  weight="fill"
-                  className=" cursor-pointer text-orange-300 dark:text-white"
-                  onClick={handleChangeTheme}
-                />
-              )
-            )}
-
-            <Link
-              href="mailto:falecom@whfdev.com.br"
-              target="_blank"
-              className="rounded-full border px-5 font-semibold text-gray-300 transition-colors hover:border-transparent hover:bg-green-500 hover:text-white dark:border-none dark:bg-green-500 dark:text-white"
-            >
-              {t('Contact')}
-            </Link>
-          </div>
+          <Menu navItems={navItems} />
         </div>
 
-        <main className="flex flex-col items-center justify-center leading-none">
-          <div className="flex max-w-[860px] flex-col items-center justify-center py-20 md:h-[90vh]">
+        <main
+          id="home"
+          className="justify-centerleading-none flex flex-col items-center"
+        >
+          <div className="relative flex h-[50rem] w-full flex-col items-center justify-center bg-black bg-dot-white/[0.2]">
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-foreground [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] "></div>
             <span className="text-xl font-normal uppercase text-gray-400 transition-colors dark:text-gray-300 md:text-3xl">
               {t('DO YOU NEED')}
             </span>
-            <h1 className="text-[70px] font-black uppercase text-gray-400 transition-colors dark:text-gray-200 md:text-[100px]">
+            <h1 className="relative z-20 bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text py-8 text-[4.375rem] font-bold text-transparent md:text-[6.25rem]">
               {t('INNOVATE')}
             </h1>
             <p className="w-[70%] text-center text-sm leading-7 text-gray-400 transition-colors dark:text-gray-200 md:text-base">
@@ -165,11 +80,11 @@ export default function Home() {
             <span className="text-xl font-normal uppercase text-gray-400 transition-colors dark:text-gray-300">
               {t('DO YOU NEED')}
             </span>
-            <h1 className="text-[50px] font-black uppercase text-gray-400 transition-colors dark:text-gray-200">
+            <h1 className="relative z-20 mb-10 bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text text-[50px] font-bold text-transparent">
               {t('TO KNOW')}
             </h1>
 
-            <div className="mt-5 flex gap-10 px-5">
+            <div id="cases" className="mt-5 flex gap-10 px-5">
               <div className="flex flex-col items-center justify-center gap-2">
                 <Link
                   href="https://apps.apple.com/pt/app/sic-not%C3%ADcias/id1478878799?l=en-GB"
@@ -242,11 +157,14 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mb-32 mt-32 flex max-w-[860px] flex-col items-center justify-center">
+          <div
+            id="partners"
+            className="mb-32 mt-32 flex max-w-[860px] flex-col items-center justify-center"
+          >
             <span className="text-xl font-normal uppercase text-gray-400 transition-colors dark:text-gray-300">
               {t('DO YOU NEED')}
             </span>
-            <h1 className="mb-10 text-[50px] font-black uppercase text-gray-400 transition-colors dark:text-gray-200">
+            <h1 className="relative z-20 mb-10 bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text text-[50px] font-bold text-transparent">
               {t('BE A PART')}
             </h1>
             <ul className="m-auto mt-5 grid grid-cols-5 items-center justify-center gap-5 max-sm:grid max-sm:w-[70%] max-sm:grid-cols-3 max-sm:gap-10">
@@ -268,12 +186,25 @@ export default function Home() {
                 />
               </Link>
 
-              <Link href="https://sicnoticias.pt" target="_blank">
+              <Link
+                href="https://apps.apple.com/pt/app/zion-story/id6476232761?l=en-GB"
+                target="_blank"
+              >
                 <Image
                   src={ZionStoryIMG}
-                  width={100}
+                  width={70}
                   quality={100}
-                  alt="Sic Notícias"
+                  alt="Zion Story"
+                  className="m-auto"
+                />
+              </Link>
+
+              <Link href="https://coachguth.vercel.app" target="_blank">
+                <Image
+                  src={CoachGuth}
+                  width={70}
+                  quality={100}
+                  alt="Coach Guth"
                   className="m-auto"
                 />
               </Link>
@@ -281,7 +212,9 @@ export default function Home() {
               <Link href="https://bcnoutdoortraining.com" target="_blank">
                 <Image
                   src={BCNOutdoorIMG}
-                  alt="Sic Notícias"
+                  alt="BCN Outdoor Training"
+                  width={70}
+                  quality={100}
                   className="m-auto"
                 />
               </Link>

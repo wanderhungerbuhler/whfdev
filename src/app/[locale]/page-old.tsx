@@ -1,22 +1,21 @@
 /* eslint-disable react/no-unescaped-entities */
 'use client'
-import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
 
-import LogoSVG from '@/app/assets/logo.svg'
-import FlagENSVG from '@/app/assets/flag-en.svg'
-import FlagFRSVG from '@/app/assets/flag-fr.svg'
-import FlagBRSVG from '@/app/assets/flag-br.svg'
-import ChooseTheBestLanguageForYou from '@/app/assets/choose-language.svg'
-
-import SicnoticiasIMG from '@/app/assets/brands/sicnoticias.svg'
+import AGJoiasIMG from '@/app/assets/brands/agjoias.svg'
+import CGEIMG from '@/app/assets/brands/cge.svg'
 import GeventIMG from '@/app/assets/brands/gevent.svg'
+import GuiaTurismoIMG from '@/app/assets/brands/guiaturismo.svg'
 import JPIMG from '@/app/assets/brands/jp.svg'
 import RJIMG from '@/app/assets/brands/rj.svg'
 import SeturIMG from '@/app/assets/brands/secturismo.svg'
-import GuiaTurismoIMG from '@/app/assets/brands/guiaturismo.svg'
-import CGEIMG from '@/app/assets/brands/cge.svg'
-import AGJoiasIMG from '@/app/assets/brands/agjoias.svg'
+import SicnoticiasIMG from '@/app/assets/brands/sicnoticias.svg'
+import ChooseTheBestLanguageForYou from '@/app/assets/choose-language.svg'
+import FlagBRSVG from '@/app/assets/flag-br.svg'
+import FlagENSVG from '@/app/assets/flag-en.svg'
+import FlagFRSVG from '@/app/assets/flag-fr.svg'
+import LogoSVG from '@/app/assets/logo.svg'
 
 export default function Home() {
   const [flag, setFlag] = useState('en')
