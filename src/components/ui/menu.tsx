@@ -96,7 +96,7 @@ export const Menu = ({
             <Image src={FlagFRSVG} alt="Flag FR" />
           </button>
         </div>
-        <Link href="https://wa.me/+351927509754" target="_blank">
+        <Link href="mailto:talkto@whfdev.com" target="_blank">
           <Button className="relative w-auto rounded-full border border-white/[0.2] bg-foreground px-4 text-sm font-medium text-white">
             Contact
           </Button>
