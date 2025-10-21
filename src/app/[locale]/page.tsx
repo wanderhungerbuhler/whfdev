@@ -272,9 +272,12 @@ export default function Home() {
             </ul>
           </div>
         </main>
-        <footer className="flex justify-center items-center py-5">
+        <footer className="flex items-center justify-center py-5">
           <div className="flex-col text-center">
-            <p className="text-gray-700">Todos os direitos reservados - 2025 - WHFDEV Consultoria em Tecnologia LTDA.</p>
+            <p className="text-gray-700">
+              Todos os direitos reservados. WHFDEV Consultoria em Tecnologia
+              LTDA
+            </p>
             <p className="text-gray-700">CNPJ: 46.185.304/0001-71</p>
           </div>
         </footer>
