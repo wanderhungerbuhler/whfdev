@@ -8,17 +8,17 @@ import React from 'react'
 import AGJoiasIMG from '@/assets/brands/agjoias.svg'
 import BCNOutdoorIMG from '@/assets/brands/bcnoutdoor.svg'
 import CGEIMG from '@/assets/brands/cge.svg'
+import ExaminusIMG from '@/assets/brands/examinus.svg'
 import ExpressoIMG from '@/assets/brands/expresso.svg'
+import FuteboladaIMG from '@/assets/brands/futebolada.svg'
 import GeventIMG from '@/assets/brands/gevent.svg'
 import CoachGuth from '@/assets/brands/gh.svg'
 import GuiaTurismoIMG from '@/assets/brands/guiaturismo.svg'
 import JPIMG from '@/assets/brands/jp.svg'
 import RJIMG from '@/assets/brands/rj.svg'
 import SeturIMG from '@/assets/brands/secturismo.svg'
-import ExaminusIMG from '@/assets/brands/examinus.svg'
-import FuteboladaIMG from '@/assets/brands/futebolada.svg'
-import SPMSIMG from '@/assets/brands/spms.svg'
 import SicnoticiasIMG from '@/assets/brands/sicnoticias.svg'
+import SPMSIMG from '@/assets/brands/spms.svg'
 import ZionStoryIMG from '@/assets/brands/zionstory.svg'
 import ExpressoSvg from '@/assets/expresso.svg'
 import IconAppStoreSvg from '@/assets/icon-appstore.svg'
@@ -187,7 +187,10 @@ export default function Home() {
                 />
               </Link>
 
-              <Link href="https://www.spms.min-saude.pt/2019/02/pem-movel-prescricao-facil-rapida-e-imediata-atraves-do-telemovel/" target="_blank">
+              <Link
+                href="https://www.spms.min-saude.pt/2019/02/pem-movel-prescricao-facil-rapida-e-imediata-atraves-do-telemovel/"
+                target="_blank"
+              >
                 <Image
                   src={SPMSIMG}
                   alt="SPMS - PEM Móvel"
