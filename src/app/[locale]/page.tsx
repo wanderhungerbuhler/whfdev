@@ -15,6 +15,9 @@ import GuiaTurismoIMG from '@/assets/brands/guiaturismo.svg'
 import JPIMG from '@/assets/brands/jp.svg'
 import RJIMG from '@/assets/brands/rj.svg'
 import SeturIMG from '@/assets/brands/secturismo.svg'
+import ExaminusIMG from '@/assets/brands/examinus.svg'
+import FuteboladaIMG from '@/assets/brands/futebolada.svg'
+import SPMSIMG from '@/assets/brands/spms.svg'
 import SicnoticiasIMG from '@/assets/brands/sicnoticias.svg'
 import ZionStoryIMG from '@/assets/brands/zionstory.svg'
 import ExpressoSvg from '@/assets/expresso.svg'
@@ -168,6 +171,30 @@ export default function Home() {
               {t('BE A PART')}
             </h1>
             <ul className="m-auto mt-5 grid grid-cols-5 items-center justify-center gap-5 max-sm:grid max-sm:w-[70%] max-sm:grid-cols-3 max-sm:gap-10">
+              <Link href="https://futebolada.app" target="_blank">
+                <Image
+                  src={ExaminusIMG}
+                  alt="Examinus Health Tech"
+                  className="m-auto"
+                />
+              </Link>
+
+              <Link href="https://futebolada.app" target="_blank">
+                <Image
+                  src={FuteboladaIMG}
+                  alt="Futebolada"
+                  className="m-auto"
+                />
+              </Link>
+
+              <Link href="https://www.spms.min-saude.pt/2019/02/pem-movel-prescricao-facil-rapida-e-imediata-atraves-do-telemovel/" target="_blank">
+                <Image
+                  src={SPMSIMG}
+                  alt="SPMS - PEM Móvel"
+                  className="m-auto"
+                />
+              </Link>
+
               <Link href="https://sicnoticias.pt" target="_blank">
                 <Image
                   src={SicnoticiasIMG}
