@@ -49,6 +49,14 @@ const featured: Case[] = [
     preview: '/futebolada.png',
     gradient: 'from-emerald-500/15 to-neutral-900/40',
   },
+  {
+    title: 'Dra. Paloma Hungerbühler',
+    role: 'Web · Site institucional · Advocacia',
+    hint: 'Landing page premium para escritório de advocacia em Nova Iguaçu, RJ.',
+    href: 'https://drapaloma.adv.br',
+    preview: '/drapaloma.png',
+    gradient: 'from-amber-400/15 to-yellow-200/5',
+  },
 ]
 
 const selected: Case[] = [
@@ -146,7 +154,7 @@ export function Work() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {featured.map((c) => (
               <CaseCard key={c.title} c={c} />
             ))}
