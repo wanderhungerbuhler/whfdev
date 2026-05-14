@@ -32,10 +32,10 @@ export function Process() {
                 <span className="h-2 w-2 rounded-full bg-coral/40 transition group-hover:bg-coral" />
               </div>
               <h3 className="text-base font-semibold tracking-tight">
-                {s(`${key}.title` as any)}
+                {s(`${key}.title`)}
               </h3>
               <p className="text-sm leading-relaxed text-ink-muted">
-                {s(`${key}.desc` as any)}
+                {s(`${key}.desc`)}
               </p>
             </li>
           ))}

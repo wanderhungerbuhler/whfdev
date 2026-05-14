@@ -50,7 +50,7 @@ export function Contact() {
     setSending(true)
 
     const projectTypes = types.length
-      ? types.map((k) => `- ${typeLabel(k as any)}`).join('\n')
+      ? types.map((k) => `- ${typeLabel(k)}`).join('\n')
       : '—'
 
     const body = [
@@ -61,8 +61,8 @@ export function Contact() {
       'O que precisa construir:',
       projectTypes,
       '',
-      `Orçamento: ${budget ? budgetLabel(budget as any) : '—'}`,
-      `Prazo: ${deadline ? deadlineLabel(deadline as any) : '—'}`,
+      `Orçamento: ${budget ? budgetLabel(budget) : '—'}`,
+      `Prazo: ${deadline ? deadlineLabel(deadline) : '—'}`,
       '',
       'Sobre o projeto:',
       message,
@@ -152,7 +152,7 @@ export function Contact() {
                         : 'border-rule-soft bg-canvas-elev text-ink-soft hover:border-rule hover:text-ink',
                     ].join(' ')}
                   >
-                    {typeLabel(k as any)}
+                    {typeLabel(k)}
                   </button>
                 )
               })}
@@ -170,7 +170,7 @@ export function Contact() {
                     value={k}
                     active={budget === k}
                     onChange={() => setBudget(k)}
-                    label={budgetLabel(k as any)}
+                    label={budgetLabel(k)}
                   />
                 ))}
               </div>
@@ -185,7 +185,7 @@ export function Contact() {
                     value={k}
                     active={deadline === k}
                     onChange={() => setDeadline(k)}
-                    label={deadlineLabel(k as any)}
+                    label={deadlineLabel(k)}
                   />
                 ))}
               </div>

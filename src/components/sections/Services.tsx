@@ -54,10 +54,10 @@ export function Services() {
                 </span>
               </div>
               <h3 className="mt-2 text-base font-semibold tracking-tight text-ink">
-                {it(`${key}.title` as any)}
+                {it(`${key}.title`)}
               </h3>
               <p className="text-sm leading-relaxed text-ink-muted">
-                {it(`${key}.desc` as any)}
+                {it(`${key}.desc`)}
               </p>
             </article>
           ))}

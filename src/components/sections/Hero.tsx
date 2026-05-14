@@ -43,7 +43,7 @@ export function Hero() {
             href="#contact"
             className="btn-glow group inline-flex h-11 items-center gap-2 rounded-full bg-coral px-6 text-sm font-medium text-white transition hover:bg-coral-soft"
           >
-            {t('ctaPrimary' as any)}
+            {t('ctaPrimary')}
             <span className="transition-transform group-hover:translate-x-0.5">
               →
             </span>
@@ -52,7 +52,7 @@ export function Hero() {
             href="#work"
             className="inline-flex h-11 items-center gap-2 rounded-full border border-rule px-6 text-sm font-medium text-ink transition hover:bg-canvas-elev"
           >
-            {t('ctaSecondary' as any)}
+            {t('ctaSecondary')}
           </Link>
         </div>
 
