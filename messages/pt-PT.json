@@ -1,0 +1,154 @@
+{
+  "Index": {
+    "nav": {
+      "work": "Trabalho",
+      "services": "Serviços",
+      "process": "Processo",
+      "contact": "Contacto",
+      "startProject": "Iniciar projeto"
+    },
+    "hero": {
+      "eyebrow": "WHFDEV · TECH CONSULTING · EST. 2011",
+      "titlePre": "Software com",
+      "titleEm": "bom gosto,",
+      "titlePost": "entregue no prazo.",
+      "lede": "Há 14 anos desenho e construo CRMs, dashboards, landing pages e aplicações iOS e Android para marcas que não se contentam com o comum. Estúdio compacto, decisões rápidas, código que envelhece bem.",
+      "ctaPrimary": "Iniciar um projeto",
+      "ctaSecondary": "Ver trabalhos",
+      "metaYears": "anos de ofício",
+      "metaProjects": "produtos lançados",
+      "metaTeam": "estúdio independente",
+      "available": "Disponível para 2 projetos neste trimestre"
+    },
+    "marquee": {
+      "label": "Confiança de marcas que constroem ao mais alto nível"
+    },
+    "services": {
+      "eyebrow": "Serviços",
+      "title": "O que construímos.",
+      "lede": "Produtos digitais de ponta a ponta — do brief estratégico ao deploy. Tecnologia moderna, design intencional, manutenção previsível.",
+      "items": {
+        "crm": {
+          "title": "CRMs à medida",
+          "desc": "Sistemas de relacionamento desenhados para o seu funil. Pipelines, automações, integrações e relatórios — sem inchar."
+        },
+        "dashboard": {
+          "title": "Dashboards & painéis",
+          "desc": "Visualização de dados de produto, vendas e operação. Métricas que cabem num ecrã e levam à decisão."
+        },
+        "landing": {
+          "title": "Landing pages",
+          "desc": "Páginas de alta conversão para campanhas e lançamentos. Performance impecável, copy afiada, mensuração de ponta a ponta."
+        },
+        "ios": {
+          "title": "Aplicações iOS",
+          "desc": "Apps nativos e híbridos publicados na App Store. UX afinada, distribuição cuidada, releases sem surpresas."
+        },
+        "android": {
+          "title": "Aplicações Android",
+          "desc": "Apps Android com excelente performance na Play Store. Suporte amplo de dispositivos, deeplinks, notificações e analytics."
+        },
+        "web": {
+          "title": "Web apps & SaaS",
+          "desc": "Plataformas web escaláveis. Auth, billing, multitenancy — a fundação para o seu negócio digital."
+        },
+        "ecommerce": {
+          "title": "E-commerce",
+          "desc": "Lojas rápidas, checkout sem fricção, integrações de pagamento e logística. Vender bem é um trabalho de detalhe."
+        },
+        "consult": {
+          "title": "Consultoria técnica",
+          "desc": "Auditoria de produto, due diligence, mentoria de equipa e arquitetura. Trazemos quilometragem para o seu caminho."
+        }
+      }
+    },
+    "work": {
+      "eyebrow": "Trabalhos em destaque",
+      "title": "Produtos no mundo.",
+      "lede": "Uma seleção de casos públicos. Há mais sob NDA — fale connosco para ver detalhes.",
+      "moreLabel": "TRABALHOS SELECIONADOS"
+    },
+    "process": {
+      "eyebrow": "Processo",
+      "title": "Como trabalhamos.",
+      "lede": "Cinco passos, sem mistério. Cada fase tem entrega clara e ponto de decisão.",
+      "steps": {
+        "discovery": {
+          "title": "Brief & descoberta",
+          "desc": "Compreendemos o problema, as restrições e as métricas que importam. Saímos com âmbito e estimativa."
+        },
+        "design": {
+          "title": "Desenho & arquitetura",
+          "desc": "Wireframes, UI, fluxos e decisões técnicas. Aprova antes de uma linha de código."
+        },
+        "build": {
+          "title": "Construção",
+          "desc": "Sprints curtos, demos semanais. Acesso ao ambiente de staging desde o primeiro dia."
+        },
+        "ship": {
+          "title": "Lançamento",
+          "desc": "Deploy, observabilidade, App Store / Play Store. Acompanhamos o pós-lançamento."
+        },
+        "grow": {
+          "title": "Evolução",
+          "desc": "Contrato de manutenção, novas iterações, equipa dedicada ou handover técnico. A escolha é sua."
+        }
+      }
+    },
+    "stats": {
+      "years": "Anos de ofício",
+      "products": "Produtos lançados",
+      "countries": "Países servidos",
+      "uptime": "Entregas no prazo"
+    },
+    "contact": {
+      "eyebrow": "Vamos conversar",
+      "title": "Conte-nos o que precisa.",
+      "lede": "Resposta em até 24h úteis. Sem promessas vazias — se o seu projeto não for o nosso melhor caso, indicamos quem o fará melhor.",
+      "name": "Nome",
+      "namePh": "Como o podemos tratar",
+      "email": "E-mail",
+      "emailPh": "voce@empresa.com",
+      "company": "Empresa",
+      "companyPh": "Nome da empresa (opcional)",
+      "type": "O que precisa construir",
+      "typeHint": "Pode marcar mais do que um",
+      "budget": "Orçamento estimado",
+      "budgets": {
+        "explore": "Estou a explorar",
+        "tier1": "Até 6k €",
+        "tier2": "6k – 16k €",
+        "tier3": "16k – 35k €",
+        "tier4": "35k € +"
+      },
+      "deadline": "Prazo pretendido",
+      "deadlines": {
+        "asap": "O mais breve possível",
+        "month": "1 mês",
+        "quarter": "1 trimestre",
+        "flex": "Flexível"
+      },
+      "message": "Conte-nos mais sobre o projeto",
+      "messagePh": "Objetivo, contexto, links — o que ajudar a perceber.",
+      "submit": "Enviar briefing",
+      "sending": "A abrir o seu cliente de e-mail...",
+      "privacy": "Os seus dados são usados apenas para responder a este contacto.",
+      "types": {
+        "crm": "CRM",
+        "dashboard": "Dashboard",
+        "landing": "Landing page",
+        "ios": "App iOS",
+        "android": "App Android",
+        "web": "Web app / SaaS",
+        "ecommerce": "E-commerce",
+        "consult": "Consultoria",
+        "other": "Outro"
+      }
+    },
+    "footer": {
+      "tagline": "Estúdio independente. A construir produtos digitais desde 2011.",
+      "rights": "Todos os direitos reservados.",
+      "company": "WHFDEV Tech Consulting"
+    }
+  }
+}

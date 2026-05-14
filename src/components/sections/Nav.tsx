@@ -10,7 +10,8 @@ import { startTransition, useEffect, useRef, useState } from 'react'
 import LogoMark from '@/assets/logo-mark.svg'
 
 const LOCALES = [
-  { code: 'pt', label: 'PT' },
+  { code: 'pt-BR', label: 'BR' },
+  { code: 'pt-PT', label: 'PT' },
   { code: 'en', label: 'EN' },
   { code: 'fr', label: 'FR' },
 ] as const
@@ -80,7 +81,7 @@ export function Nav() {
 
         <div className="flex items-center gap-3">
           <LangDropdown
-            locale={locale ?? 'pt'}
+            locale={locale ?? 'pt-BR'}
             onChange={changeLanguage}
             className="hidden md:inline-flex"
           />
@@ -135,7 +136,10 @@ export function Nav() {
               </Link>
             ))}
             <div className="mt-2 border-t border-rule-soft pt-3">
-              <LangDropdown locale={locale ?? 'pt'} onChange={changeLanguage} />
+              <LangDropdown
+                locale={locale ?? 'pt-BR'}
+                onChange={changeLanguage}
+              />
             </div>
           </div>
         </div>

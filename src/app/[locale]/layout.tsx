@@ -26,18 +26,32 @@ export function generateMetadata({
   params: { locale: string }
 }): Metadata {
   const titles: Record<string, string> = {
-    pt: 'WHFDEV — Estúdio de produto digital · CRMs, dashboards, web e apps',
+    'pt-BR':
+      'WHFDEV — Estúdio de produto digital · CRMs, dashboards, web e apps',
+    'pt-PT':
+      'WHFDEV — Estúdio de produto digital · CRMs, dashboards, web e apps',
     en: 'WHFDEV — Digital product studio · CRMs, dashboards, web & apps',
     fr: 'WHFDEV — Studio de produit numérique · CRM, dashboards, web et apps',
   }
   const descriptions: Record<string, string> = {
-    pt: '14 anos desenhando e desenvolvendo CRMs, dashboards, landing pages e aplicativos iOS e Android para marcas como SIC Notícias, Expresso e SPMS. Vamos tirar seu projeto do papel.',
+    'pt-BR':
+      '14 anos desenhando e desenvolvendo CRMs, dashboards, landing pages e aplicativos iOS e Android para marcas como SIC Notícias, Expresso e SPMS. Vamos tirar seu projeto do papel.',
+    'pt-PT':
+      '14 anos a desenhar e desenvolver CRMs, dashboards, landing pages e aplicações iOS e Android para marcas como SIC Notícias, Expresso e SPMS. Vamos tirar o seu projeto do papel.',
     en: '14 years designing and shipping CRMs, dashboards, landing pages and iOS/Android apps for brands like SIC Notícias, Expresso and SPMS. Let’s ship your idea.',
     fr: '14 ans à concevoir et livrer des CRM, dashboards, landing pages et applications iOS/Android pour des marques comme SIC Notícias, Expresso et SPMS.',
   }
 
-  const title = titles[locale] ?? titles.pt
-  const description = descriptions[locale] ?? descriptions.pt
+  const title = titles[locale] ?? titles['pt-BR']
+  const description = descriptions[locale] ?? descriptions['pt-BR']
+
+  const ogLocaleMap: Record<string, string> = {
+    'pt-BR': 'pt_BR',
+    'pt-PT': 'pt_PT',
+    en: 'en_US',
+    fr: 'fr_FR',
+  }
+  const ogLocale = ogLocaleMap[locale] ?? 'pt_BR'
 
   return {
     metadataBase: new URL(SITE_URL),
@@ -70,10 +84,11 @@ export function generateMetadata({
     alternates: {
       canonical: `${SITE_URL}/${locale}`,
       languages: {
-        'pt-BR': `${SITE_URL}/pt`,
+        'pt-BR': `${SITE_URL}/pt-BR`,
+        'pt-PT': `${SITE_URL}/pt-PT`,
         'en-US': `${SITE_URL}/en`,
         'fr-FR': `${SITE_URL}/fr`,
-        'x-default': `${SITE_URL}/pt`,
+        'x-default': `${SITE_URL}/pt-BR`,
       },
     },
     openGraph: {
@@ -82,11 +97,9 @@ export function generateMetadata({
       siteName: 'WHFDEV',
       title,
       description,
-      locale: locale === 'pt' ? 'pt_BR' : locale === 'fr' ? 'fr_FR' : 'en_US',
-      alternateLocale: ['pt_BR', 'en_US', 'fr_FR'].filter(
-        (l) =>
-          l !==
-          (locale === 'pt' ? 'pt_BR' : locale === 'fr' ? 'fr_FR' : 'en_US'),
+      locale: ogLocale,
+      alternateLocale: ['pt_BR', 'pt_PT', 'en_US', 'fr_FR'].filter(
+        (l) => l !== ogLocale,
       ),
       images: [
         {
