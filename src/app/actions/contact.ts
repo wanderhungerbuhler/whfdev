@@ -3,7 +3,7 @@
 import { Resend } from 'resend'
 
 const FROM_EMAIL =
-  process.env.CONTACT_FROM_EMAIL ?? 'WHFDEV <onboarding@resend.dev>'
+  process.env.CONTACT_FROM_EMAIL ?? 'WHFDEV <talkto@whfdev.com>'
 const TO_EMAIL = process.env.CONTACT_TO_EMAIL ?? 'talkto@whfdev.com'
 
 export type ContactPayload = {
@@ -97,13 +97,22 @@ export async function sendContactEmail(
     })
 
     if (result.error) {
-      console.error('[contact] resend error', result.error)
+      console.error('[contact] resend error', {
+        from: FROM_EMAIL,
+        to: TO_EMAIL,
+        error: result.error,
+      })
       return { ok: false, error: 'send' }
     }
 
+    console.log('[contact] sent', { id: result.data?.id, to: TO_EMAIL })
     return { ok: true }
   } catch (err) {
-    console.error('[contact] resend threw', err)
+    console.error('[contact] resend threw', {
+      from: FROM_EMAIL,
+      to: TO_EMAIL,
+      err,
+    })
     return { ok: false, error: 'send' }
   }
 }
