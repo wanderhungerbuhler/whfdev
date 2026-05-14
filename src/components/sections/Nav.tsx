@@ -102,13 +102,19 @@ export function Nav() {
           >
             <span className="relative block h-3 w-4">
               <span
-                className={`absolute left-0 right-0 top-0 h-px bg-ink transition-transform ${open ? 'translate-y-1.5 rotate-45' : ''}`}
+                className={`absolute left-0 right-0 top-0 h-px bg-ink transition-transform ${
+                  open ? 'translate-y-1.5 rotate-45' : ''
+                }`}
               />
               <span
-                className={`absolute left-0 right-0 top-1.5 h-px bg-ink transition-opacity ${open ? 'opacity-0' : ''}`}
+                className={`absolute left-0 right-0 top-1.5 h-px bg-ink transition-opacity ${
+                  open ? 'opacity-0' : ''
+                }`}
               />
               <span
-                className={`absolute bottom-0 left-0 right-0 h-px bg-ink transition-transform ${open ? '-translate-y-1.5 -rotate-45' : ''}`}
+                className={`absolute bottom-0 left-0 right-0 h-px bg-ink transition-transform ${
+                  open ? '-translate-y-1.5 -rotate-45' : ''
+                }`}
               />
             </span>
           </button>
