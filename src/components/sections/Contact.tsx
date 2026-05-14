@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import { useState } from 'react'
 
 import { sendContactEmail } from '@/app/actions/contact'
+import { Reveal } from '@/components/ui/Reveal'
 
 import { SectionHeader } from './SectionHeader'
 
@@ -92,13 +93,16 @@ export function Contact() {
     >
       <div className="hero-mesh pointer-events-none absolute inset-x-0 top-0 -z-10 h-1/2 opacity-50" />
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 lg:grid-cols-[1fr_1.2fr]">
-        <SectionHeader
-          eyebrow={t('eyebrow')}
-          title={t('title')}
-          lede={t('lede')}
-        />
+        <Reveal>
+          <SectionHeader
+            eyebrow={t('eyebrow')}
+            title={t('title')}
+            lede={t('lede')}
+          />
+        </Reveal>
 
-        <form
+        <Reveal delay={0.1} direction="up" as="div">
+          <form
           onSubmit={handleSubmit}
           className="card-gradient flex flex-col gap-6 p-6 sm:p-8"
         >
@@ -236,7 +240,8 @@ export function Contact() {
               )}
             </button>
           </div>
-        </form>
+          </form>
+        </Reveal>
       </div>
     </section>
   )

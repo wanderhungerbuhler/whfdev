@@ -2,6 +2,8 @@
 
 import { useTranslations } from 'next-intl'
 
+import { Reveal } from '@/components/ui/Reveal'
+
 import { SectionHeader } from './SectionHeader'
 
 export function Process() {
@@ -13,16 +15,20 @@ export function Process() {
   return (
     <section id="process" className="border-b border-rule-soft py-28">
       <div className="mx-auto max-w-6xl px-6">
-        <SectionHeader
-          eyebrow={t('eyebrow')}
-          title={t('title')}
-          lede={t('lede')}
-        />
+        <Reveal>
+          <SectionHeader
+            eyebrow={t('eyebrow')}
+            title={t('title')}
+            lede={t('lede')}
+          />
+        </Reveal>
 
         <ol className="relative grid grid-cols-1 gap-3 md:grid-cols-5">
           {steps.map((key, idx) => (
-            <li
+            <Reveal
               key={key}
+              as="li"
+              delay={idx * 0.07}
               className="card-gradient group relative flex flex-col gap-4 p-6"
             >
               <div className="flex items-center justify-between">
@@ -37,7 +43,7 @@ export function Process() {
               <p className="text-sm leading-relaxed text-ink-muted">
                 {s(`${key}.desc`)}
               </p>
-            </li>
+            </Reveal>
           ))}
         </ol>
       </div>

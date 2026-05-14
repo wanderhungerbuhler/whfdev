@@ -8,6 +8,8 @@ import { useTranslations } from 'next-intl'
 import ExpressoSvg from '@/assets/expresso.svg'
 import SicNoticiasSvg from '@/assets/sicnoticias.svg'
 import ZionStorySvg from '@/assets/zionstory.svg'
+import { Reveal } from '@/components/ui/Reveal'
+import { BRANDS } from '@/data/brands'
 
 import { SectionHeader } from './SectionHeader'
 
@@ -135,31 +137,69 @@ export function Work() {
   return (
     <section id="work" className="relative border-b border-rule-soft py-28">
       <div className="mx-auto max-w-6xl px-6">
-        <SectionHeader
-          eyebrow={t('eyebrow')}
-          title={t('title')}
-          lede={t('lede')}
-        />
+        <Reveal>
+          <SectionHeader
+            eyebrow={t('eyebrow')}
+            title={t('title')}
+            lede={t('lede')}
+          />
+        </Reveal>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {featured.map((c) => (
-            <CaseCard key={c.title} c={c} />
-          ))}
-        </div>
+        <Reveal delay={0.1}>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            {featured.map((c) => (
+              <CaseCard key={c.title} c={c} />
+            ))}
+          </div>
+        </Reveal>
 
-        <div className="mt-16 flex items-center gap-3">
-          <span className="h-px flex-1 bg-rule-soft" />
-          <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-            {t('moreLabel')}
-          </span>
-          <span className="h-px flex-1 bg-rule-soft" />
-        </div>
+        <Reveal>
+          <div className="mt-16 flex items-center gap-3">
+            <span className="h-px flex-1 bg-rule-soft" />
+            <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-muted">
+              {t('moreLabel')}
+            </span>
+            <span className="h-px flex-1 bg-rule-soft" />
+          </div>
+        </Reveal>
 
-        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {selected.map((c) => (
-            <CaseCard key={c.title} c={c} />
-          ))}
-        </div>
+        <Reveal delay={0.1}>
+          <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+            {selected.map((c) => (
+              <CaseCard key={c.title} c={c} />
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <div className="mt-20 flex items-center gap-3">
+            <span className="h-px flex-1 bg-rule-soft" />
+            <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-muted">
+              {t('clientsLabel')}
+            </span>
+            <span className="h-px flex-1 bg-rule-soft" />
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <ul className="mt-10 grid grid-cols-3 gap-x-6 gap-y-8 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7">
+            {BRANDS.map((b) => (
+              <li
+                key={b.alt}
+                className="flex h-12 items-center justify-center"
+                title={b.alt}
+              >
+                <Image
+                  src={b.src}
+                  alt={b.alt}
+                  width={b.w}
+                  quality={100}
+                  className="h-7 w-auto opacity-60 grayscale transition hover:opacity-100 hover:grayscale-0"
+                />
+              </li>
+            ))}
+          </ul>
+        </Reveal>
       </div>
     </section>
   )

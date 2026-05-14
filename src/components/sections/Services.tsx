@@ -13,6 +13,8 @@ import {
 import { useTranslations } from 'next-intl'
 import type { ReactNode } from 'react'
 
+import { Reveal } from '@/components/ui/Reveal'
+
 import { SectionHeader } from './SectionHeader'
 
 export function Services() {
@@ -33,16 +35,20 @@ export function Services() {
   return (
     <section id="services" className="border-b border-rule-soft py-28">
       <div className="mx-auto max-w-6xl px-6">
-        <SectionHeader
-          eyebrow={t('eyebrow')}
-          title={t('title')}
-          lede={t('lede')}
-        />
+        <Reveal>
+          <SectionHeader
+            eyebrow={t('eyebrow')}
+            title={t('title')}
+            lede={t('lede')}
+          />
+        </Reveal>
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {items.map(({ key, icon }, idx) => (
-            <article
+            <Reveal
               key={key}
+              as="article"
+              delay={idx * 0.05}
               className="card-gradient group relative flex h-full flex-col gap-3 p-6 transition hover:bg-canvas-card"
             >
               <div className="flex items-center justify-between">
@@ -59,7 +65,7 @@ export function Services() {
               <p className="text-sm leading-relaxed text-ink-muted">
                 {it(`${key}.desc`)}
               </p>
-            </article>
+            </Reveal>
           ))}
         </div>
       </div>
