@@ -187,13 +187,13 @@ export function Work() {
               <li
                 key={b.alt}
                 title={b.alt}
-                className="card-gradient flex h-24 items-center justify-center p-6 transition hover:bg-canvas-card sm:h-28"
+                className="card-gradient flex h-28 items-center justify-center p-4 transition hover:bg-canvas-card sm:h-32"
               >
                 <Image
                   src={b.src}
                   alt={b.alt}
                   quality={100}
-                  className="max-h-12 w-auto max-w-full object-contain opacity-70 grayscale transition group-hover:opacity-100 hover:opacity-100 hover:grayscale-0 sm:max-h-14"
+                  className="max-h-16 w-auto max-w-full object-contain opacity-70 grayscale transition hover:opacity-100 hover:grayscale-0 sm:max-h-20"
                 />
               </li>
             ))}
