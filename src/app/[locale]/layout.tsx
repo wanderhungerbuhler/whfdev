@@ -82,8 +82,7 @@ export function generateMetadata({
       siteName: 'WHFDEV',
       title,
       description,
-      locale:
-        locale === 'pt' ? 'pt_BR' : locale === 'fr' ? 'fr_FR' : 'en_US',
+      locale: locale === 'pt' ? 'pt_BR' : locale === 'fr' ? 'fr_FR' : 'en_US',
       alternateLocale: ['pt_BR', 'en_US', 'fr_FR'].filter(
         (l) =>
           l !==

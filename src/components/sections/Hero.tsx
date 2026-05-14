@@ -28,13 +28,13 @@ export function Hero() {
           </span>
         </div>
 
-        <h1 className="text-balance mt-8 text-5xl font-semibold leading-[1.02] tracking-tighter2 sm:text-6xl md:text-[5.5rem]">
+        <h1 className="mt-8 text-balance text-5xl font-semibold leading-[1.02] tracking-tighter2 sm:text-6xl md:text-[5.5rem]">
           <span className="text-gradient block">{t('titlePre')}</span>
           <span className="text-gradient-accent block">{t('titleEm')}</span>
           <span className="text-gradient block">{t('titlePost')}</span>
         </h1>
 
-        <p className="text-pretty mt-8 max-w-2xl text-base text-ink-muted sm:text-lg">
+        <p className="mt-8 max-w-2xl text-pretty text-base text-ink-muted sm:text-lg">
           {t('lede')}
         </p>
 

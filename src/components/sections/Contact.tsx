@@ -80,7 +80,10 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="relative overflow-hidden border-b border-rule-soft py-28">
+    <section
+      id="contact"
+      className="relative overflow-hidden border-b border-rule-soft py-28"
+    >
       <div className="hero-mesh pointer-events-none absolute inset-x-0 top-0 -z-10 h-1/2 opacity-50" />
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 lg:grid-cols-[1fr_1.2fr]">
         <SectionHeader

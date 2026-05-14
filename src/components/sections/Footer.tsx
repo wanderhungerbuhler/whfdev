@@ -37,13 +37,22 @@ export function Footer() {
           <Link href="#work" className="text-sm text-ink-soft hover:text-ink">
             Trabalho
           </Link>
-          <Link href="#services" className="text-sm text-ink-soft hover:text-ink">
+          <Link
+            href="#services"
+            className="text-sm text-ink-soft hover:text-ink"
+          >
             Serviços
           </Link>
-          <Link href="#process" className="text-sm text-ink-soft hover:text-ink">
+          <Link
+            href="#process"
+            className="text-sm text-ink-soft hover:text-ink"
+          >
             Processo
           </Link>
-          <Link href="#contact" className="text-sm text-ink-soft hover:text-ink">
+          <Link
+            href="#contact"
+            className="text-sm text-ink-soft hover:text-ink"
+          >
             Contato
           </Link>
         </div>

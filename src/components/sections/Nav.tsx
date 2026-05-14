@@ -54,13 +54,7 @@ export function Nav() {
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <Link href={`/${locale}`} className="group flex items-center gap-3">
-          <Image
-            src={LogoMark}
-            alt="WHFDEV"
-            width={28}
-            height={28}
-            priority
-          />
+          <Image src={LogoMark} alt="WHFDEV" width={28} height={28} priority />
           <span className="flex items-baseline gap-2">
             <span className="text-sm font-semibold tracking-tight text-ink">
               whfdev
@@ -208,7 +202,9 @@ function LangDropdown({
                   ].join(' ')}
                 >
                   {l.label}
-                  {active && <span className="h-1.5 w-1.5 rounded-full bg-coral" />}
+                  {active && (
+                    <span className="h-1.5 w-1.5 rounded-full bg-coral" />
+                  )}
                 </button>
               </li>
             )

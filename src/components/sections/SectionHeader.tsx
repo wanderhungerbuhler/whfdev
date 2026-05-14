@@ -22,7 +22,7 @@ export function SectionHeader({
         <span className="text-gradient">{title}</span>
       </h2>
       {lede && (
-        <p className="text-pretty max-w-2xl text-base text-ink-muted sm:text-lg">
+        <p className="max-w-2xl text-pretty text-base text-ink-muted sm:text-lg">
           {lede}
         </p>
       )}
