@@ -1,0 +1,95 @@
+---
+title: "Next.js pour entreprises en 2026 : quand migrer depuis WordPress"
+description: Comparaison pratique entre Next.js et WordPress pour sites institutionnels, e-commerce et portails. Performance réelle, coût, SEO, sécurité et quand WordPress reste le bon choix.
+date: 2026-05-01
+tags: [Next.js, WordPress, Technologie]
+alternates:
+  pt-BR: nextjs-para-empresas-vs-wordpress
+  pt-PT: nextjs-para-empresas-vs-wordpress
+  en: nextjs-vs-wordpress-for-business
+---
+
+La question revient chaque semaine : **« est-ce que ça vaut le coup de migrer de WordPress vers Next.js ? »** Réponse courte : ça dépend. Réponse utile : comprendre les vrais trade-offs et décider avec des données, pas avec du hype.
+
+Cet article compare sur les dimensions qui comptent : performance, SEO, coût, sécurité et recrutement. Sans religion.
+
+## Côte à côte
+
+| Dimension | WordPress | Next.js |
+|-----------|-----------|---------|
+| Temps de chargement (LCP typique) | 2.5 – 5s | 0.6 – 1.5s |
+| Score Lighthouse (mobile, moyen) | 35-70 | 90-100 |
+| Coût d’infrastructure | 5-30 €/mois (mutualisé) ou 50€+ (VPS) | 0-20 €/mois (Vercel free tier couvre beaucoup) |
+| Mises à jour de sécurité | Manuelles ou via plugin | Builds incrémentaux du framework |
+| Temps pour ajouter une page | 5 min (CMS) | 30 min (code) ou 5 min (CMS headless) |
+| Courbe d’apprentissage éditeurs | Faible | Dépend du setup |
+| Vulnérabilités plugins | Vecteur n°1 de hack | Quasi inexistant |
+
+## Quand Next.js l’emporte
+
+Migrez vers Next.js quand :
+
+- **La performance compte pour le business.** Si vous vendez en ligne ou luttez en SEO, chaque 100 ms de LCP = 1-2 % de conversion. WordPress passe rarement sous 2s sans gros effort d’optimisation.
+- **Vous avez besoin de fonctionnalité dynamique.** Calculateurs, formulaires multi-étapes, intégrations API, dashboard avec login — WordPress devient bricolage. Next.js est natif là-dessus.
+- **Votre équipe a (ou peut recruter) des devs.** Le marché React/Next.js est énorme. Le marché des bons devs WordPress a rétréci.
+- **Vous voulez des Core Web Vitals impeccables.** Google pénalise les sites lents depuis 2021. Next.js + Vercel atteint 95-100 sur Lighthouse sans effort.
+- **La sécurité est critique.** B2B, gouvernement, financier. Les plugins WordPress sont un vecteur récurrent d’intrusion.
+
+## Quand WordPress reste le bon choix
+
+Je suis biaisé (je construis en [Next.js](/fr)), mais WordPress reste juste quand :
+
+- **Le contenu change chaque jour et des éditeurs non-tech publient.** Blog d’actu, magazine. WordPress est né pour ça et est imbattable.
+- **Le budget total est de 1-3k€.** WordPress + bon thème + dev freelance livre un site institutionnel correct. Next.js coûtera 3-5x plus dans cette fourchette.
+- **Vous voulez un e-commerce simple et pas cher.** WooCommerce + thème coûte moins pour démarrer que Next.js + Stripe + tout sur mesure.
+- **Vous voulez arrêter de payer un dev après le lancement.** WordPress + client qui édite directement = maintenance quasi nulle. Next.js a besoin d’un dev pour les changements structurels.
+
+## Le vrai coût de la migration
+
+Ce n’est pas que le prix du nouveau build. Ajoutez :
+
+- **Migration de contenu.** WordPress → Next.js demande export, parse, reformat. Pour 200 pages : 20-40 heures.
+- **Redirections 301.** Chaque ancienne URL doit pointer vers la nouvelle. L’oublier = perdre 30-60 % de trafic organique sur 90 jours.
+- **CMS headless (si les éditeurs en ont besoin).** Sanity, Contentful, Payload — 0-200 €/mois.
+- **Formation de l’équipe.** 2-4 heures pour les éditeurs.
+
+Total réaliste pour un site institutionnel de 50 pages : **5-12k€ de build + 1-3 semaines de migration**.
+
+## Le SEO après migration
+
+C’est la peur n°1. La vérité :
+
+- **Court terme (1-3 mois) :** chute de 10-30 % du trafic organique avec de bonnes redirections. 50-80 % sans.
+- **Moyen terme (3-6 mois) :** récupération totale + gain de 10-40 % grâce aux meilleurs Core Web Vitals.
+- **Long terme (6+ mois) :** gain constant si vous continuez à publier du bon contenu.
+
+Astuce pour réduire le risque : faire la migration technique avec URLs identiques pendant 60 jours avant tout rebranding ou changement de contenu.
+
+## Choix de stack par cas
+
+**Site institutionnel + landing pages :** Next.js + Sanity ou Payload. Sans hésiter.
+
+**Blog/magazine d’actu :** WordPress, sauf si vous avez une équipe dev dédiée.
+
+**E-commerce jusqu’à 300k€ ARR :** Shopify ou WooCommerce. Au-delà, Next.js + Shopify Hydrogen ou Medusa.
+
+**App avec login et dashboard :** Next.js. WordPress n’a jamais été fait pour ça.
+
+**Portail public / administration :** Next.js + CMS headless. Plus auditable, plus sécurisé, meilleure perf.
+
+## Quand l’investissement vaut le coup
+
+Cochez mentalement :
+
+- [ ] Site actuel avec Lighthouse < 70 sur mobile
+- [ ] Trafic mensuel > 10k visites (chaque % d’amélioration compte)
+- [ ] Déjà été piraté ou peur de l’être
+- [ ] Les plugins cassent quand vous mettez à jour
+- [ ] Vous voulez du custom et chaque plugin est un cauchemar
+- [ ] Coût de maintenance mensuel > 200 €
+
+3+ cochés ? Vaut une conversation migration. Moins ? Gardez ce que vous avez et investissez l’argent ailleurs.
+
+## Prochaine étape
+
+Si vous êtes dans ce dilemme et voulez un diagnostic honnête de votre site actuel (sans engagement), envoyez le lien via [whfdev.com](/fr) — on répond avec analyse Core Web Vitals, risques visibles, et estimation de migration si ça a du sens.

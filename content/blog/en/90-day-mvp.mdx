@@ -1,0 +1,107 @@
+---
+title: "The 90-day MVP: from brief to App Store"
+description: How to build a functional, shippable MVP in 12 weeks without falling into scope traps. Realistic schedule, stack decisions and what to cut first.
+date: 2026-05-08
+tags: [MVP, Startup, Product]
+alternates:
+  pt-BR: mvp-em-90-dias
+  pt-PT: mvp-em-90-dias
+  fr: mvp-en-90-jours
+---
+
+Ninety days is the MVP sweet spot. Short enough to force focus, long enough to ship something that **actually works** — not a clickable Figma file marketing calls "the MVP."
+
+This post lays out the schedule we use (refined over ~30 projects), what to cut first when time tightens, and the mistakes that cost the most.
+
+## Why 90 days, not 30 or 180
+
+Thirty days gets you a landing page with Stripe. Useful for channel validation, useless for product validation. One hundred and eighty days kills startups — you burn runway before the first customer.
+
+Ninety days forces you to:
+
+- Pick **one** persona, **one** use case, **one** critical integration.
+- Ship to **real users**, not Slack friends.
+- Have real data to decide the next quarter, not assumptions.
+
+If your MVP needs more than 90 days, it's probably not an MVP.
+
+## The 12-week schedule
+
+### Weeks 1-2: brutal discovery
+
+Don't start with Figma. Start with:
+
+- Current process map on **one A4 page**.
+- **3 to 5 interviews** with potential users (not customers — they only tell you what you want to hear).
+- A written, signed, pinned decision on **what is NOT in the MVP**.
+- Data modeling in text (10-15 entities max).
+
+Output: a 4-page document any dev reads in 20 minutes.
+
+### Weeks 3-5: foundation
+
+- Stack setup (auth, deploy, DB, CI). 1 week.
+- Core CRUD + permissions. 2 weeks.
+- Core screens navigable on staging.
+
+Common mistake: burning a full week choosing between tRPC and GraphQL. Decide in 2 hours, suffer the choice for 2 weeks, still ship on time.
+
+### Weeks 6-9: the "product"
+
+- External integrations (one, ideally).
+- End-to-end flow a user can complete without you next to them.
+- Minimal onboarding (3 screens, not 8).
+- Basic event tracking to understand usage (PostHog, Mixpanel).
+
+### Weeks 10-11: launch
+
+- Closed beta with 10-20 real users.
+- Critical bugs. Not "ugly" bugs.
+- App Store / Play Store submission **starts week 10**, not week 12 (Apple review is 1-3 days but may reject).
+
+### Week 12: production + measurement
+
+- Final deploy, monitoring, basic alerts.
+- Internal operations doc (not user-facing).
+- Retrospective and next-quarter definition based on data.
+
+## What to cut first
+
+When the team falls behind (and it will), cut in this order:
+
+1. **Dark mode.** Never, ever, in the MVP.
+2. **Transition animations.** Unless it literally IS the product (TikTok).
+3. **Advanced settings screens.** Set sensible defaults, move it later.
+4. **Pretty admin panel.** Use Retool, Forest Admin or query the DB directly.
+5. **Video onboarding / interactive tour.** 3 tooltips do the job.
+6. **Social login beyond the main one.** Email + Google covers 95%.
+
+What **never** to cut: payment flow tests, logging/observability, and the cancellation flow (hard cancellation destroys reputation fast).
+
+## Stack that ships in 90 days
+
+Not the only option, but the one that delivers on time year after year:
+
+- **[Next.js 14+](/en)** (App Router) — full-stack in one place
+- **Postgres** via Neon, Supabase or RDS
+- **Prisma** or Drizzle as ORM
+- **Vercel** or Fly.io for deploy
+- **Auth.js**, Clerk or WorkOS for auth
+- **Stripe** for billing
+- **Resend** or Loops for transactional email
+- **PostHog** for analytics + feature flags
+
+A different stack works, but you'll spend time configuring instead of building product.
+
+## The most expensive mistakes
+
+- **Design perfectionism.** Your second visual iteration will be better than the first. Don't polish what's going to change.
+- **Building mobile and web in parallel.** Web first, mobile in v2. Almost always.
+- **"Let's just quickly add [X]."** The technical term is scope creep and it's the #1 cause of late MVPs.
+- **Validating with your network.** They lie out of kindness. Validate with hostile strangers.
+
+## Next step
+
+If you're thinking about starting an MVP and want a sanity check on schedule and scope, send context and we'll reply with specific questions — no formal quote before we understand whether the problem is actually a problem.
+
+Quick brief at [whfdev.com](/en).

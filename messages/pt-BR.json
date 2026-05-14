@@ -4,8 +4,21 @@
       "work": "Trabalho",
       "services": "Serviços",
       "process": "Processo",
+      "blog": "Blog",
       "contact": "Contato",
       "startProject": "Começar projeto"
+    },
+    "blog": {
+      "eyebrow": "BLOG · WHFDEV",
+      "title": "Conteúdo prático sobre produto digital.",
+      "lede": "Análises, decisões técnicas e custos reais — escrito por quem constrói. Foco em quem está pensando em contratar uma agência ou estruturar um time interno.",
+      "empty": "Em breve, novos posts.",
+      "read": "Ler artigo",
+      "back": "Voltar para o blog",
+      "minRead": "min de leitura",
+      "ctaTitle": "Quer conversar sobre o seu projeto?",
+      "ctaLede": "Resposta em até 24h úteis. Briefing direto, sem rodeios.",
+      "ctaButton": "Iniciar uma conversa"
     },
     "hero": {
       "eyebrow": "WHFDEV · TECH CONSULTING · EST. 2011",

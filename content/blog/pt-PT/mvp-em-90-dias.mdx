@@ -1,0 +1,107 @@
+---
+title: "MVP em 90 dias: do brief à App Store"
+description: Como construir um MVP funcional e publicável em 12 semanas sem cair em armadilhas de âmbito. Cronograma realista, decisões de stack e o que cortar primeiro.
+date: 2026-05-08
+tags: [MVP, Startup, Produto]
+alternates:
+  pt-BR: mvp-em-90-dias
+  en: 90-day-mvp
+  fr: mvp-en-90-jours
+---
+
+Noventa dias é o ponto ideal do MVP. Curto o suficiente para forçar foco, longo o suficiente para entregar algo que **funciona mesmo** — e não um Figma clicável a que a equipa de marketing chama de "MVP".
+
+Este artigo mostra o cronograma que aplicamos aqui (ajustado ao fim de uns 30 projetos), o que cortar primeiro quando o tempo aperta, e os erros que saem caro.
+
+## Porquê 90 dias e não 30 ou 180
+
+Trinta dias é landing page com Stripe. Útil para validar canal, inútil para validar produto. Cento e oitenta dias mata uma startup — queima runway antes do primeiro cliente.
+
+Noventa dias obriga-o a:
+
+- Escolher **uma** persona, **um** caso de uso, **uma** integração crítica.
+- Entrar em produção com **utilizadores reais**, não amigos do Slack.
+- Ter dado real para decidir o trimestre seguinte, não suposição.
+
+Se o seu MVP precisa de mais de 90 dias, provavelmente não é um MVP.
+
+## O cronograma de 12 semanas
+
+### Semanas 1-2: descoberta sem rodeios
+
+Não começa com Figma. Começa com:
+
+- Mapa de processo atual em **uma folha A4**.
+- **3 a 5 entrevistas** com utilizadores potenciais (não clientes — esses dizem só o que quer ouvir).
+- Decisão do **que NÃO faz parte do MVP** (escrita, assinada, fixada).
+- Modelação de dados em texto (10-15 entidades no máximo).
+
+Saída desta fase: documento de 4 páginas que qualquer dev lê em 20 minutos.
+
+### Semanas 3-5: fundação
+
+- Setup de stack (auth, deploy, DB, CI). 1 semana.
+- CRUD principal + permissões. 2 semanas.
+- Ecrãs core navegáveis em staging.
+
+Erro comum: gastar uma semana inteira a escolher entre tRPC e GraphQL. Decida em 2 horas, sofra com a escolha 2 semanas, ainda assim entrega no prazo.
+
+### Semanas 6-9: o "produto"
+
+- Integrações externas (uma só, idealmente).
+- Fluxo end-to-end que o utilizador consegue completar sem si ao lado.
+- Onboarding mínimo (3 ecrãs, não 8).
+- Recolha de eventos básicos para perceber uso (PostHog, Mixpanel).
+
+### Semanas 10-11: lançamento
+
+- Beta fechado com 10-20 utilizadores reais.
+- Bugs críticos. Não bugs "feios".
+- Submissão à App Store/Play Store **começa na semana 10**, não na 12 (review da Apple leva 1-3 dias mas pode rejeitar).
+
+### Semana 12: produção + medição
+
+- Deploy final, monitoring, alertas básicos.
+- Documentação interna de operação (não para utilizador).
+- Reunião de retrospetiva e definição do trimestre seguinte com base em dados.
+
+## O que cortar primeiro
+
+Quando a equipa atrasa (e vai atrasar), corte por esta ordem:
+
+1. **Dark mode.** Nunca, jamais, no MVP.
+2. **Animações de transição.** A não ser que seja literalmente o produto (TikTok).
+3. **Ecrãs de configuração avançada.** Use defaults sensatos e mova mais tarde.
+4. **Painel admin bonito.** Use Retool, Forest Admin ou query direto à DB.
+5. **Onboarding com vídeo/tour interativo.** 3 tooltips resolvem.
+6. **Login social além do principal.** Email + Google cobre 95%.
+
+O que **nunca** cortar: testes do fluxo de pagamento, logs/observabilidade, e o fluxo de cancelamento (cancelamento difícil destrói reputação rapidamente).
+
+## Stack que entrega em 90 dias
+
+Não é a única opção, mas é a que ano após ano cumpre prazo:
+
+- **[Next.js 14+](/pt-PT)** (App Router) — full-stack num só sítio
+- **Postgres** via Neon, Supabase ou RDS
+- **Prisma** ou Drizzle como ORM
+- **Vercel** ou Fly.io para deploy
+- **Auth.js**, Clerk ou WorkOS para autenticação
+- **Stripe** para cobrança
+- **Resend** ou Loops para email transacional
+- **PostHog** para analytics + feature flags
+
+Stack diferente disto funciona, mas vai gastar tempo a configurar em vez de construir produto.
+
+## Os erros mais caros
+
+- **Perfecionismo de design.** A segunda iteração visual será melhor do que a primeira. Não polir o que vai mudar.
+- **Construir mobile e web em paralelo.** Faça web primeiro, mobile na v2. Quase sempre.
+- **"Vamos só adicionar [X] rapidamente."** O nome técnico disto é scope creep e é a causa #1 de MVPs atrasados.
+- **Validar com a sua rede.** Mentem por carinho. Valide com estranhos hostis.
+
+## Próximo passo
+
+Se está a pensar começar um MVP e quer uma validação de cronograma e âmbito, envie o contexto e respondemos com perguntas específicas — sem orçamento formal antes de percebermos se o problema é mesmo um problema.
+
+Briefing rápido em [whfdev.com](/pt-PT).

@@ -4,8 +4,21 @@
       "work": "Travaux",
       "services": "Services",
       "process": "Processus",
+      "blog": "Blog",
       "contact": "Contact",
       "startProject": "Démarrer un projet"
+    },
+    "blog": {
+      "eyebrow": "BLOG · WHFDEV",
+      "title": "Écrits pratiques sur le produit numérique.",
+      "lede": "Analyses, décisions techniques et coûts réels — écrit par ceux qui construisent. Pour toute personne qui envisage de recruter une agence ou de monter une équipe en interne.",
+      "empty": "Nouveaux articles bientôt.",
+      "read": "Lire l’article",
+      "back": "Retour au blog",
+      "minRead": "min de lecture",
+      "ctaTitle": "Envie de parler de votre projet ?",
+      "ctaLede": "Réponse sous 24h ouvrées. Direct, sans détours.",
+      "ctaButton": "Démarrer une conversation"
     },
     "hero": {
       "eyebrow": "WHFDEV · TECH CONSULTING · EST. 2011",

@@ -1,0 +1,74 @@
+---
+title: Quanto custa desenvolver um CRM à medida em 2026
+description: Faixas reais de preço, prazos, o que pesa no orçamento e quando vale mais um SaaS pronto. Sem rodeios, com números do mercado europeu.
+date: 2026-05-15
+tags: [CRM, Custos, B2B]
+alternates:
+  pt-BR: quanto-custa-desenvolver-um-crm-sob-medida
+  en: custom-crm-development-cost
+  fr: combien-coute-un-crm-sur-mesure
+---
+
+Todas as semanas chega a mesma pergunta à caixa de e-mail: **"quanto custa fazer um CRM de raiz para a minha operação?"** A resposta honesta é "depende" — mas dá para apresentar faixas úteis e, mais importante, explicar **o que faz o número subir ou descer**.
+
+Este artigo é para quem está cansado de orçamentos genéricos de €30k+ sem justificação, e para quem quer perceber se faz mais sentido pagar Salesforce/HubSpot ou construir algo à medida.
+
+## As faixas reais de preço (2026)
+
+Estes números vêm de projetos entregues nos últimos 36 meses, ajustados à inflação. Assumem **agência compacta, sem overhead das big four**.
+
+| Âmbito | Investimento | Prazo típico |
+|--------|--------------|--------------|
+| MVP funcional (1 funil, 1 equipa, integração básica) | €6k – 16k | 6 a 10 semanas |
+| CRM completo (pipelines, automações, relatórios) | €16k – 40k | 3 a 5 meses |
+| Plataforma multi-equipa com SSO, ACL e BI | €40k+ | 5 a 9 meses |
+
+**O que estes números NÃO incluem:** infra cloud mensal (AWS/GCP/Vercel), licenças de terceiros (Twilio, SendGrid, Stripe), e o tempo da sua equipa interna para mapear processos.
+
+## O que faz o orçamento subir
+
+Cada um destes itens, por si só, pode adicionar **20% a 50%** ao âmbito:
+
+1. **Integrações com sistemas legados.** ERP da empresa em Visual Basic dos anos 2000? Vai precisar de um middleware. Some €3-8k.
+2. **Migração de dados.** "Temos uma folha de Excel com 12 anos de histórico" significa scripts de ETL, limpeza, validação. Comum subir €2-6k.
+3. **Conformidade (GDPR/RGPD).** No básico é tranquilo, mas se lida com dados sensíveis (saúde, financeiro) o custo de auditoria, logging e cifragem dispara.
+4. **Multi-tenancy real.** "Também quero vender isto a outros clientes como SaaS depois." Decisão arquitetural enorme — fica MUITO mais barato se feita desde o primeiro commit.
+5. **Mobile nativo.** Não confundir com responsivo. App iOS + Android à medida adiciona €12-30k.
+
+## Quando vale mais escolher SaaS pronto
+
+Sou developer, ganho a vida a construir software, mas vou ser honesto: **na maioria dos casos, comprar é melhor do que construir.** Vale a pena fazer à medida quando:
+
+- O seu processo é **a vantagem competitiva** (e não pode ser replicado clicando numa folha de Pipedrive).
+- Já passou da fase de "estou a testar o canal" e tem **operação previsível** há mais de 12 meses.
+- O custo total de Salesforce/HubSpot, **somando 3-4 anos**, ultrapassa o do desenvolvimento à medida.
+- Tem **integrações específicas** que SaaS genéricos não cobrem e cobram um absurdo via marketplace.
+
+Se a sua operação cabe num HubSpot Starter (€45/mês), não construa. Se cabe num Pipedrive Pro (€80/mês), também não. Faça as contas a 36 meses.
+
+## Como reduzir custo sem sacrificar qualidade
+
+Algumas decisões que cortam orçamento sem o prejudicar lá mais à frente:
+
+- **Comece pelo funil mais doloroso, não pelo mais completo.** Cinco campos bem feitos em produção valem mais do que 50 num mockup.
+- **Use stack moderna por defeito** ([Next.js](/pt-PT), Prisma, Postgres, Vercel). Acelera entrega, reduz custo de manutenção, facilita contratar developer depois.
+- **Não construa autenticação de raiz.** Auth.js, Clerk ou WorkOS resolvem em horas o que custaria semanas.
+- **Não construa o BI.** Incorpore Metabase, Hex ou Grafana e foque no seu diferencial.
+- **Negoceie âmbito, não preço.** Cortar 20% do prazo cortando funcionalidades é mais saudável do que negociar 20% de desconto e empobrecer a entrega.
+
+## Prazo honesto
+
+A pergunta gémea: "em quanto tempo entregam?". Para um CRM funcional médio:
+
+- **Semanas 1-2:** descoberta, modelação de dados, wireframes.
+- **Semanas 3-8:** core (auth, CRUD, pipeline, automações iniciais).
+- **Semanas 9-12:** integrações, relatórios, polimento.
+- **Pós-lançamento:** 4-8 semanas de iteração baseada em uso real.
+
+Quem promete CRM completo em 4 semanas está a cortar a descoberta — vai pagar caro nos meses seguintes em retrabalho.
+
+## Próximo passo
+
+Se está nesse processo de decisão, vale uma conversa direta antes de pedir orçamento formal. Respondemos em até 24h úteis com perguntas específicas para o ajudar a chegar a um número confiável.
+
+Em [whfdev.com](/pt-PT) tem um briefing rápido — envie só o contexto, sem precisar de formatar nada.

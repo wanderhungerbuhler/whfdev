@@ -1,0 +1,74 @@
+---
+title: How much does a custom CRM cost in 2026
+description: Real price ranges, timelines, what moves the budget and when an off-the-shelf SaaS is the better call. No fluff — numbers from EU and LatAm markets.
+date: 2026-05-15
+tags: [CRM, Pricing, B2B]
+alternates:
+  pt-BR: quanto-custa-desenvolver-um-crm-sob-medida
+  pt-PT: quanto-custa-desenvolver-um-crm-a-medida
+  fr: combien-coute-un-crm-sur-mesure
+---
+
+The same question hits the inbox every week: **"how much does a custom CRM cost for my operation?"** Honest answer is "depends" — but you can quote useful ranges and, more importantly, explain **what moves the number up or down**.
+
+This post is for anyone tired of generic $50k+ quotes with no justification, and for anyone trying to decide between paying Salesforce/HubSpot or building their own.
+
+## Real price ranges (2026)
+
+These numbers come from projects shipped in the last 36 months, adjusted for inflation. They assume **a lean studio, not big-four overhead**.
+
+| Scope | Investment | Typical timeline |
+|-------|------------|------------------|
+| Functional MVP (1 pipeline, 1 team, basic integration) | $7k – 18k | 6 to 10 weeks |
+| Full CRM (pipelines, automations, reports) | $18k – 45k | 3 to 5 months |
+| Multi-team platform with SSO, ACL and BI | $45k+ | 5 to 9 months |
+
+**What these numbers do NOT include:** monthly cloud infra (AWS/GCP/Vercel), third-party licenses (Twilio, SendGrid, Stripe), and your internal team's time to map processes.
+
+## What pushes the budget up
+
+Each of these alone can add **20-50%** to scope:
+
+1. **Legacy system integrations.** Company ERP written in early-2000s Visual Basic? You'll need a middleware. Add $4-10k.
+2. **Data migration.** "We have a 12-year Excel spreadsheet" means ETL scripts, cleaning, validation. Usually adds $2-7k.
+3. **Compliance (GDPR, HIPAA).** Basic is fine, but if you handle sensitive data (health, financial), audit + logging + encryption costs explode.
+4. **Real multi-tenancy.** "I also want to sell this to other clients as SaaS later." Huge architectural call — MUCH cheaper if planned from commit one.
+5. **Native mobile.** Don't confuse with responsive. Custom iOS + Android adds $15-35k.
+
+## When buying beats building
+
+I'm a developer, I make a living building software, but here's the honest take: **most of the time, buying beats building.** Build custom when:
+
+- Your process is **the competitive advantage** (can't be replicated by clicking around Pipedrive).
+- You're past the "testing channels" phase and have **predictable operation** running for 12+ months.
+- Total cost of Salesforce/HubSpot **over 3-4 years** exceeds the custom build.
+- You have **specific integrations** that generic SaaS don't cover and charge insanely for via marketplace.
+
+If HubSpot Starter ($50/month) fits your operation, don't build. If Pipedrive Pro ($90/month) fits, don't build. Do the math over 36 months.
+
+## How to cut cost without sacrificing quality
+
+A few decisions that save budget without screwing you later:
+
+- **Start with the most painful pipeline, not the most complete.** Five well-built fields in production beat 50 in a mockup.
+- **Use modern stack by default** ([Next.js](/en), Prisma, Postgres, Vercel). Faster delivery, lower maintenance, easier to hire later.
+- **Don't build auth from scratch.** Auth.js, Clerk or WorkOS solve in hours what would take weeks.
+- **Don't build the BI.** Embed Metabase, Hex or Grafana and focus on your differentiator.
+- **Negotiate scope, not price.** Cutting 20% by trimming features is healthier than negotiating 20% off and gutting the deliverable.
+
+## Honest timeline
+
+The twin question: "how long to ship?". For a typical functional CRM:
+
+- **Weeks 1-2:** discovery, data modeling, wireframes.
+- **Weeks 3-8:** core (auth, CRUD, pipeline, initial automations).
+- **Weeks 9-12:** integrations, reports, polish.
+- **Post-launch:** 4-8 weeks iterating on real usage.
+
+Anyone promising a complete CRM in 4 weeks is cutting discovery — you'll pay for it in rework over the following months.
+
+## Next step
+
+If you're in this decision phase, a direct conversation beats a formal quote request. We usually reply within 24h on business days with specific questions to help you reach a reliable number.
+
+At [whfdev.com](/en) there's a short brief — just send context, no need to format anything.

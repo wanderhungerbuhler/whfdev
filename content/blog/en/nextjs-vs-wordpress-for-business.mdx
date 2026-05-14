@@ -1,0 +1,95 @@
+---
+title: "Next.js for business in 2026: when migrating from WordPress is worth it"
+description: Practical comparison between Next.js and WordPress for marketing sites, e-commerce and portals. Real performance, cost, SEO, security, and when WordPress is still the right call.
+date: 2026-05-01
+tags: [Next.js, WordPress, Technology]
+alternates:
+  pt-BR: nextjs-para-empresas-vs-wordpress
+  pt-PT: nextjs-para-empresas-vs-wordpress
+  fr: nextjs-vs-wordpress-pour-entreprises
+---
+
+The question comes up every week: **"is it worth migrating from WordPress to Next.js?"** Short answer: depends. Useful answer: understand the real trade-offs and decide with data, not hype.
+
+This post compares the dimensions that matter: performance, SEO, cost, security and hiring. No religion.
+
+## Side by side
+
+| Dimension | WordPress | Next.js |
+|-----------|-----------|---------|
+| Load time (typical LCP) | 2.5 – 5s | 0.6 – 1.5s |
+| Lighthouse score (mobile, average) | 35-70 | 90-100 |
+| Infrastructure cost | $5-30/mo (shared) or $50+ (VPS) | $0-20/mo (Vercel free tier covers a lot) |
+| Security updates | Manual or via plugin | Incremental framework builds |
+| Time to add a new page | 5 min (CMS) | 30 min (code) or 5 min (headless CMS) |
+| Editor learning curve | Low | Depends on setup |
+| Plugin vulnerabilities | #1 hack vector | Almost non-existent |
+
+## When Next.js wins
+
+Migrate to Next.js when:
+
+- **Performance matters to the business.** If you sell online or compete for SEO, every 100ms of LCP = 1-2% of conversion. WordPress rarely ships under 2s without heavy optimization work.
+- **You need dynamic functionality.** Calculators, multi-step forms, API integrations, gated dashboards — WordPress turns into spaghetti. Next.js is native to this.
+- **Your team has (or can hire) developers.** React/Next.js dev market is huge. The good WordPress dev market has shrunk.
+- **You want pristine Core Web Vitals.** Google has penalized slow sites since 2021. Next.js + Vercel hits 95-100 on Lighthouse without effort.
+- **Security is critical.** B2B, government, financial. WordPress plugins are a recurring breach vector.
+
+## When WordPress is still right
+
+I'm biased (I build in [Next.js](/en)), but WordPress is still right when:
+
+- **Content changes daily and non-technical editors publish.** News blog, magazine. WordPress was born for this and is unbeatable.
+- **Budget is $1-3k total.** WordPress + good theme + freelance dev delivers a decent marketing site. Next.js will cost 3-5x in this range.
+- **You need cheap, simple e-commerce.** WooCommerce + theme costs less to start than Next.js + Stripe + everything custom.
+- **You want to stop paying devs after launch.** WordPress + client editing directly = near-zero maintenance. Next.js needs dev for structural changes.
+
+## Real migration cost
+
+It's not just the new build. Add:
+
+- **Content migration.** WordPress → Next.js needs export, parse, reformat. For 200 pages: 20-40 hours.
+- **301 redirects.** Every old URL needs to map to the new one. Skip this = lose 30-60% of organic traffic in the first 90 days.
+- **Headless CMS (if editors need it).** Sanity, Contentful, Payload — $0-200/mo.
+- **Team training.** 2-4 hours for editors to learn the new flow.
+
+Realistic total for a 50-page marketing site: **$6-15k build + 1-3 weeks of migration**.
+
+## SEO after migration
+
+This is the #1 fear. The truth:
+
+- **Short term (1-3 months):** 10-30% organic traffic drop with proper redirects. 50-80% drop without them.
+- **Mid term (3-6 months):** full recovery + 10-40% gain from better Core Web Vitals.
+- **Long term (6+ months):** consistent gain if you keep publishing good content.
+
+Risk reducer: ship the technical migration with identical URLs for 60 days before any rebranding or content changes.
+
+## Stack call per case
+
+**Marketing site + landing pages:** Next.js + Sanity or Payload. Without a doubt.
+
+**News blog / magazine:** WordPress, unless you have a dedicated dev team.
+
+**E-commerce up to $300k ARR:** Shopify or WooCommerce. Above that, Next.js + Shopify Hydrogen or Medusa.
+
+**Logged-in app with dashboards:** Next.js. WordPress was never built for this.
+
+**Government / public-sector portal:** Next.js + headless CMS. More auditable, more secure, better performance.
+
+## When the investment is worth it
+
+Check mentally:
+
+- [ ] Current site has Lighthouse < 70 on mobile
+- [ ] Monthly traffic > 10k visits (every % of improvement counts)
+- [ ] Been hacked or lived with fear of it
+- [ ] Plugins break when you update
+- [ ] You want custom functionality and every plugin is a nightmare
+- [ ] Monthly maintenance cost over $200
+
+3+ checked? Worth a migration conversation. Fewer? Keep what you have and spend the money elsewhere.
+
+## Next step
+
+If you're in this dilemma and want an honest diagnosis of your current site (no commitment), send the link via [whfdev.com](/en) — we reply with Core Web Vitals analysis, visible risks, and a migration estimate if it makes sense.

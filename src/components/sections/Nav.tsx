@@ -42,10 +42,11 @@ export function Nav() {
   }
 
   const links = [
-    { name: t('work'), href: '#work' },
-    { name: t('services'), href: '#services' },
-    { name: t('process'), href: '#process' },
-    { name: t('contact'), href: '#contact' },
+    { name: t('work'), href: `/${locale ?? 'pt-BR'}#work` },
+    { name: t('services'), href: `/${locale ?? 'pt-BR'}#services` },
+    { name: t('process'), href: `/${locale ?? 'pt-BR'}#process` },
+    { name: t('blog'), href: `/${locale ?? 'pt-BR'}/blog` },
+    { name: t('contact'), href: `/${locale ?? 'pt-BR'}#contact` },
   ]
 
   return (

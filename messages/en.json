@@ -4,8 +4,21 @@
       "work": "Work",
       "services": "Services",
       "process": "Process",
+      "blog": "Blog",
       "contact": "Contact",
       "startProject": "Start a project"
+    },
+    "blog": {
+      "eyebrow": "BLOG · WHFDEV",
+      "title": "Practical writing on digital product.",
+      "lede": "Analyses, technical decisions and real costs — written by the people who ship. For anyone considering hiring an agency or building an in-house team.",
+      "empty": "New posts coming soon.",
+      "read": "Read article",
+      "back": "Back to blog",
+      "minRead": "min read",
+      "ctaTitle": "Want to discuss your project?",
+      "ctaLede": "Reply within 24h on business days. Straight to the point.",
+      "ctaButton": "Start a conversation"
     },
     "hero": {
       "eyebrow": "WHFDEV · TECH CONSULTING · EST. 2011",
