@@ -1,0 +1,220 @@
+'use client'
+
+import { IconChevronDown } from '@tabler/icons-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useParams, useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
+import { startTransition, useEffect, useRef, useState } from 'react'
+
+import LogoMark from '@/assets/logo-mark.svg'
+
+const LOCALES = [
+  { code: 'pt', label: 'PT' },
+  { code: 'en', label: 'EN' },
+  { code: 'fr', label: 'FR' },
+] as const
+
+export function Nav() {
+  const t = useTranslations('Index.nav')
+  const router = useRouter()
+  const { locale } = useParams<{ locale: string }>()
+  const [scrolled, setScrolled] = useState(false)
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  function changeLanguage(next: string) {
+    startTransition(() => router.replace(`/${next}`))
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('@whfdev-idioms', next)
+    }
+  }
+
+  const links = [
+    { name: t('work'), href: '#work' },
+    { name: t('services'), href: '#services' },
+    { name: t('process'), href: '#process' },
+    { name: t('contact'), href: '#contact' },
+  ]
+
+  return (
+    <header
+      className={[
+        'fixed inset-x-0 top-0 z-50 transition-all duration-300',
+        scrolled
+          ? 'border-b border-rule-soft bg-canvas/80 backdrop-blur-xl'
+          : 'border-b border-transparent',
+      ].join(' ')}
+    >
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+        <Link href={`/${locale}`} className="group flex items-center gap-3">
+          <Image
+            src={LogoMark}
+            alt="WHFDEV"
+            width={28}
+            height={28}
+            priority
+          />
+          <span className="flex items-baseline gap-2">
+            <span className="text-sm font-semibold tracking-tight text-ink">
+              whfdev
+            </span>
+            <span className="hidden h-3 w-px bg-rule sm:block" />
+            <span className="hidden font-mono text-[10px] uppercase tracking-[0.22em] text-ink-muted sm:block">
+              Tech Consulting
+            </span>
+          </span>
+        </Link>
+
+        <nav className="hidden items-center gap-8 md:flex">
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="text-sm text-ink-soft transition-colors hover:text-ink"
+            >
+              {l.name}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-3">
+          <LangDropdown
+            locale={locale ?? 'pt'}
+            onChange={changeLanguage}
+            className="hidden md:inline-flex"
+          />
+
+          <Link
+            href="#contact"
+            className="group relative inline-flex h-9 items-center gap-2 rounded-full bg-ink px-4 text-sm font-medium text-canvas transition hover:bg-ink/90"
+          >
+            {t('startProject')}
+            <span className="transition-transform group-hover:translate-x-0.5">
+              →
+            </span>
+          </Link>
+
+          <button
+            onClick={() => setOpen((s) => !s)}
+            aria-label="Menu"
+            className="grid h-9 w-9 place-items-center rounded-full border border-rule-soft md:hidden"
+          >
+            <span className="relative block h-3 w-4">
+              <span
+                className={`absolute left-0 right-0 top-0 h-px bg-ink transition-transform ${open ? 'translate-y-1.5 rotate-45' : ''}`}
+              />
+              <span
+                className={`absolute left-0 right-0 top-1.5 h-px bg-ink transition-opacity ${open ? 'opacity-0' : ''}`}
+              />
+              <span
+                className={`absolute bottom-0 left-0 right-0 h-px bg-ink transition-transform ${open ? '-translate-y-1.5 -rotate-45' : ''}`}
+              />
+            </span>
+          </button>
+        </div>
+      </div>
+
+      {open && (
+        <div className="border-t border-rule-soft bg-canvas/95 backdrop-blur-xl md:hidden">
+          <div className="mx-auto flex max-w-6xl flex-col gap-1 px-6 py-4">
+            {links.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="py-2 text-base text-ink-soft hover:text-ink"
+              >
+                {l.name}
+              </Link>
+            ))}
+            <div className="mt-2 border-t border-rule-soft pt-3">
+              <LangDropdown locale={locale ?? 'pt'} onChange={changeLanguage} />
+            </div>
+          </div>
+        </div>
+      )}
+    </header>
+  )
+}
+
+function LangDropdown({
+  locale,
+  onChange,
+  className = '',
+}: {
+  locale: string
+  onChange: (l: string) => void
+  className?: string
+}) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function onDoc(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', onDoc)
+    return () => document.removeEventListener('mousedown', onDoc)
+  }, [])
+
+  const current =
+    LOCALES.find((l) => l.code === locale)?.label ?? LOCALES[0].label
+
+  return (
+    <div ref={ref} className={`relative inline-flex ${className}`}>
+      <button
+        type="button"
+        onClick={() => setOpen((s) => !s)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        className="inline-flex h-9 items-center gap-1.5 rounded-full border border-rule-soft bg-canvas-elev/60 px-3 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-soft transition hover:text-ink"
+      >
+        {current}
+        <IconChevronDown
+          size={14}
+          className={`transition-transform ${open ? 'rotate-180' : ''}`}
+        />
+      </button>
+
+      {open && (
+        <ul
+          role="listbox"
+          className="absolute right-0 top-11 z-50 w-24 overflow-hidden rounded-lg border border-rule-soft bg-canvas-elev/95 p-1 shadow-2xl backdrop-blur-xl"
+        >
+          {LOCALES.map((l) => {
+            const active = l.code === locale
+            return (
+              <li key={l.code}>
+                <button
+                  role="option"
+                  aria-selected={active}
+                  type="button"
+                  onClick={() => {
+                    setOpen(false)
+                    onChange(l.code)
+                  }}
+                  className={[
+                    'flex w-full items-center justify-between rounded-md px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.18em] transition',
+                    active
+                      ? 'bg-canvas-card text-ink'
+                      : 'text-ink-soft hover:bg-canvas-card hover:text-ink',
+                  ].join(' ')}
+                >
+                  {l.label}
+                  {active && <span className="h-1.5 w-1.5 rounded-full bg-coral" />}
+                </button>
+              </li>
+            )
+          })}
+        </ul>
+      )}
+    </div>
+  )
+}

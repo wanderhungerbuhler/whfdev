@@ -1,13 +1,154 @@
 {
   "Index": {
-    "Home": "Home",
-    "Cases": "Cases",
-    "Partners": "Partners",
-    "DO YOU NEED": "DO YOU NEED",
-    "INNOVATE": "INNOVATE",
-    "Slogan1": "It is one of the most important steps when you want to make a difference in your business, whether physical or digital. Therefore, we are fully dedicated to helping you who need to get that project off the ground.",
-    "TO KNOW": "TO KNOW",
-    "BE A PART": "BE A PART",
-    "Contact": "Contact"
+    "nav": {
+      "work": "Work",
+      "services": "Services",
+      "process": "Process",
+      "contact": "Contact",
+      "startProject": "Start a project"
+    },
+    "hero": {
+      "eyebrow": "WHFDEV · TECH CONSULTING · EST. 2011",
+      "titlePre": "Software with",
+      "titleEm": "taste,",
+      "titlePost": "shipped on time.",
+      "lede": "14 years designing and building CRMs, dashboards, landing pages and iOS/Android apps for brands that refuse the ordinary. Small studio, fast decisions, code that ages well.",
+      "ctaPrimary": "Start a project",
+      "ctaSecondary": "See the work",
+      "metaYears": "years in craft",
+      "metaProjects": "products shipped",
+      "metaTeam": "independent studio",
+      "available": "Open for 2 projects this quarter"
+    },
+    "marquee": {
+      "label": "Trusted by brands that build at the highest level"
+    },
+    "services": {
+      "eyebrow": "Services",
+      "title": "What we build.",
+      "lede": "End-to-end digital products — from strategic brief to deployment. Modern tech, intentional design, predictable maintenance.",
+      "items": {
+        "crm": {
+          "title": "Custom CRMs",
+          "desc": "Relationship systems designed for your funnel. Pipelines, automations, integrations and reports — without bloat."
+        },
+        "dashboard": {
+          "title": "Dashboards & panels",
+          "desc": "Product, sales and ops data visualization. Metrics that fit a screen and lead to decisions."
+        },
+        "landing": {
+          "title": "Landing pages",
+          "desc": "High-conversion pages for campaigns and launches. Perfect performance, sharp copy, end-to-end tracking."
+        },
+        "ios": {
+          "title": "iOS apps",
+          "desc": "Native and hybrid apps shipped to the App Store. Refined UX, careful release pipelines, zero surprises."
+        },
+        "android": {
+          "title": "Android apps",
+          "desc": "Performant Android apps on the Play Store. Wide device support, deeplinks, push and analytics."
+        },
+        "web": {
+          "title": "Web apps & SaaS",
+          "desc": "Scalable web platforms. Auth, billing, multitenancy — the foundation for your digital business."
+        },
+        "ecommerce": {
+          "title": "E-commerce",
+          "desc": "Fast stores, frictionless checkout, payment and logistics integrations. Selling well is detail work."
+        },
+        "consult": {
+          "title": "Tech consulting",
+          "desc": "Product audits, due diligence, team mentorship and architecture. We bring mileage to your road."
+        }
+      }
+    },
+    "work": {
+      "eyebrow": "Featured work",
+      "title": "Products in the wild.",
+      "lede": "A selection of public cases. More under NDA — talk to us for details.",
+      "moreLabel": "SELECTED WORK"
+    },
+    "process": {
+      "eyebrow": "Process",
+      "title": "How we work.",
+      "lede": "Five steps, no mystery. Each phase has a clear deliverable and decision point.",
+      "steps": {
+        "discovery": {
+          "title": "Brief & discovery",
+          "desc": "We understand the problem, constraints and metrics that matter. We leave with scope and estimate."
+        },
+        "design": {
+          "title": "Design & architecture",
+          "desc": "Wireframes, UI, flows and tech decisions. You approve before a single line of code."
+        },
+        "build": {
+          "title": "Build",
+          "desc": "Short sprints, weekly demos. Access to staging from day one."
+        },
+        "ship": {
+          "title": "Launch",
+          "desc": "Deploy, observability, App Store / Play Store. We stay through post-launch."
+        },
+        "grow": {
+          "title": "Evolve",
+          "desc": "Maintenance contract, new iterations, dedicated team or technical handover. Your call."
+        }
+      }
+    },
+    "stats": {
+      "years": "Years in craft",
+      "products": "Products shipped",
+      "countries": "Countries served",
+      "uptime": "On-time deliveries"
+    },
+    "contact": {
+      "eyebrow": "Let’s talk",
+      "title": "Tell us what you need.",
+      "lede": "Reply within 24 business hours. No empty promises — if your project isn’t our best case, we’ll point you to who can do better.",
+      "name": "Name",
+      "namePh": "What should we call you",
+      "email": "Email",
+      "emailPh": "you@company.com",
+      "company": "Company",
+      "companyPh": "Company name (optional)",
+      "type": "What do you need to build",
+      "typeHint": "You can pick more than one",
+      "budget": "Estimated budget",
+      "budgets": {
+        "explore": "Just exploring",
+        "tier1": "Up to $7k",
+        "tier2": "$7k – $18k",
+        "tier3": "$18k – $40k",
+        "tier4": "$40k +"
+      },
+      "deadline": "Desired timeline",
+      "deadlines": {
+        "asap": "As soon as possible",
+        "month": "1 month",
+        "quarter": "1 quarter",
+        "flex": "Flexible"
+      },
+      "message": "Tell us more about the project",
+      "messagePh": "Goal, context, links — anything that helps us understand.",
+      "submit": "Send brief",
+      "sending": "Opening your email client...",
+      "privacy": "Your data is used only to reply to this contact.",
+      "types": {
+        "crm": "CRM",
+        "dashboard": "Dashboard",
+        "landing": "Landing page",
+        "ios": "iOS app",
+        "android": "Android app",
+        "web": "Web app / SaaS",
+        "ecommerce": "E-commerce",
+        "consult": "Consulting",
+        "other": "Other"
+      }
+    },
+    "footer": {
+      "tagline": "Independent studio. Building digital products since 2011.",
+      "rights": "All rights reserved.",
+      "company": "WHFDEV Tech Consulting"
+    }
   }
 }

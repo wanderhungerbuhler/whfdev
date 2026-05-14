@@ -24,7 +24,27 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-geist-sans)', 'Inter', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-geist-mono)', 'ui-monospace', 'monospace'],
+      },
       colors: {
+        canvas: 'hsl(var(--canvas))',
+        'canvas-elev': 'hsl(var(--canvas-elev))',
+        'canvas-card': 'hsl(var(--canvas-card))',
+        ink: 'hsl(var(--ink))',
+        'ink-soft': 'hsl(var(--ink-soft))',
+        'ink-muted': 'hsl(var(--ink-muted))',
+        'ink-dim': 'hsl(var(--ink-dim))',
+        rule: 'hsl(var(--rule))',
+        'rule-soft': 'hsl(var(--rule-soft))',
+        coral: {
+          DEFAULT: 'hsl(var(--accent))',
+          soft: 'hsl(var(--accent-soft))',
+          deep: 'hsl(var(--accent-deep))',
+          orange: 'hsl(var(--accent-orange))',
+          pink: 'hsl(var(--accent-pink))',
+        },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -64,6 +84,10 @@ const config = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      letterSpacing: {
+        tightish: '-0.018em',
+        tighter2: '-0.04em',
+      },
       keyframes: {
         'accordion-down': {
           from: { height: '0' },
@@ -88,6 +112,10 @@ const config = {
             transform: 'translate(calc(-50% - 0.5rem))',
           },
         },
+        glow: {
+          '0%, 100%': { opacity: '0.5' },
+          '50%': { opacity: '1' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -95,6 +123,7 @@ const config = {
         spotlight: 'spotlight 2s ease .75s 1 forwards',
         scroll:
           'scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite',
+        glow: 'glow 3.6s ease-in-out infinite',
       },
     },
   },
