@@ -6,8 +6,13 @@ import type { Metadata, Viewport } from 'next'
 import { NextIntlClientProvider, useMessages } from 'next-intl'
 
 import { SiteScripts } from '@/components/SiteScripts'
-
-const SITE_URL = 'https://whfdev.com'
+import {
+  buildOrganizationSchema,
+  buildWebSiteSchema,
+  pickDescription,
+  pickTitle,
+  SITE_URL,
+} from '@/lib/seo'
 
 export const viewport: Viewport = {
   themeColor: '#0A0A0B',
@@ -25,25 +30,8 @@ export function generateMetadata({
 }: {
   params: { locale: string }
 }): Metadata {
-  const titles: Record<string, string> = {
-    'pt-BR':
-      'WHFDEV — Estúdio de produto digital · CRMs, dashboards, web e apps',
-    'pt-PT':
-      'WHFDEV — Estúdio de produto digital · CRMs, dashboards, web e apps',
-    en: 'WHFDEV — Digital product studio · CRMs, dashboards, web & apps',
-    fr: 'WHFDEV — Studio de produit numérique · CRM, dashboards, web et apps',
-  }
-  const descriptions: Record<string, string> = {
-    'pt-BR':
-      '14 anos desenhando e desenvolvendo CRMs, dashboards, landing pages e aplicativos iOS e Android para marcas como SIC Notícias, Expresso e SPMS. Vamos tirar seu projeto do papel.',
-    'pt-PT':
-      '14 anos a desenhar e desenvolver CRMs, dashboards, landing pages e aplicações iOS e Android para marcas como SIC Notícias, Expresso e SPMS. Vamos tirar o seu projeto do papel.',
-    en: '14 years designing and shipping CRMs, dashboards, landing pages and iOS/Android apps for brands like SIC Notícias, Expresso and SPMS. Let’s ship your idea.',
-    fr: '14 ans à concevoir et livrer des CRM, dashboards, landing pages et applications iOS/Android pour des marques comme SIC Notícias, Expresso et SPMS.',
-  }
-
-  const title = titles[locale] ?? titles['pt-BR']
-  const description = descriptions[locale] ?? descriptions['pt-BR']
+  const title = pickTitle(locale)
+  const description = pickDescription(locale)
 
   const ogLocaleMap: Record<string, string> = {
     'pt-BR': 'pt_BR',
@@ -156,6 +144,12 @@ export default function RootLayout({
 }: Readonly<RootLayoutProps>) {
   const messages = useMessages()
 
+  const organizationSchema = buildOrganizationSchema(
+    locale,
+    pickDescription(locale),
+  )
+  const websiteSchema = buildWebSiteSchema(locale)
+
   return (
     <html
       lang={locale}
@@ -165,6 +159,18 @@ export default function RootLayout({
         <body className="font-sans antialiased">
           {children}
           <SiteScripts />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(organizationSchema),
+            }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(websiteSchema),
+            }}
+          />
         </body>
       </NextIntlClientProvider>
     </html>
