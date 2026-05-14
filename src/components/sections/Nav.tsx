@@ -10,10 +10,10 @@ import { startTransition, useEffect, useRef, useState } from 'react'
 import LogoMark from '@/assets/logo-mark.svg'
 
 const LOCALES = [
-  { code: 'pt-BR', label: 'BR' },
-  { code: 'pt-PT', label: 'PT' },
-  { code: 'en', label: 'EN' },
-  { code: 'fr', label: 'FR' },
+  { code: 'pt-BR', label: 'BR', currency: 'R$' },
+  { code: 'pt-PT', label: 'PT', currency: '€' },
+  { code: 'en', label: 'EN', currency: '$' },
+  { code: 'fr', label: 'FR', currency: '€' },
 ] as const
 
 export function Nav() {
@@ -31,10 +31,14 @@ export function Nav() {
   }, [])
 
   function changeLanguage(next: string) {
-    startTransition(() => router.replace(`/${next}`))
+    if (typeof document !== 'undefined') {
+      const oneYear = 60 * 60 * 24 * 365
+      document.cookie = `NEXT_LOCALE=${next}; Path=/; Max-Age=${oneYear}; SameSite=Lax`
+    }
     if (typeof window !== 'undefined') {
       localStorage.setItem('@whfdev-idioms', next)
     }
+    startTransition(() => router.replace(`/${next}`))
   }
 
   const links = [
@@ -162,8 +166,7 @@ function LangDropdown({
     return () => document.removeEventListener('mousedown', onDoc)
   }, [])
 
-  const current =
-    LOCALES.find((l) => l.code === locale)?.label ?? LOCALES[0].label
+  const currentEntry = LOCALES.find((l) => l.code === locale) ?? LOCALES[0]
 
   return (
     <div ref={ref} className={`relative inline-flex ${className}`}>
@@ -174,7 +177,9 @@ function LangDropdown({
         aria-expanded={open}
         className="inline-flex h-9 items-center gap-1.5 rounded-full border border-rule-soft bg-canvas-elev/60 px-3 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-soft transition hover:text-ink"
       >
-        {current}
+        <span>{currentEntry.label}</span>
+        <span className="text-ink-dim">·</span>
+        <span className="text-ink-soft">{currentEntry.currency}</span>
         <IconChevronDown
           size={14}
           className={`transition-transform ${open ? 'rotate-180' : ''}`}
@@ -184,7 +189,7 @@ function LangDropdown({
       {open && (
         <ul
           role="listbox"
-          className="absolute right-0 top-11 z-50 w-24 overflow-hidden rounded-lg border border-rule-soft bg-canvas-elev/95 p-1 shadow-2xl backdrop-blur-xl"
+          className="absolute right-0 top-11 z-50 w-32 overflow-hidden rounded-lg border border-rule-soft bg-canvas-elev/95 p-1 shadow-2xl backdrop-blur-xl"
         >
           {LOCALES.map((l) => {
             const active = l.code === locale
@@ -199,13 +204,17 @@ function LangDropdown({
                     onChange(l.code)
                   }}
                   className={[
-                    'flex w-full items-center justify-between rounded-md px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.18em] transition',
+                    'flex w-full items-center justify-between gap-2 rounded-md px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.18em] transition',
                     active
                       ? 'bg-canvas-card text-ink'
                       : 'text-ink-soft hover:bg-canvas-card hover:text-ink',
                   ].join(' ')}
                 >
-                  {l.label}
+                  <span className="flex items-center gap-1.5">
+                    <span>{l.label}</span>
+                    <span className="text-ink-dim">·</span>
+                    <span>{l.currency}</span>
+                  </span>
                   {active && (
                     <span className="h-1.5 w-1.5 rounded-full bg-coral" />
                   )}
