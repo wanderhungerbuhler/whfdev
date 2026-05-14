@@ -182,19 +182,18 @@ export function Work() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <ul className="mt-10 grid grid-cols-3 gap-x-6 gap-y-8 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7">
+          <ul className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {BRANDS.map((b) => (
               <li
                 key={b.alt}
-                className="flex h-12 items-center justify-center"
                 title={b.alt}
+                className="card-gradient flex h-24 items-center justify-center p-6 transition hover:bg-canvas-card sm:h-28"
               >
                 <Image
                   src={b.src}
                   alt={b.alt}
-                  width={b.w}
                   quality={100}
-                  className="h-7 w-auto opacity-60 grayscale transition hover:opacity-100 hover:grayscale-0"
+                  className="max-h-12 w-auto max-w-full object-contain opacity-70 grayscale transition group-hover:opacity-100 hover:opacity-100 hover:grayscale-0 sm:max-h-14"
                 />
               </li>
             ))}
