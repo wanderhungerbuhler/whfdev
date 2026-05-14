@@ -17,14 +17,8 @@ export function Footer() {
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-3">
             <Image src={LogoMark} alt="WHFDEV" width={28} height={28} />
-            <span className="flex items-baseline gap-2">
-              <span className="text-sm font-semibold tracking-tight text-ink">
-                whfdev
-              </span>
-              <span className="h-3 w-px bg-rule" />
-              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-muted">
-                Tech Consulting
-              </span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-muted">
+              Tech Consulting
             </span>
           </div>
           <p className="max-w-sm text-sm text-ink-muted">{t('tagline')}</p>

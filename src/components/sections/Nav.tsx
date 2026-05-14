@@ -56,14 +56,8 @@ export function Nav() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <Link href={`/${locale}`} className="group flex items-center gap-3">
           <Image src={LogoMark} alt="WHFDEV" width={28} height={28} priority />
-          <span className="flex items-baseline gap-2">
-            <span className="text-sm font-semibold tracking-tight text-ink">
-              whfdev
-            </span>
-            <span className="hidden h-3 w-px bg-rule sm:block" />
-            <span className="hidden font-mono text-[10px] uppercase tracking-[0.22em] text-ink-muted sm:block">
-              Tech Consulting
-            </span>
+          <span className="hidden font-mono text-[10px] uppercase tracking-[0.22em] text-ink-muted sm:block">
+            Tech Consulting
           </span>
         </Link>
 

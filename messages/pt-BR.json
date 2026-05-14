@@ -131,7 +131,9 @@
       "message": "Conte mais sobre o projeto",
       "messagePh": "Objetivo, contexto, links — o que ajudar a gente a entender.",
       "submit": "Enviar briefing",
-      "sending": "Abrindo seu cliente de e-mail...",
+      "sending": "Enviando...",
+      "success": "Mensagem enviada! Respondo em até 24h úteis.",
+      "error": "Não consegui enviar agora. Tente novamente ou escreva para talkto@whfdev.com.",
       "privacy": "Seus dados são usados apenas para responder a este contato.",
       "types": {
         "crm": "CRM",

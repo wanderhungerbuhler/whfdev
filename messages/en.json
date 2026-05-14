@@ -131,7 +131,9 @@
       "message": "Tell us more about the project",
       "messagePh": "Goal, context, links — anything that helps us understand.",
       "submit": "Send brief",
-      "sending": "Opening your email client...",
+      "sending": "Sending...",
+      "success": "Message sent! I’ll reply within 24h on business days.",
+      "error": "Couldn’t send right now. Please try again or email talkto@whfdev.com.",
       "privacy": "Your data is used only to reply to this contact.",
       "types": {
         "crm": "CRM",

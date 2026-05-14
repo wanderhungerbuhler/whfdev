@@ -1,7 +1,9 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useState } from 'react'
+
+import { sendContactEmail } from '@/app/actions/contact'
 
 import { SectionHeader } from './SectionHeader'
 
@@ -24,11 +26,14 @@ type TypeKey = (typeof TYPE_KEYS)[number]
 type BudgetKey = (typeof BUDGET_KEYS)[number]
 type DeadlineKey = (typeof DEADLINE_KEYS)[number]
 
+type Status = 'idle' | 'sending' | 'success' | 'error'
+
 export function Contact() {
   const t = useTranslations('Index.contact')
   const typeLabel = useTranslations('Index.contact.types')
   const budgetLabel = useTranslations('Index.contact.budgets')
   const deadlineLabel = useTranslations('Index.contact.deadlines')
+  const locale = useLocale()
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -37,7 +42,9 @@ export function Contact() {
   const [budget, setBudget] = useState<BudgetKey | ''>('')
   const [deadline, setDeadline] = useState<DeadlineKey | ''>('')
   const [message, setMessage] = useState('')
-  const [sending, setSending] = useState(false)
+  const [status, setStatus] = useState<Status>('idle')
+
+  const sending = status === 'sending'
 
   function toggleType(key: TypeKey) {
     setTypes((curr) =>
@@ -45,38 +52,37 @@ export function Contact() {
     )
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  function resetForm() {
+    setName('')
+    setEmail('')
+    setCompany('')
+    setTypes([])
+    setBudget('')
+    setDeadline('')
+    setMessage('')
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setSending(true)
+    setStatus('sending')
 
-    const projectTypes = types.length
-      ? types.map((k) => `- ${typeLabel(k)}`).join('\n')
-      : '—'
-
-    const body = [
-      `Nome: ${name}`,
-      `E-mail: ${email}`,
-      company && `Empresa: ${company}`,
-      '',
-      'O que precisa construir:',
-      projectTypes,
-      '',
-      `Orçamento: ${budget ? budgetLabel(budget) : '—'}`,
-      `Prazo: ${deadline ? deadlineLabel(deadline) : '—'}`,
-      '',
-      'Sobre o projeto:',
+    const result = await sendContactEmail({
+      name,
+      email,
+      company,
+      projectTypes: types.map((k) => typeLabel(k)),
+      budget: budget ? budgetLabel(budget) : undefined,
+      deadline: deadline ? deadlineLabel(deadline) : undefined,
       message,
-    ]
-      .filter(Boolean)
-      .join('\n')
+      locale,
+    })
 
-    const subject = `Briefing WHFDEV — ${name || 'novo contato'}`
-    const url = `mailto:talkto@whfdev.com?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`
-    window.location.href = url
-
-    setTimeout(() => setSending(false), 1500)
+    if (result.ok) {
+      setStatus('success')
+      resetForm()
+    } else {
+      setStatus('error')
+    }
   }
 
   return (
@@ -203,6 +209,17 @@ export function Contact() {
               className={`${inputCls} resize-y`}
             />
           </Field>
+
+          {status === 'success' && (
+            <div className="rounded-md border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300">
+              {t('success')}
+            </div>
+          )}
+          {status === 'error' && (
+            <div className="rounded-md border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+              {t('error')}
+            </div>
+          )}
 
           <div className="flex flex-col-reverse items-start justify-between gap-3 sm:flex-row sm:items-center">
             <p className="text-xs text-ink-dim">{t('privacy')}</p>

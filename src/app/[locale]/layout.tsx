@@ -131,8 +131,11 @@ export function generateMetadata({
       },
     },
     icons: {
-      icon: '/whfdev.png',
-      shortcut: '/whfdev.png',
+      icon: [
+        { url: '/favicon.svg', type: 'image/svg+xml' },
+        { url: '/whfdev.png', type: 'image/png' },
+      ],
+      shortcut: '/favicon.svg',
       apple: '/whfdev.png',
     },
     category: 'technology',
