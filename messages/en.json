@@ -145,8 +145,8 @@
       "messagePh": "Goal, context, links — anything that helps us understand.",
       "submit": "Send brief",
       "sending": "Sending...",
-      "success": "Message sent! I’ll reply within 24h on business days.",
-      "error": "Couldn’t send right now. Please try again or email talkto@whfdev.com.",
+      "success": "Message sent! We’ll reply within 24h on business days.",
+      "error": "We couldn’t send right now. Please try again or email talkto@whfdev.com.",
       "privacy": "Your data is used only to reply to this contact.",
       "types": {
         "crm": "CRM",
