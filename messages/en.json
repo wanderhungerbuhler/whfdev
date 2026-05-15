@@ -163,7 +163,13 @@
     "footer": {
       "tagline": "Independent studio. Building digital products since 2011.",
       "rights": "All rights reserved.",
-      "company": "WHFDEV Tech Consulting"
+      "company": "WHFDEV Tech Consulting",
+      "navTitle": "Navigation",
+      "legalTitle": "Legal",
+      "privacy": "Privacy Policy",
+      "terms": "Terms & Conditions",
+      "notice": "Legal Notice",
+      "cookies": "Cookie Policy"
     }
   }
 }

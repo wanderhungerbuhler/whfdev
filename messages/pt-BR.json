@@ -163,7 +163,13 @@
     "footer": {
       "tagline": "Estúdio independente. Construindo produtos digitais desde 2011.",
       "rights": "Todos os direitos reservados.",
-      "company": "WHFDEV Tech Consulting"
+      "company": "WHFDEV Tech Consulting",
+      "navTitle": "Navegação",
+      "legalTitle": "Legal",
+      "privacy": "Política de Privacidade",
+      "terms": "Termos e Condições",
+      "notice": "Aviso Legal",
+      "cookies": "Política de Cookies"
     }
   }
 }

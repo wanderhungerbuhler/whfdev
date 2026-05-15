@@ -2,13 +2,29 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import LogoMark from '@/assets/logo-mark.svg'
 
 export function Footer() {
   const t = useTranslations('Index.footer')
+  const nav = useTranslations('Index.nav')
+  const locale = useLocale()
   const year = new Date().getFullYear()
+
+  const navLinks = [
+    { href: `/${locale}#work`, label: nav('work') },
+    { href: `/${locale}#services`, label: nav('services') },
+    { href: `/${locale}#process`, label: nav('process') },
+    { href: `/${locale}/blog`, label: nav('blog') },
+  ]
+
+  const legalLinks = [
+    { href: `/${locale}/legal/privacy`, label: t('privacy') },
+    { href: `/${locale}/legal/terms`, label: t('terms') },
+    { href: `/${locale}/legal/notice`, label: t('notice') },
+    { href: `/${locale}/legal/cookies`, label: t('cookies') },
+  ]
 
   return (
     <footer className="relative overflow-hidden">
@@ -26,41 +42,32 @@ export function Footer() {
 
         <div className="flex flex-col gap-3">
           <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-dim">
-            Navegação
+            {t('navTitle')}
           </span>
-          <Link href="#work" className="text-sm text-ink-soft hover:text-ink">
-            Trabalho
-          </Link>
-          <Link
-            href="#services"
-            className="text-sm text-ink-soft hover:text-ink"
-          >
-            Serviços
-          </Link>
-          <Link
-            href="#process"
-            className="text-sm text-ink-soft hover:text-ink"
-          >
-            Processo
-          </Link>
-          <Link
-            href="#contact"
-            className="text-sm text-ink-soft hover:text-ink"
-          >
-            Contato
-          </Link>
+          {navLinks.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="text-sm text-ink-soft hover:text-ink"
+            >
+              {l.label}
+            </Link>
+          ))}
         </div>
 
         <div className="flex flex-col gap-3">
           <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink-dim">
-            Contato
+            {t('legalTitle')}
           </span>
-          <Link
-            href="mailto:talkto@whfdev.com"
-            className="text-sm text-ink-soft hover:text-ink"
-          >
-            talkto@whfdev.com
-          </Link>
+          {legalLinks.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="text-sm text-ink-soft hover:text-ink"
+            >
+              {l.label}
+            </Link>
+          ))}
         </div>
       </div>
 

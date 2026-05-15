@@ -48,5 +48,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   )
 
-  return [...homes, ...blogs, ...posts]
+  const LEGAL_SLUGS = ['privacy', 'terms', 'notice', 'cookies'] as const
+  const legal: MetadataRoute.Sitemap = LOCALES.flatMap((locale) =>
+    LEGAL_SLUGS.map((slug) => ({
+      url: `${SITE_URL}/${locale}/legal/${slug}`,
+      lastModified: now,
+      changeFrequency: 'yearly' as const,
+      priority: 0.3,
+      alternates: {
+        languages: Object.fromEntries(
+          LOCALES.map((l) => [l, `${SITE_URL}/${l}/legal/${slug}`]),
+        ),
+      },
+    })),
+  )
+
+  return [...homes, ...blogs, ...posts, ...legal]
 }
