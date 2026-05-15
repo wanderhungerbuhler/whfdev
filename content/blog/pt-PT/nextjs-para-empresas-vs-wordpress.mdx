@@ -9,7 +9,7 @@ alternates:
   fr: nextjs-vs-wordpress-pour-entreprises
 ---
 
-A pergunta volta toda semana: **"vale a pena migrar do WordPress para Next.js?"** A resposta curta é "depende do que precisa". A resposta útil é perceber os trade-offs reais e decidir com dados, não com hype.
+A pergunta volta todas as semanas: **"vale a pena migrar do WordPress para Next.js?"** A resposta curta é "depende do que precisa". A resposta útil é perceber os trade-offs reais e decidir com dados, não com hype.
 
 Este artigo compara nas frentes que importam: performance, SEO, custo, segurança e contratação de developers. Sem religião.
 
@@ -30,7 +30,7 @@ Este artigo compara nas frentes que importam: performance, SEO, custo, seguranç
 Migre para Next.js quando:
 
 - **Performance importa para o negócio.** Se vende online ou compete por SEO, cada 100ms de LCP = 1-2% de conversão. WordPress raramente entrega menos de 2s sem investimento pesado em otimização.
-- **Precisa de funcionalidade dinâmica.** Calculadoras, formulários multi-step, integrações com APIs, dashboard com login — WordPress vira gambiarra. Next.js é nativo nisto.
+- **Precisa de funcionalidade dinâmica.** Calculadoras, formulários multi-step, integrações com APIs, dashboard com login — WordPress torna-se uma improvisação. Next.js é nativo nisto.
 - **A sua equipa tem (ou consegue contratar) developer.** Mercado de developer React/Next.js é enorme. Mercado de bom developer WordPress encolheu.
 - **Quer Core Web Vitals impecáveis.** O Google penaliza sites lentos desde 2021. Next.js + Vercel entrega 95-100 no Lighthouse sem esforço.
 - **Segurança é crítica.** Site institucional de empresa B2B, governo, financeiro. Plugins WordPress são vetor recorrente de invasão.
@@ -39,9 +39,9 @@ Migre para Next.js quando:
 
 Sou suspeito (construo em [Next.js](/pt-PT)), mas WordPress ainda é certo quando:
 
-- **Conteúdo muda diariamente e editores não-técnicos publicam.** Blog de notícias, revista, magazine. WordPress nasceu para isto e é imbatível.
+- **Conteúdo muda diariamente e editores não-técnicos publicam.** Blog de notícias, revista. WordPress nasceu para isto e é imbatível.
 - **Orçamento é €1-3k total.** WordPress + tema bom + dev freelancer entrega site institucional decente. Next.js vai custar 3-5x mais nessa faixa.
-- **Precisa de loja virtual barata e simples.** WooCommerce + tema cobra menos para começar do que Next.js + Stripe + tudo personalizado.
+- **Precisa de loja online barata e simples.** WooCommerce + tema sai mais barato no início do que Next.js + Stripe + tudo personalizado.
 - **Quer parar de pagar developer após o lançamento.** WordPress + cliente a editar diretamente = manutenção quase zero. Next.js precisa de developer para mudanças estruturais.
 
 ## O custo real da migração
@@ -50,7 +50,7 @@ Não é só o preço da nova build. Some:
 
 - **Migração de conteúdo.** WordPress → Next.js precisa de export, parse, reformat. Para 200 páginas: 20-40 horas.
 - **301 redirects.** Cada URL antigo precisa apontar para o novo. Esquecer isto = perder 30-60% de tráfego orgânico nos primeiros 90 dias.
-- **Headless CMS (se editores precisam).** Sanity, Contentful, Payload — €0-200/mês.
+- **Headless CMS (se os editores precisarem).** Sanity, Contentful, Payload — €0-200/mês.
 - **Formação da equipa.** 2-4 horas para editores aprenderem o novo fluxo.
 
 Soma realista para um site institucional de 50 páginas: **€5-12k de build + 1-3 semanas de migração**.
@@ -69,7 +69,7 @@ Truque para reduzir risco: faça a migração técnica e mantenha URLs idêntico
 
 **Site institucional + landing pages:** Next.js + Sanity ou Payload. Sem dúvida.
 
-**Blog/magazine de notícias:** WordPress, a não ser que tenha equipa de developers dedicada.
+**Blog/revista de notícias:** WordPress, a não ser que tenha equipa de developers dedicada.
 
 **E-commerce até €200k ARR:** Shopify ou WooCommerce. Acima disso, vale Next.js + Shopify Hydrogen ou Medusa.
 

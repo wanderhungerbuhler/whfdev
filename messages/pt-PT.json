@@ -11,13 +11,13 @@
     "blog": {
       "eyebrow": "BLOG · WHFDEV",
       "title": "Conteúdo prático sobre produto digital.",
-      "lede": "Análises, decisões técnicas e custos reais — escrito por quem constrói. Foco em quem está a pensar contratar uma agência ou estruturar uma equipa interna.",
+      "lede": "Análises, decisões técnicas e custos reais — escrito por quem constrói. Para quem está a pensar em contratar uma agência ou estruturar uma equipa interna.",
       "empty": "Em breve, novos artigos.",
       "read": "Ler artigo",
       "back": "Voltar ao blog",
       "minRead": "min de leitura",
       "ctaTitle": "Quer conversar sobre o seu projeto?",
-      "ctaLede": "Resposta em até 24h úteis. Briefing direto, sem rodeios.",
+      "ctaLede": "Resposta em até 24h úteis. Briefing objetivo, sem rodeios.",
       "ctaButton": "Iniciar uma conversa"
     },
     "hero": {
@@ -63,7 +63,7 @@
         },
         "web": {
           "title": "Web apps & SaaS",
-          "desc": "Plataformas web escaláveis. Auth, billing, multitenancy — a fundação para o seu negócio digital."
+          "desc": "Plataformas web escaláveis. Auth, billing, multitenancy — a base para o seu negócio digital."
         },
         "ecommerce": {
           "title": "E-commerce",
@@ -71,7 +71,7 @@
         },
         "consult": {
           "title": "Consultoria técnica",
-          "desc": "Auditoria de produto, due diligence, mentoria de equipa e arquitetura. Trazemos quilometragem para o seu caminho."
+          "desc": "Auditoria de produto, due diligence, mentoria de equipa e arquitetura. Trazemos rodagem para o seu caminho."
         }
       }
     },
@@ -120,9 +120,9 @@
       "title": "Conte-nos o que precisa.",
       "lede": "Resposta em até 24h úteis. Sem promessas vazias — se o seu projeto não for o nosso melhor caso, indicamos quem o fará melhor.",
       "name": "Nome",
-      "namePh": "Como o podemos tratar",
+      "namePh": "Como prefere ser tratado",
       "email": "E-mail",
-      "emailPh": "voce@empresa.com",
+      "emailPh": "nome@empresa.com",
       "company": "Empresa",
       "companyPh": "Nome da empresa (opcional)",
       "type": "O que precisa construir",

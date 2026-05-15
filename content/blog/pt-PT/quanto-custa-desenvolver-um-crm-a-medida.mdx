@@ -30,7 +30,7 @@ Estes números vêm de projetos entregues nos últimos 36 meses, ajustados à in
 Cada um destes itens, por si só, pode adicionar **20% a 50%** ao âmbito:
 
 1. **Integrações com sistemas legados.** ERP da empresa em Visual Basic dos anos 2000? Vai precisar de um middleware. Some €3-8k.
-2. **Migração de dados.** "Temos uma folha de Excel com 12 anos de histórico" significa scripts de ETL, limpeza, validação. Comum subir €2-6k.
+2. **Migração de dados.** "Temos uma folha de Excel com 12 anos de histórico" significa scripts de ETL, limpeza, validação. Costuma subir €2-6k.
 3. **Conformidade (GDPR/RGPD).** No básico é tranquilo, mas se lida com dados sensíveis (saúde, financeiro) o custo de auditoria, logging e cifragem dispara.
 4. **Multi-tenancy real.** "Também quero vender isto a outros clientes como SaaS depois." Decisão arquitetural enorme — fica MUITO mais barato se feita desde o primeiro commit.
 5. **Mobile nativo.** Não confundir com responsivo. App iOS + Android à medida adiciona €12-30k.
@@ -51,7 +51,7 @@ Se a sua operação cabe num HubSpot Starter (€45/mês), não construa. Se cab
 Algumas decisões que cortam orçamento sem o prejudicar lá mais à frente:
 
 - **Comece pelo funil mais doloroso, não pelo mais completo.** Cinco campos bem feitos em produção valem mais do que 50 num mockup.
-- **Use stack moderna por defeito** ([Next.js](/pt-PT), Prisma, Postgres, Vercel). Acelera entrega, reduz custo de manutenção, facilita contratar developer depois.
+- **Use stack moderna por defeito** ([Next.js](/pt-PT), Prisma, Postgres, Vercel). Acelera a entrega, reduz o custo de manutenção, facilita contratar developer mais tarde.
 - **Não construa autenticação de raiz.** Auth.js, Clerk ou WorkOS resolvem em horas o que custaria semanas.
 - **Não construa o BI.** Incorpore Metabase, Hex ou Grafana e foque no seu diferencial.
 - **Negoceie âmbito, não preço.** Cortar 20% do prazo cortando funcionalidades é mais saudável do que negociar 20% de desconto e empobrecer a entrega.
