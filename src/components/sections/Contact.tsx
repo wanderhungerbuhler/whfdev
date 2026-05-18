@@ -89,10 +89,10 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden border-b border-rule-soft py-28"
+      className="relative overflow-hidden border-b border-rule-soft py-20 sm:py-28"
     >
       <div className="hero-mesh pointer-events-none absolute inset-x-0 top-0 -z-10 h-1/2 opacity-50" />
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 lg:grid-cols-[1fr_1.2fr]">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 sm:gap-12 sm:px-6 lg:grid-cols-[1fr_1.2fr]">
         <Reveal>
           <SectionHeader
             eyebrow={t('eyebrow')}
@@ -104,7 +104,7 @@ export function Contact() {
         <Reveal delay={0.1} direction="up" as="div">
           <form
           onSubmit={handleSubmit}
-          className="card-gradient flex flex-col gap-6 p-6 sm:p-8"
+          className="card-gradient flex flex-col gap-5 p-5 sm:gap-6 sm:p-8"
         >
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field label={t('name')} htmlFor="name" required>

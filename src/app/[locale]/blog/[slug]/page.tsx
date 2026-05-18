@@ -82,18 +82,18 @@ export default async function BlogPost({ params: { locale, slug } }: Props) {
     <>
       <Nav />
       <main className="bg-canvas">
-        <article className="border-b border-rule-soft pt-32">
-          <div className="mx-auto max-w-3xl px-6 pb-10">
+        <article className="border-b border-rule-soft pt-24 sm:pt-32">
+          <div className="mx-auto max-w-3xl px-4 pb-10 sm:px-6">
             <Link
               href={`/${locale}/blog`}
-              className="font-mono text-[11px] uppercase tracking-[0.22em] text-coral hover:text-coral-soft"
+              className="font-mono text-[10px] uppercase tracking-[0.2em] text-coral hover:text-coral-soft sm:text-[11px] sm:tracking-[0.22em]"
             >
               ← {t('back')}
             </Link>
-            <h1 className="mt-6 text-balance text-4xl font-semibold tracking-tighter2 sm:text-5xl">
+            <h1 className="mt-6 text-balance text-3xl font-semibold tracking-tighter2 sm:text-5xl">
               {post.title}
             </h1>
-            <p className="mt-4 text-pretty text-base text-ink-muted">
+            <p className="mt-4 text-pretty text-sm text-ink-muted sm:text-base">
               {post.description}
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-dim">
@@ -113,12 +113,12 @@ export default async function BlogPost({ params: { locale, slug } }: Props) {
             </div>
           </div>
 
-          <div className="mx-auto max-w-3xl px-6 pb-24">
-            <div className="prose prose-invert max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-h2:mt-12 prose-h2:text-2xl prose-h3:text-xl prose-p:text-ink-soft prose-a:text-coral prose-a:no-underline hover:prose-a:underline prose-strong:text-ink prose-code:rounded prose-code:bg-canvas-elev prose-code:px-1.5 prose-code:py-0.5 prose-code:text-ink prose-code:before:content-none prose-code:after:content-none prose-pre:rounded-lg prose-pre:border prose-pre:border-rule-soft prose-pre:bg-canvas-elev prose-ol:text-ink-soft prose-ul:text-ink-soft prose-li:marker:text-coral prose-blockquote:border-l-coral prose-blockquote:text-ink-muted">
+          <div className="mx-auto max-w-3xl px-4 pb-20 sm:px-6 sm:pb-24">
+            <div className="prose prose-sm prose-invert max-w-none break-words prose-headings:font-semibold prose-headings:tracking-tight prose-h2:mt-10 prose-h2:text-xl prose-h3:text-lg prose-p:text-ink-soft prose-a:text-coral prose-a:no-underline hover:prose-a:underline prose-strong:text-ink prose-code:rounded prose-code:bg-canvas-elev prose-code:px-1.5 prose-code:py-0.5 prose-code:text-ink prose-code:before:content-none prose-code:after:content-none prose-pre:overflow-x-auto prose-pre:rounded-lg prose-pre:border prose-pre:border-rule-soft prose-pre:bg-canvas-elev prose-ol:text-ink-soft prose-ul:text-ink-soft prose-li:marker:text-coral prose-blockquote:border-l-coral prose-blockquote:text-ink-muted sm:prose-base sm:prose-h2:mt-12 sm:prose-h2:text-2xl sm:prose-h3:text-xl">
               <MDXRemote source={post.content} />
             </div>
 
-            <div className="mt-16 rounded-lg border border-coral/30 bg-coral/10 p-6">
+            <div className="mt-12 rounded-lg border border-coral/30 bg-coral/10 p-5 sm:mt-16 sm:p-6">
               <h3 className="text-lg font-semibold text-ink">{t('ctaTitle')}</h3>
               <p className="mt-2 text-sm text-ink-soft">{t('ctaLede')}</p>
               <Link

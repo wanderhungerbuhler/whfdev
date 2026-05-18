@@ -42,22 +42,22 @@ export default async function BlogIndex({ params: { locale } }: Props) {
     <>
       <Nav />
       <main className="bg-canvas">
-        <section className="border-b border-rule-soft pt-32">
-          <div className="mx-auto max-w-4xl px-6 pb-16">
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-coral">
+        <section className="border-b border-rule-soft pt-24 sm:pt-32">
+          <div className="mx-auto max-w-4xl px-4 pb-12 sm:px-6 sm:pb-16">
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-coral sm:text-[11px] sm:tracking-[0.22em]">
               {t('eyebrow')}
             </p>
-            <h1 className="mt-3 text-balance text-4xl font-semibold tracking-tighter2 sm:text-5xl">
+            <h1 className="mt-3 text-balance text-3xl font-semibold tracking-tighter2 sm:text-5xl">
               {t('title')}
             </h1>
-            <p className="mt-4 max-w-2xl text-pretty text-base text-ink-muted">
+            <p className="mt-4 max-w-2xl text-pretty text-sm text-ink-muted sm:text-base">
               {t('lede')}
             </p>
           </div>
         </section>
 
-        <section className="border-b border-rule-soft py-16">
-          <div className="mx-auto max-w-4xl px-6">
+        <section className="border-b border-rule-soft py-12 sm:py-16">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6">
             {posts.length === 0 ? (
               <p className="text-ink-muted">{t('empty')}</p>
             ) : (
@@ -66,7 +66,7 @@ export default async function BlogIndex({ params: { locale } }: Props) {
                   <li key={p.slug}>
                     <Link
                       href={`/${locale}/blog/${p.slug}`}
-                      className="card-gradient group flex flex-col gap-3 p-6 transition hover:bg-canvas-card"
+                      className="card-gradient group flex flex-col gap-3 p-5 transition hover:bg-canvas-card sm:p-6"
                     >
                       <div className="flex flex-wrap items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-dim">
                         <time dateTime={p.date}>
@@ -83,7 +83,7 @@ export default async function BlogIndex({ params: { locale } }: Props) {
                           </>
                         )}
                       </div>
-                      <h2 className="text-2xl font-semibold tracking-tight text-ink transition group-hover:text-coral">
+                      <h2 className="text-xl font-semibold tracking-tight text-ink transition group-hover:text-coral sm:text-2xl">
                         {p.title}
                       </h2>
                       <p className="text-sm leading-relaxed text-ink-muted">

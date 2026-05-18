@@ -13,8 +13,8 @@ export function Process() {
   const steps = ['discovery', 'design', 'build', 'ship', 'grow'] as const
 
   return (
-    <section id="process" className="border-b border-rule-soft py-28">
-      <div className="mx-auto max-w-6xl px-6">
+    <section id="process" className="border-b border-rule-soft py-20 sm:py-28">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal>
           <SectionHeader
             eyebrow={t('eyebrow')}
@@ -23,13 +23,13 @@ export function Process() {
           />
         </Reveal>
 
-        <ol className="relative grid grid-cols-1 gap-3 md:grid-cols-5">
+        <ol className="relative grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {steps.map((key, idx) => (
             <Reveal
               key={key}
               as="li"
               delay={idx * 0.07}
-              className="card-gradient group relative flex flex-col gap-4 p-6"
+              className="card-gradient group relative flex flex-col gap-3 p-5 sm:gap-4 sm:p-6"
             >
               <div className="flex items-center justify-between">
                 <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-coral">

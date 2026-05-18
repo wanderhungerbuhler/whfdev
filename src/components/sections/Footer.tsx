@@ -29,8 +29,8 @@ export function Footer() {
   return (
     <footer className="relative overflow-hidden">
       <div className="beam-top absolute inset-x-0 top-0 h-px" />
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-6 py-16 md:grid-cols-[1.4fr_1fr_1fr]">
-        <div className="flex flex-col gap-4">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 py-12 sm:grid-cols-2 sm:gap-10 sm:px-6 sm:py-16 md:grid-cols-[1.4fr_1fr_1fr]">
+        <div className="flex flex-col gap-4 sm:col-span-2 md:col-span-1">
           <div className="flex items-center gap-3">
             <Image src={LogoMark} alt="WHFDEV" width={28} height={28} />
             <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-muted">
@@ -72,7 +72,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-rule-soft">
-        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-2 px-6 py-6 text-xs text-ink-dim sm:flex-row sm:items-center">
+        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-2 px-4 py-6 text-xs text-ink-dim sm:flex-row sm:items-center sm:px-6">
           <p>
             © {year} {t('company')}
           </p>

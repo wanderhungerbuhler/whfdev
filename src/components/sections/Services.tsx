@@ -33,8 +33,8 @@ export function Services() {
   ]
 
   return (
-    <section id="services" className="border-b border-rule-soft py-28">
-      <div className="mx-auto max-w-6xl px-6">
+    <section id="services" className="border-b border-rule-soft py-20 sm:py-28">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal>
           <SectionHeader
             eyebrow={t('eyebrow')}
@@ -49,7 +49,7 @@ export function Services() {
               key={key}
               as="article"
               delay={idx * 0.05}
-              className="card-gradient group relative flex h-full flex-col gap-3 p-6 transition hover:bg-canvas-card"
+              className="card-gradient group relative flex h-full flex-col gap-3 p-5 transition hover:bg-canvas-card sm:p-6"
             >
               <div className="flex items-center justify-between">
                 <span className="grid h-10 w-10 place-items-center rounded-md border border-rule-soft bg-canvas-card text-coral transition group-hover:text-coral-soft">

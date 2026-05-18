@@ -94,7 +94,7 @@ function CaseCard({ c }: { c: Case }) {
       rel="noreferrer"
       className="card-gradient group relative flex flex-col overflow-hidden transition hover:bg-canvas-card"
     >
-      <div className="relative h-56 w-full overflow-hidden border-b border-rule-soft">
+      <div className="relative h-44 w-full overflow-hidden border-b border-rule-soft sm:h-56">
         <div
           className={`absolute inset-0 -z-10 bg-gradient-to-br ${c.gradient} opacity-90`}
         />
@@ -122,7 +122,7 @@ function CaseCard({ c }: { c: Case }) {
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-canvas-elev/80 via-transparent to-transparent" />
         )}
       </div>
-      <div className="flex flex-1 flex-col gap-2 p-5">
+      <div className="flex flex-1 flex-col gap-2 p-4 sm:p-5">
         <div className="flex items-start justify-between gap-2">
           <h3 className="text-lg font-semibold tracking-tight">{c.title}</h3>
           <IconArrowUpRight
@@ -143,8 +143,8 @@ export function Work() {
   const t = useTranslations('Index.work')
 
   return (
-    <section id="work" className="relative border-b border-rule-soft py-28">
-      <div className="mx-auto max-w-6xl px-6">
+    <section id="work" className="relative border-b border-rule-soft py-20 sm:py-28">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal>
           <SectionHeader
             eyebrow={t('eyebrow')}
@@ -154,7 +154,7 @@ export function Work() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
             {featured.map((c) => (
               <CaseCard key={c.title} c={c} />
             ))}
@@ -172,7 +172,7 @@ export function Work() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
             {selected.map((c) => (
               <CaseCard key={c.title} c={c} />
             ))}
@@ -195,13 +195,13 @@ export function Work() {
               <li
                 key={b.alt}
                 title={b.alt}
-                className="card-gradient flex h-28 items-center justify-center p-4 transition hover:bg-canvas-card sm:h-32"
+                className="card-gradient flex h-24 items-center justify-center p-3 transition hover:bg-canvas-card sm:h-32 sm:p-4"
               >
                 <Image
                   src={b.src}
                   alt={b.alt}
                   quality={100}
-                  className="max-h-16 w-auto max-w-full object-contain opacity-70 grayscale transition hover:opacity-100 hover:grayscale-0 sm:max-h-20"
+                  className="max-h-12 w-auto max-w-full object-contain opacity-70 grayscale transition hover:opacity-100 hover:grayscale-0 sm:max-h-20"
                 />
               </li>
             ))}

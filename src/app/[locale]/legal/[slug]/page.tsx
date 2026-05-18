@@ -58,12 +58,12 @@ export default function LegalPage({ params: { locale, slug } }: Props) {
     <>
       <Nav />
       <main className="bg-canvas">
-        <article className="border-b border-rule-soft pt-32">
-          <div className="mx-auto max-w-3xl px-6 pb-10">
-            <h1 className="text-balance text-4xl font-semibold tracking-tighter2 sm:text-5xl">
+        <article className="border-b border-rule-soft pt-24 sm:pt-32">
+          <div className="mx-auto max-w-3xl px-4 pb-10 sm:px-6">
+            <h1 className="text-balance text-3xl font-semibold tracking-tighter2 sm:text-5xl">
               {doc.data.title}
             </h1>
-            <p className="mt-4 text-pretty text-base text-ink-muted">
+            <p className="mt-4 text-pretty text-sm text-ink-muted sm:text-base">
               {doc.data.description}
             </p>
             <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-dim">
@@ -71,8 +71,8 @@ export default function LegalPage({ params: { locale, slug } }: Props) {
             </p>
           </div>
 
-          <div className="mx-auto max-w-3xl px-6 pb-24">
-            <div className="prose prose-invert max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-h2:mt-12 prose-h2:text-2xl prose-h3:text-xl prose-p:text-ink-soft prose-a:text-coral prose-a:no-underline hover:prose-a:underline prose-strong:text-ink prose-li:marker:text-coral prose-ol:text-ink-soft prose-ul:text-ink-soft">
+          <div className="mx-auto max-w-3xl px-4 pb-20 sm:px-6 sm:pb-24">
+            <div className="prose prose-sm prose-invert max-w-none break-words prose-headings:font-semibold prose-headings:tracking-tight prose-h2:mt-10 prose-h2:text-xl prose-h3:text-lg prose-p:text-ink-soft prose-a:text-coral prose-a:no-underline hover:prose-a:underline prose-strong:text-ink prose-li:marker:text-coral prose-ol:text-ink-soft prose-ul:text-ink-soft sm:prose-base sm:prose-h2:mt-12 sm:prose-h2:text-2xl sm:prose-h3:text-xl">
               <MDXRemote source={doc.content} />
             </div>
           </div>

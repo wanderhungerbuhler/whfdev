@@ -58,7 +58,7 @@ export function Nav() {
           : 'border-b border-transparent',
       ].join(' ')}
     >
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href={`/${locale}`} className="group flex items-center gap-3">
           <Image src={LogoMark} alt="WHFDEV" width={28} height={28} priority />
           <span className="hidden font-mono text-[10px] uppercase tracking-[0.22em] text-ink-muted sm:block">
@@ -78,7 +78,7 @@ export function Nav() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <LangDropdown
             locale={locale ?? 'pt-BR'}
             onChange={changeLanguage}
@@ -87,7 +87,7 @@ export function Nav() {
 
           <Link
             href="#contact"
-            className="group relative inline-flex h-9 items-center gap-2 rounded-full bg-ink px-4 text-sm font-medium text-canvas transition hover:bg-ink/90"
+            className="group relative inline-flex h-9 items-center gap-2 rounded-full bg-ink px-3 text-xs font-medium text-canvas transition hover:bg-ink/90 sm:px-4 sm:text-sm"
           >
             {t('startProject')}
             <span className="transition-transform group-hover:translate-x-0.5">
@@ -123,7 +123,7 @@ export function Nav() {
 
       {open && (
         <div className="border-t border-rule-soft bg-canvas/95 backdrop-blur-xl md:hidden">
-          <div className="mx-auto flex max-w-6xl flex-col gap-1 px-6 py-4">
+          <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4 sm:px-6">
             {links.map((l) => (
               <Link
                 key={l.href}

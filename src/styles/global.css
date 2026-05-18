@@ -52,6 +52,7 @@
     scroll-behavior: smooth;
     background: hsl(var(--canvas));
     color-scheme: dark;
+    overflow-x: hidden;
   }
   body {
     @apply text-ink;
@@ -59,6 +60,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: 'ss01', 'ss02', 'cv11';
+    overflow-x: hidden;
   }
   ::selection {
     background: hsl(var(--accent) / 0.85);
@@ -212,7 +214,12 @@
     background-image:
       linear-gradient(to right, hsl(0 0% 100% / 0.04) 1px, transparent 1px),
       linear-gradient(to bottom, hsl(0 0% 100% / 0.04) 1px, transparent 1px);
-    background-size: 56px 56px;
+    background-size: 36px 36px;
+  }
+  @media (min-width: 640px) {
+    .bg-grid-pattern {
+      background-size: 56px 56px;
+    }
   }
 
   .mask-fade-y {
