@@ -52,7 +52,6 @@
     scroll-behavior: smooth;
     background: hsl(var(--canvas));
     color-scheme: dark;
-    overflow-x: hidden;
   }
   body {
     @apply text-ink;
@@ -60,7 +59,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: 'ss01', 'ss02', 'cv11';
-    overflow-x: hidden;
   }
   ::selection {
     background: hsl(var(--accent) / 0.85);

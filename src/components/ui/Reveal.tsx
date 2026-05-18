@@ -46,7 +46,7 @@ export function Reveal({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: '-60px 0px' }}
+      viewport={{ once: true, amount: 0.05 }}
       transition={{
         duration,
         delay,
