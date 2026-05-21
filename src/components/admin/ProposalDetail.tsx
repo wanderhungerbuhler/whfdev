@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useMemo, useState } from 'react'
 
 import { type AttachmentDTO,AttachmentsPanel } from './AttachmentsPanel'
+import { RichTextEditor } from './RichTextEditor'
 
 type Send = {
   id: string
@@ -122,6 +123,32 @@ export function ProposalDetail({
 
   const canSend = !!recipient && status !== 'sending'
 
+  const hasBeenSent = history.some((h) => h.status === 'sent')
+  const [deleting, setDeleting] = useState(false)
+
+  async function deleteProposal() {
+    const warning = hasBeenSent
+      ? 'Esta proposta JÁ FOI ENVIADA ao cliente. Apagar vai remover o histórico de envio, anexos e tudo mais — esta ação não pode ser desfeita.\n\nConfirma?'
+      : 'Apagar esta proposta? Os anexos serão removidos permanentemente. Esta ação não pode ser desfeita.'
+    const ok = confirm(warning)
+    if (!ok) return
+    setDeleting(true)
+    try {
+      const res = await fetch(`/api/admin/proposals/${proposalId}`, {
+        method: 'DELETE',
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        alert(data.error ?? 'Falha ao apagar a proposta.')
+        return
+      }
+      router.push('/admin')
+      router.refresh()
+    } finally {
+      setDeleting(false)
+    }
+  }
+
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1.4fr]">
       {/* LEFT */}
@@ -154,18 +181,16 @@ export function ProposalDetail({
               className="rounded-md border border-rule-soft bg-canvas px-3 py-2 text-sm text-ink placeholder:text-ink-dim outline-none focus:border-coral focus:ring-2 focus:ring-coral/30"
             />
           </label>
-          <label className="mb-4 flex flex-col gap-1.5">
+          <div className="mb-4 flex flex-col gap-1.5">
             <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-soft">
               Mensagem
             </span>
-            <textarea
+            <RichTextEditor
               value={body}
-              onChange={(e) => setBody(e.target.value)}
+              onChange={setBody}
               placeholder="Olá [nome], em anexo segue…"
-              rows={8}
-              className="resize-y rounded-md border border-rule-soft bg-canvas px-3 py-2 text-sm text-ink placeholder:text-ink-dim outline-none focus:border-coral focus:ring-2 focus:ring-coral/30"
             />
-          </label>
+          </div>
 
           {sendError && (
             <div className="mb-3 rounded-md border border-red-500/40 bg-red-500/10 px-3 py-2 text-xs text-red-300">
@@ -200,6 +225,18 @@ export function ProposalDetail({
               Todos os anexos abaixo vão junto. Tracking de open/click no
               painel do Resend.
             </p>
+
+            <div className="mt-4 border-t border-rule-soft pt-4">
+              <button
+                type="button"
+                onClick={deleteProposal}
+                disabled={deleting}
+                title="Apagar proposta e todos os anexos"
+                className="w-full rounded-full border border-red-500/40 px-4 py-2 text-xs font-medium text-red-300 transition hover:border-red-500 hover:bg-red-500/10 hover:text-red-200 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                {deleting ? 'Apagando…' : 'Apagar proposta'}
+              </button>
+            </div>
           </div>
         </section>
 

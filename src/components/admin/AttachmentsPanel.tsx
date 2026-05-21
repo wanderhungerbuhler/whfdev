@@ -1,5 +1,14 @@
 'use client'
 
+import {
+  IconArrowDown,
+  IconFile,
+  IconFileTypeDoc,
+  IconFileTypePdf,
+  IconFileTypeXls,
+  IconPhoto,
+  IconX,
+} from '@tabler/icons-react'
 import { useCallback, useRef, useState } from 'react'
 
 export type AttachmentDTO = {
@@ -217,9 +226,7 @@ export function AttachmentsPanel({
                   isSelected ? 'bg-canvas -mx-2 px-2' : ''
                 }`}
               >
-                <span className="text-base">
-                  {iconFor(att.filename, att.mimeType)}
-                </span>
+                <FileIcon filename={att.filename} mimeType={att.mimeType} />
                 <button
                   type="button"
                   onClick={() => onSelect?.(att)}
@@ -236,7 +243,7 @@ export function AttachmentsPanel({
                   className="rounded p-1.5 text-ink-dim transition hover:text-ink"
                   title="Baixar"
                 >
-                  ↓
+                  <IconArrowDown size={16} stroke={1.75} />
                 </a>
                 <button
                   type="button"
@@ -246,7 +253,7 @@ export function AttachmentsPanel({
                   aria-label="Remover"
                   title="Remover"
                 >
-                  ×
+                  <IconX size={16} stroke={1.75} />
                 </button>
               </li>
             )
@@ -257,12 +264,60 @@ export function AttachmentsPanel({
   )
 }
 
-function iconFor(filename: string, mimeType: string): string {
-  if (/^image\//.test(mimeType)) return '🖼️'
-  if (mimeType === 'application/pdf' || /\.pdf$/i.test(filename)) return '📄'
-  if (/\.(docx?|odt)$/i.test(filename)) return '📝'
-  if (/\.(xlsx?|csv|ods)$/i.test(filename)) return '📊'
-  return '📎'
+function FileIcon({
+  filename,
+  mimeType,
+}: {
+  filename: string
+  mimeType: string
+}) {
+  const cls = 'shrink-0'
+  const size = 22
+  const stroke = 1.5
+
+  if (/^image\//.test(mimeType)) {
+    return (
+      <IconPhoto
+        size={size}
+        stroke={stroke}
+        className={`${cls} text-emerald-400`}
+      />
+    )
+  }
+  if (mimeType === 'application/pdf' || /\.pdf$/i.test(filename)) {
+    return (
+      <IconFileTypePdf
+        size={size}
+        stroke={stroke}
+        className={`${cls} text-coral`}
+      />
+    )
+  }
+  if (/\.(docx?|odt)$/i.test(filename)) {
+    return (
+      <IconFileTypeDoc
+        size={size}
+        stroke={stroke}
+        className={`${cls} text-sky-400`}
+      />
+    )
+  }
+  if (/\.(xlsx?|csv|ods)$/i.test(filename)) {
+    return (
+      <IconFileTypeXls
+        size={size}
+        stroke={stroke}
+        className={`${cls} text-emerald-500`}
+      />
+    )
+  }
+  return (
+    <IconFile
+      size={size}
+      stroke={stroke}
+      className={`${cls} text-ink-soft`}
+    />
+  )
 }
 
 function formatBytes(n: number): string {

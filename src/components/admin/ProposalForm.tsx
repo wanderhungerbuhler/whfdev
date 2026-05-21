@@ -3,6 +3,8 @@
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
+import { RichTextEditor } from './RichTextEditor'
+
 type Mode = 'create' | 'edit'
 
 type Props = {
@@ -99,11 +101,10 @@ export function ProposalForm({ mode, proposalId, initial }: Props) {
           />
         </Field>
         <Field label="Mensagem">
-          <Textarea
+          <RichTextEditor
             value={body}
             onChange={setBody}
             placeholder="Olá [nome], em anexo segue a nossa proposta…"
-            rows={10}
           />
         </Field>
       </Section>
@@ -202,24 +203,3 @@ function Input({
   )
 }
 
-function Textarea({
-  value,
-  onChange,
-  placeholder,
-  rows = 3,
-}: {
-  value: string
-  onChange: (v: string) => void
-  placeholder?: string
-  rows?: number
-}) {
-  return (
-    <textarea
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
-      rows={rows}
-      className="w-full resize-y rounded-md border border-rule-soft bg-canvas px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-dim outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/30"
-    />
-  )
-}

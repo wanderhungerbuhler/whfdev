@@ -1,5 +1,7 @@
 import 'server-only'
 
+import DOMPurify from 'isomorphic-dompurify'
+
 type RenderArgs = {
   clientName: string
   subject: string
@@ -68,6 +70,64 @@ Best,
 ${SIGNATURE_LINE}`
 }
 
+const ALLOWED_TAGS = [
+  'p',
+  'br',
+  'strong',
+  'b',
+  'em',
+  'i',
+  'u',
+  's',
+  'ul',
+  'ol',
+  'li',
+  'a',
+  'span',
+]
+const ALLOWED_ATTR = ['href', 'target', 'rel']
+
+function isHtml(s: string): boolean {
+  return /<\/?[a-z][\s\S]*>/i.test(s)
+}
+
+function sanitizeHtml(html: string): string {
+  return DOMPurify.sanitize(html, {
+    ALLOWED_TAGS,
+    ALLOWED_ATTR,
+    ALLOWED_URI_REGEXP: /^(?:https?:|mailto:|tel:)/i,
+  })
+}
+
+/**
+ * Inline a minimal style budget onto the sanitized HTML so the message looks
+ * consistent in Gmail/Apple Mail/Outlook (which strip <style> tags).
+ */
+function inlineStyles(html: string): string {
+  return html
+    .replace(/<p(\s|>)/g, '<p style="margin:0 0 12px 0;"$1')
+    .replace(/<ul(\s|>)/g, '<ul style="margin:0 0 12px 0;padding-left:20px;"$1')
+    .replace(/<ol(\s|>)/g, '<ol style="margin:0 0 12px 0;padding-left:20px;"$1')
+    .replace(/<li(\s|>)/g, '<li style="margin:0 0 4px 0;"$1')
+    .replace(/<a(\s)/g, '<a style="color:#FF4D6D;text-decoration:underline;"$1')
+}
+
+function htmlToPlainText(html: string): string {
+  return html
+    .replace(/<\s*br\s*\/?>/gi, '\n')
+    .replace(/<\/(p|li|ul|ol|div)>/gi, '\n')
+    .replace(/<li[^>]*>/gi, '• ')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\n{3,}/g, '\n\n')
+    .trim()
+}
+
 function formatBytes(n: number): string {
   if (n < 1024) return `${n} B`
   if (n < 1024 * 1024) return `${(n / 1024).toFixed(0)} KB`
@@ -80,7 +140,9 @@ export function renderEmail({
   message,
   attachmentFilenames,
 }: RenderArgs): { html: string; text: string } {
-  const htmlMessage = escapeHtml(message).replace(/\n/g, '<br/>')
+  const htmlMessage = isHtml(message)
+    ? inlineStyles(sanitizeHtml(message))
+    : escapeHtml(message).replace(/\n/g, '<br/>')
 
   const html = `<!doctype html>
 <html>
@@ -124,10 +186,7 @@ export function renderEmail({
           <!-- Body -->
           <tr>
             <td style="padding:32px 32px 24px 32px;">
-              <p style="margin:0 0 6px 0;font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#6E6E73;">
-                ${escapeHtml(subject)}
-              </p>
-              <div style="font-size:14px;line-height:1.65;color:#3B3B3F;margin-top:16px;">
+              <div style="font-size:14px;line-height:1.65;color:#3B3B3F;">
                 ${htmlMessage}
               </div>
             </td>
@@ -152,7 +211,8 @@ export function renderEmail({
   // Plain-text fallback (some clients render this instead of HTML).
   // Mantemos a lista de anexos aqui pra que o cliente sem suporte a HTML
   // ainda saiba o que veio anexado. Em HTML não aparece (o email client mostra nativamente).
-  const text = `${message}
+  const plainMessage = isHtml(message) ? htmlToPlainText(message) : message
+  const text = `${plainMessage}
 ${
   attachmentFilenames.length > 0
     ? `\nAnexos:\n${attachmentFilenames.map((f) => `  • ${f}`).join('\n')}\n`
