@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { type AttachmentDTO,AttachmentsPanel } from './AttachmentsPanel'
 import { RichTextEditor } from './RichTextEditor'
@@ -55,12 +55,35 @@ export function ProposalDetail({
   const [sendOk, setSendOk] = useState<string | null>(null)
   const [previewBust, setPreviewBust] = useState(0)
 
-  const emailSrc = useMemo(() => {
-    const q = new URLSearchParams()
-    if (subject) q.set('subject', subject)
-    if (body) q.set('message', body)
-    q.set('v', String(previewBust))
-    return `/api/admin/proposals/${proposalId}/email-preview?${q.toString()}`
+  const [emailHtml, setEmailHtml] = useState<string>('')
+  const [emailLoading, setEmailLoading] = useState(false)
+
+  useEffect(() => {
+    let cancelled = false
+    const handle = setTimeout(async () => {
+      setEmailLoading(true)
+      try {
+        const res = await fetch(
+          `/api/admin/proposals/${proposalId}/email-preview`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              subject: subject || null,
+              message: body || null,
+            }),
+          },
+        )
+        const html = await res.text()
+        if (!cancelled) setEmailHtml(html)
+      } finally {
+        if (!cancelled) setEmailLoading(false)
+      }
+    }, 250)
+    return () => {
+      cancelled = true
+      clearTimeout(handle)
+    }
   }, [proposalId, subject, body, previewBust])
 
   const selectedAtt = useMemo(
@@ -358,12 +381,17 @@ export function ProposalDetail({
 
         <div className="aspect-[1/1.35] w-full overflow-hidden rounded-2xl border border-rule-soft bg-canvas-elev">
           {previewKind === 'email' ? (
-            <iframe
-              key={emailSrc}
-              src={emailSrc}
-              title="E-mail preview"
-              className="h-full w-full bg-white"
-            />
+            emailHtml ? (
+              <iframe
+                srcDoc={emailHtml}
+                title="E-mail preview"
+                className="h-full w-full bg-white"
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center bg-white text-xs text-ink-muted">
+                {emailLoading ? 'Carregando preview…' : 'Sem preview.'}
+              </div>
+            )
           ) : selectedAtt ? (
             <AttachmentPreview
               proposalId={proposalId}

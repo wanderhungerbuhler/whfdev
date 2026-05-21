@@ -10,31 +10,28 @@ export const runtime = 'nodejs'
 
 type Ctx = { params: { id: string } }
 
-export async function GET(req: Request, { params }: Ctx) {
-  const guard = await requireAdmin()
-  if (!guard.ok) return guard.response
-
-  const url = new URL(req.url)
-  const subjectQ = url.searchParams.get('subject')
-  const messageQ = url.searchParams.get('message')
-
+async function render(
+  proposalId: string,
+  subjectInput: string | null | undefined,
+  messageInput: string | null | undefined,
+): Promise<Response> {
   const [row] = await db
     .select()
     .from(proposals)
-    .where(eq(proposals.id, params.id))
+    .where(eq(proposals.id, proposalId))
     .limit(1)
   if (!row) return NextResponse.json({ error: 'not found' }, { status: 404 })
 
   const atts = await db
     .select({ filename: attachments.filename })
     .from(attachments)
-    .where(eq(attachments.proposalId, params.id))
+    .where(eq(attachments.proposalId, proposalId))
     .orderBy(asc(attachments.position), asc(attachments.createdAt))
 
   const subject =
-    subjectQ ?? row.emailSubject ?? `Proposta WHFDEV — ${row.clientName}`
+    subjectInput ?? row.emailSubject ?? `Proposta WHFDEV — ${row.clientName}`
   const message =
-    messageQ ?? row.emailBody ?? defaultMessageFor(row.clientName, 'pt-PT')
+    messageInput ?? row.emailBody ?? defaultMessageFor(row.clientName, 'pt-PT')
 
   const { html } = renderEmail({
     clientName: row.clientName,
@@ -49,4 +46,27 @@ export async function GET(req: Request, { params }: Ctx) {
       'Cache-Control': 'no-store',
     },
   })
+}
+
+export async function GET(req: Request, { params }: Ctx) {
+  const guard = await requireAdmin()
+  if (!guard.ok) return guard.response
+
+  const url = new URL(req.url)
+  return render(
+    params.id,
+    url.searchParams.get('subject'),
+    url.searchParams.get('message'),
+  )
+}
+
+export async function POST(req: Request, { params }: Ctx) {
+  const guard = await requireAdmin()
+  if (!guard.ok) return guard.response
+
+  const body = (await req.json().catch(() => ({}))) as {
+    subject?: string | null
+    message?: string | null
+  }
+  return render(params.id, body.subject, body.message)
 }
