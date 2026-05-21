@@ -35,12 +35,37 @@ export function ProposalDetail({
   emailBody: initialBody,
   status,
   attachments: initialAttachments,
-  history,
+  history: initialHistory,
 }: Props) {
   const router = useRouter()
 
   const [attachments, setAttachments] =
     useState<AttachmentDTO[]>(initialAttachments)
+  const [history, setHistory] = useState<Send[]>(initialHistory)
+  const [deletingSendId, setDeletingSendId] = useState<string | null>(null)
+
+  async function deleteSend(sendId: string) {
+    const ok = confirm(
+      'Apagar este envio do histórico? Esta ação não pode ser desfeita.',
+    )
+    if (!ok) return
+    setDeletingSendId(sendId)
+    try {
+      const res = await fetch(
+        `/api/admin/proposals/${proposalId}/sends/${sendId}`,
+        { method: 'DELETE' },
+      )
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        alert(data.error ?? 'Falha ao apagar envio.')
+        return
+      }
+      setHistory((cur) => cur.filter((h) => h.id !== sendId))
+      router.refresh()
+    } finally {
+      setDeletingSendId(null)
+    }
+  }
   const [previewKind, setPreviewKind] = useState<PreviewKind>('email')
   const [selectedAttId, setSelectedAttId] = useState<string | null>(
     initialAttachments[0]?.id ?? null,
@@ -292,26 +317,64 @@ export function ProposalDetail({
 
         {/* Histórico */}
         <section className="rounded-2xl border border-rule-soft bg-canvas-elev p-5">
-          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.18em] text-coral">
-            Histórico
-          </p>
+          <div className="mb-3 flex items-center justify-between gap-2">
+            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-coral">
+              Histórico
+            </p>
+            {history.length > 0 && (
+              <button
+                type="button"
+                onClick={async () => {
+                  if (!confirm('Apagar TODOS os envios do histórico?')) return
+                  for (const h of history) {
+                    await fetch(
+                      `/api/admin/proposals/${proposalId}/sends/${h.id}`,
+                      { method: 'DELETE' },
+                    )
+                  }
+                  setHistory([])
+                  router.refresh()
+                }}
+                className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-muted transition hover:text-red-300"
+              >
+                Limpar tudo
+              </button>
+            )}
+          </div>
           {history.length === 0 ? (
             <p className="text-sm text-ink-muted">Nenhum envio ainda.</p>
           ) : (
             <ul className="flex flex-col divide-y divide-rule-soft">
               {history.map((h) => (
-                <li key={h.id} className="py-2.5 first:pt-0 last:pb-0">
+                <li
+                  key={h.id}
+                  className={`group py-2.5 first:pt-0 last:pb-0 ${
+                    deletingSendId === h.id ? 'opacity-50' : ''
+                  }`}
+                >
                   <div className="flex items-center justify-between gap-3">
                     <span className="truncate text-sm text-ink">{h.toEmail}</span>
-                    <span
-                      className={`rounded-full border px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.15em] ${
-                        h.status === 'sent'
-                          ? 'border-emerald-500/40 text-emerald-400'
-                          : 'border-red-500/40 text-red-300'
-                      }`}
-                    >
-                      {h.status}
-                    </span>
+                    <div className="flex shrink-0 items-center gap-2">
+                      <span
+                        className={`rounded-full border px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.15em] ${
+                          h.status === 'sent'
+                            ? 'border-emerald-500/40 text-emerald-400'
+                            : 'border-red-500/40 text-red-300'
+                        }`}
+                      >
+                        {h.status}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => deleteSend(h.id)}
+                        disabled={deletingSendId === h.id}
+                        className="rounded p-1 text-ink-dim opacity-0 transition hover:text-red-400 group-hover:opacity-100 disabled:opacity-30"
+                        title="Apagar do histórico"
+                        aria-label="Apagar do histórico"
+                      >
+                        ×
+                      </button>
+                    </div>
                   </div>
                   <p className="mt-0.5 truncate text-xs text-ink-soft">
                     {h.subject}
@@ -342,7 +405,7 @@ export function ProposalDetail({
       </aside>
 
       {/* RIGHT — preview (sticks to viewport while the left column scrolls) */}
-      <main className="flex flex-col gap-3 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:self-start">
+      <main className="flex flex-col gap-3 lg:sticky lg:top-20 lg:min-h-[630px] lg:max-h-[calc(100vh-6rem)] lg:self-start">
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex gap-1 rounded-full border border-rule-soft bg-canvas-elev p-1">
             <TabButton
