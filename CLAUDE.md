@@ -116,7 +116,7 @@ Sobre `@react-pdf/renderer` no projeto: foi instalado mas **não é mais usado**
 
 ### Setup local
 
-1. **Supabase**: criar projeto, copiar connection string (Transaction pooler, porta 6543) e colar em `DATABASE_URL`. Em Settings → API: copiar `Project URL` pra `SUPABASE_URL` e `service_role` key pra `SUPABASE_SERVICE_ROLE_KEY`.
+1. **Supabase**: criar projeto, copiar connection string (Transaction pooler, porta 6543) e colar em `DATABASE_URL`. Em Settings → API: copiar `Project URL` pra `SUPABASE_URL` e `service_role` key pra `SUPABASE_SERVICE_ROLE_KEY`. **Cuidado**: se a senha do banco tiver caracteres especiais (`@`, `:`, `/`, `?`, `#`, `&`, `%`), precisam de URL-encoding (`@` vira `%40`, etc.). Opcionalmente, defina `DIRECT_URL` apontando para a conexão direta (porta 5432) — usado só pelo `drizzle-kit` em migrations locais.
 2. **SQL**: rodar `drizzle/migrations/0001_init.sql` e depois `0002_attachments.sql` no SQL Editor do Supabase.
 2a. **Storage**: Storage → New bucket → nome `proposal-attachments` → marcar **Private** → Save.
 3. **GitHub OAuth**: Settings → Developer settings → OAuth Apps. Cada OAuth App aceita **um único** Callback URL, então crie **duas**:
