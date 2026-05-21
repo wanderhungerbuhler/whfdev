@@ -9,7 +9,7 @@ export default async function NewProposalPage() {
   return (
     <div>
       <div className="mb-8">
-        <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-dim">
+        <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted">
           Painel · Nova
         </p>
         <h1 className="text-3xl font-semibold tracking-tight text-ink">

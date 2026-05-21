@@ -26,7 +26,7 @@ export default async function EditProposalPage({
   return (
     <div>
       <div className="mb-8">
-        <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-dim">
+        <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted">
           <Link href={`/admin/proposals/${row.id}`} className="hover:text-ink">
             ← {row.clientName}
           </Link>{' '}

@@ -3,9 +3,11 @@ import '@/styles/global.css'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
+import { ProfileMenu } from '@/components/admin/ProfileMenu'
 import { auth, signOut } from '@/lib/auth'
 
 export const metadata: Metadata = {
@@ -20,6 +22,12 @@ export default async function AdminLayout({
 }) {
   const session = await auth()
 
+  async function doSignOut() {
+    'use server'
+    await signOut({ redirectTo: '/admin/sign-in' })
+    redirect('/admin/sign-in')
+  }
+
   return (
     <html
       lang="pt-BR"
@@ -28,66 +36,86 @@ export default async function AdminLayout({
       <body className="min-h-screen bg-canvas text-ink antialiased">
         {session?.user ? (
           <>
-            <AdminNav email={session.user.email} />
-            <main className="mx-auto max-w-7xl px-4 py-8 sm:px-8">{children}</main>
+            <AdminNav
+              name={session.user.name}
+              email={session.user.email}
+              image={session.user.image}
+              signOutAction={doSignOut}
+            />
+            <main className="mx-auto max-w-7xl px-4 py-8 sm:px-8">
+              {children}
+            </main>
           </>
         ) : (
-          // Anything under /admin without session bounces to sign-in.
-          // We still render children for /admin/sign-in.
-          <SignInGate>{children}</SignInGate>
+          // Sign-in page renders without nav; protected pages enforce auth
+          // server-side via requireAdminPage and redirect to /admin/sign-in.
+          <>{children}</>
         )}
       </body>
     </html>
   )
 }
 
-function SignInGate({ children }: { children: React.ReactNode }) {
-  // We need a way to allow /admin/sign-in to render. Hack: read the URL via
-  // React's experimental headers? Simplest: always render children; the
-  // sign-in page is a public route, and protected pages call requireSession().
-  return <>{children}</>
-}
-
-async function AdminNav({ email }: { email?: string | null }) {
-  async function doSignOut() {
-    'use server'
-    await signOut({ redirectTo: '/admin/sign-in' })
-    redirect('/admin/sign-in')
-  }
-
+function AdminNav({
+  name,
+  email,
+  image,
+  signOutAction,
+}: {
+  name: string | null | undefined
+  email: string | null | undefined
+  image: string | null | undefined
+  signOutAction: () => Promise<void>
+}) {
   return (
-    <header className="sticky top-0 z-50 border-b border-rule-soft bg-canvas/85 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-8">
-        <div className="flex items-center gap-6">
-          <Link
-            href="/admin"
-            className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.18em] text-ink"
-          >
-            <span className="inline-block h-2 w-2 rounded-full bg-coral" />
-            WHFDEV · Admin
+    <header className="sticky top-0 z-40 border-b border-rule-soft bg-canvas/85 backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-3 sm:px-8">
+        {/* Marca: logo + WHFDEV + TECH CONSULTING (mesmo padrão do e-mail/PDF) */}
+        <Link
+          href="/admin"
+          className="group flex items-center gap-3"
+          aria-label="WHFDEV Admin"
+        >
+          <Image
+            src="/whfdev.png"
+            alt="WHFDEV"
+            width={32}
+            height={32}
+            quality={100}
+            priority
+            className="rounded-lg"
+          />
+          <div className="hidden h-7 w-px bg-rule sm:block" />
+          <div className="hidden flex-col leading-tight sm:flex">
+            <span className="text-sm font-semibold tracking-[-0.01em] text-ink">
+              WHFDEV
+            </span>
+            <span className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-ink-muted">
+              Tech Consulting
+            </span>
+          </div>
+        </Link>
+
+        {/* Nav central */}
+        <nav className="flex flex-1 items-center justify-center gap-6 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-soft">
+          <Link href="/admin" className="transition hover:text-ink">
+            Propostas
           </Link>
-          <nav className="flex gap-4 font-mono text-[11px] uppercase tracking-[0.16em] text-ink-soft">
-            <Link href="/admin" className="hover:text-ink">
-              Propostas
-            </Link>
-            <Link href="/admin/proposals/new" className="hover:text-ink">
-              Nova
-            </Link>
-          </nav>
-        </div>
-        <div className="flex items-center gap-3">
-          <span className="hidden font-mono text-[10px] uppercase tracking-[0.15em] text-ink-dim sm:inline">
-            {email}
-          </span>
-          <form action={doSignOut}>
-            <button
-              type="submit"
-              className="rounded-full border border-rule-soft px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-ink-soft transition hover:border-rule hover:text-ink"
-            >
-              Sign out
-            </button>
-          </form>
-        </div>
+          <Link
+            href="/admin/proposals/new"
+            className="transition hover:text-ink"
+          >
+            Nova
+          </Link>
+        </nav>
+
+        {/* Profile menu */}
+        <ProfileMenu
+          name={name}
+          email={email}
+          image={image}
+          signOutAction={signOutAction}
+        />
       </div>
     </header>
   )

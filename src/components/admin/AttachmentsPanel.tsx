@@ -187,13 +187,13 @@ export function AttachmentsPanel({
         className={`mb-3 cursor-pointer rounded-lg border-2 border-dashed px-4 py-6 text-center text-xs transition ${
           dragOver
             ? 'border-coral bg-coral/5 text-coral'
-            : 'border-rule-soft text-ink-dim hover:border-rule hover:text-ink-soft'
+            : 'border-rule-soft text-ink-muted hover:border-rule hover:text-ink-soft'
         }`}
       >
         {busy
           ? 'Enviando…'
           : 'Arraste arquivos aqui ou clique para selecionar'}
-        <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-dim">
+        <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-muted">
           PDF · imagens · qualquer arquivo até {formatBytes(MAX_PER_FILE)}
         </div>
       </div>
@@ -205,7 +205,7 @@ export function AttachmentsPanel({
       )}
 
       {items.length === 0 ? (
-        <p className="text-xs text-ink-dim">Nenhum anexo ainda.</p>
+        <p className="text-xs text-ink-muted">Nenhum anexo ainda.</p>
       ) : (
         <ul className="flex flex-col divide-y divide-rule-soft">
           {items.map((att) => {
@@ -226,7 +226,7 @@ export function AttachmentsPanel({
                   className="min-w-0 flex-1 text-left"
                 >
                   <p className="truncate text-sm text-ink">{att.filename}</p>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-dim">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-muted">
                     {formatBytes(att.sizeBytes)} · {att.mimeType}
                   </p>
                 </button>

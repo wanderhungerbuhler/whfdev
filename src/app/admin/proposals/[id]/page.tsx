@@ -53,7 +53,7 @@ export default async function ProposalPage({
     <div className="flex flex-col gap-6">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-dim">
+          <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted">
             <Link href="/admin" className="hover:text-ink">
               ← Propostas
             </Link>{' '}
@@ -63,7 +63,7 @@ export default async function ProposalPage({
             {row.clientName}
           </h1>
           {row.clientEmail && (
-            <p className="mt-1 font-mono text-sm text-ink-dim">
+            <p className="mt-1 font-mono text-sm text-ink-muted">
               {row.clientEmail}
             </p>
           )}

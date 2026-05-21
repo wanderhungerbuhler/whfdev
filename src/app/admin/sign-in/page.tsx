@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
 import { auth, signIn } from '@/lib/auth'
@@ -16,15 +17,31 @@ export default async function SignInPage() {
   return (
     <div className="grid min-h-screen place-items-center px-4">
       <div className="w-full max-w-md rounded-2xl border border-rule-soft bg-canvas-elev p-8 text-center">
-        <div className="mx-auto mb-6 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-dim">
-          <span className="inline-block h-2 w-2 rounded-full bg-coral" />
-          WHFDEV · Admin
+        <div className="mx-auto mb-7 flex items-center justify-center gap-3">
+          <Image
+            src="/whfdev.png"
+            alt="WHFDEV"
+            width={40}
+            height={40}
+            quality={100}
+            priority
+            className="rounded-xl"
+          />
+          <div className="h-8 w-px bg-rule" />
+          <div className="flex flex-col items-start leading-tight">
+            <span className="text-base font-semibold tracking-[-0.01em] text-ink">
+              WHFDEV
+            </span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted">
+              Tech Consulting
+            </span>
+          </div>
         </div>
         <h1 className="mb-2 text-2xl font-semibold tracking-tight text-ink">
-          Entrar
+          Entrar no painel
         </h1>
         <p className="mb-8 text-sm text-ink-soft">
-          Acesso restrito. Faça login com o GitHub para gerir propostas.
+          Acesso restrito. Faz login com o GitHub para gerir propostas.
         </p>
         <form action={doGithubSignIn}>
           <button
@@ -37,8 +54,8 @@ export default async function SignInPage() {
             Continuar com GitHub
           </button>
         </form>
-        <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.15em] text-ink-dim">
-          Acesso por allowlist · ADMIN_EMAILS
+        <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
+          Acesso por allowlist
         </p>
       </div>
     </div>

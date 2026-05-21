@@ -87,7 +87,7 @@ export function ProposalForm({ mode, proposalId, initial }: Props) {
       </Section>
 
       <Section eyebrow="02 · E-mail de envio">
-        <p className="mb-4 text-xs text-ink-dim">
+        <p className="mb-4 text-xs text-ink-muted">
           Texto que o cliente vai ler. Os anexos (PDF da proposta, imagens
           extras) você sobe depois de salvar.
         </p>
@@ -109,7 +109,7 @@ export function ProposalForm({ mode, proposalId, initial }: Props) {
       </Section>
 
       <div className="sticky bottom-4 z-10 flex flex-wrap items-center justify-between gap-3 rounded-full border border-rule-soft bg-canvas-elev/90 px-5 py-3 backdrop-blur">
-        <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-ink-dim">
+        <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-ink-muted">
           {proposalId ? `Editando · ${proposalId.slice(0, 8)}` : 'Rascunho local'}
         </p>
         <div className="flex gap-2">
@@ -171,7 +171,7 @@ function Field({
 }) {
   return (
     <label className="flex flex-col gap-1.5">
-      <span className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-ink-muted">
+      <span className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-ink-soft">
         {label}
         {required && <span className="text-coral">*</span>}
       </span>

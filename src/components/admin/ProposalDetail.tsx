@@ -132,7 +132,7 @@ export function ProposalDetail({
             Envio
           </p>
           <label className="mb-3 flex flex-col gap-1.5">
-            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted">
+            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-soft">
               Destinatário
             </span>
             <input
@@ -144,7 +144,7 @@ export function ProposalDetail({
             />
           </label>
           <label className="mb-3 flex flex-col gap-1.5">
-            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted">
+            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-soft">
               Assunto
             </span>
             <input
@@ -155,7 +155,7 @@ export function ProposalDetail({
             />
           </label>
           <label className="mb-4 flex flex-col gap-1.5">
-            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted">
+            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-soft">
               Mensagem
             </span>
             <textarea
@@ -196,7 +196,7 @@ export function ProposalDetail({
                 ? 'Enviando…'
                 : `Enviar para ${recipient || 'destinatário'}`}
             </button>
-            <p className="text-[11px] text-ink-dim">
+            <p className="text-[11px] text-ink-muted">
               Todos os anexos abaixo vão junto. Tracking de open/click no
               painel do Resend.
             </p>
@@ -228,7 +228,7 @@ export function ProposalDetail({
             Histórico
           </p>
           {history.length === 0 ? (
-            <p className="text-sm text-ink-dim">Nenhum envio ainda.</p>
+            <p className="text-sm text-ink-muted">Nenhum envio ainda.</p>
           ) : (
             <ul className="flex flex-col divide-y divide-rule-soft">
               {history.map((h) => (
@@ -249,7 +249,7 @@ export function ProposalDetail({
                     {h.subject}
                   </p>
                   <div className="mt-0.5 flex items-center justify-between gap-2">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-dim">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-muted">
                       {h.sentAt.slice(0, 16).replace('T', ' ')}
                     </p>
                     {h.resendId && (
@@ -385,7 +385,7 @@ function AttachmentPreview({
     <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-canvas p-6 text-center">
       <span className="text-4xl">📎</span>
       <p className="text-sm text-ink">{attachment.filename}</p>
-      <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-ink-dim">
+      <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-ink-muted">
         {attachment.mimeType}
       </p>
       <a
@@ -401,7 +401,7 @@ function AttachmentPreview({
 
 function EmptyPreview() {
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-canvas text-center text-sm text-ink-dim">
+    <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-canvas text-center text-sm text-ink-muted">
       <p>Nenhum anexo selecionado.</p>
       <p className="text-xs">Suba arquivos no painel à esquerda.</p>
     </div>
