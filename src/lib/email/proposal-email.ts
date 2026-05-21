@@ -4,14 +4,18 @@ type RenderArgs = {
   clientName: string
   subject: string
   message: string
-  /** Filenames to show as chips in the email body. */
+  /**
+   * Filenames of attachments — used only in the plain-text fallback so
+   * users on plain-text clients know what was sent. NOT rendered as
+   * visible chips in the HTML (the email client shows attachments natively).
+   */
   attachmentFilenames: string[]
 }
 
-const SIGNATURE_LINE = 'Wander Hungerbühler · WHFDEV'
-const COMPANY_LINE = 'WHFDEV Consultoria em Tecnologia LTDA · CNPJ 46.185.304/0001-71'
+const SIGNATURE_LINE = 'WHFDEV'
 const CONTACT_EMAIL = 'talkto@whfdev.com'
 const SITE = 'https://whfdev.com'
+const LOGO_URL = 'https://whfdev.com/whfdev.png'
 
 function escapeHtml(s: string): string {
   return s
@@ -70,15 +74,6 @@ function formatBytes(n: number): string {
   return `${(n / (1024 * 1024)).toFixed(1)} MB`
 }
 
-function attachmentChip(filename: string): string {
-  const icon = /\.pdf$/i.test(filename)
-    ? '📄'
-    : /\.(png|jpe?g|gif|webp|svg)$/i.test(filename)
-      ? '🖼️'
-      : '📎'
-  return `<span style="display:inline-block;padding:8px 12px;margin:4px 6px 4px 0;border:1px solid #E5E5E7;border-radius:8px;font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:11px;color:#0A0A0B;">${icon} ${escapeHtml(filename)}</span>`
-}
-
 export function renderEmail({
   clientName,
   subject,
@@ -86,11 +81,6 @@ export function renderEmail({
   attachmentFilenames,
 }: RenderArgs): { html: string; text: string } {
   const htmlMessage = escapeHtml(message).replace(/\n/g, '<br/>')
-
-  const chips =
-    attachmentFilenames.length > 0
-      ? `<div style="padding:4px 32px 16px 32px;">${attachmentFilenames.map(attachmentChip).join('')}</div>`
-      : ''
 
   const html = `<!doctype html>
 <html>
@@ -104,15 +94,26 @@ export function renderEmail({
     <tr>
       <td align="center" style="padding:32px 16px;">
         <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="560" style="max-width:560px;background:#FFFFFF;border-radius:16px;overflow:hidden;border:1px solid #EFEFF1;">
+
+          <!-- Brand header: logo + WHFDEV + TECH CONSULTING / Proposta · Cliente -->
           <tr>
-            <td style="background:#0A0A0B;padding:22px 28px;">
+            <td style="background:#0A0A0B;padding:20px 28px;">
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                 <tr>
-                  <td style="color:#FAFAFA;font-size:14px;font-weight:600;letter-spacing:-0.2px;">
-                    <span style="display:inline-block;width:10px;height:10px;background:#FF4D6D;border-radius:50%;vertical-align:middle;margin-right:8px;"></span>
-                    WHFDEV
+                  <td style="vertical-align:middle;">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td style="vertical-align:middle;padding-right:12px;">
+                          <img src="${LOGO_URL}" width="36" height="36" alt="WHFDEV" style="display:block;border-radius:8px;border:0;outline:none;text-decoration:none;" />
+                        </td>
+                        <td style="vertical-align:middle;border-left:1px solid #2F2F33;padding-left:12px;">
+                          <div style="color:#FAFAFA;font-size:14px;font-weight:600;letter-spacing:-0.2px;line-height:1.1;">WHFDEV</div>
+                          <div style="color:#9A9A9A;font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:9px;letter-spacing:1.6px;text-transform:uppercase;margin-top:3px;">TECH CONSULTING</div>
+                        </td>
+                      </tr>
+                    </table>
                   </td>
-                  <td align="right" style="font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;color:#9A9A9A;font-size:10px;letter-spacing:1.6px;text-transform:uppercase;">
+                  <td align="right" style="vertical-align:middle;font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;color:#9A9A9A;font-size:10px;letter-spacing:1.6px;text-transform:uppercase;">
                     Proposta · ${escapeHtml(clientName)}
                   </td>
                 </tr>
@@ -120,8 +121,9 @@ export function renderEmail({
             </td>
           </tr>
 
+          <!-- Body -->
           <tr>
-            <td style="padding:32px 32px 8px 32px;">
+            <td style="padding:32px 32px 24px 32px;">
               <p style="margin:0 0 6px 0;font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#6E6E73;">
                 ${escapeHtml(subject)}
               </p>
@@ -131,15 +133,10 @@ export function renderEmail({
             </td>
           </tr>
 
-          ${chips}
-
+          <!-- Footer: só contato, sem nome pessoal/CNPJ -->
           <tr>
-            <td style="padding:20px 32px 28px 32px;border-top:1px solid #EFEFF1;">
-              <p style="margin:0 0 4px 0;font-size:12px;color:#0A0A0B;font-weight:500;">
-                ${escapeHtml(SIGNATURE_LINE)}
-              </p>
+            <td style="padding:18px 32px 24px 32px;border-top:1px solid #EFEFF1;">
               <p style="margin:0;font-size:11px;color:#6E6E73;line-height:1.5;">
-                ${escapeHtml(COMPANY_LINE)}<br/>
                 <a href="mailto:${CONTACT_EMAIL}" style="color:#FF4D6D;text-decoration:none;">${CONTACT_EMAIL}</a>
                 · <a href="${SITE}" style="color:#FF4D6D;text-decoration:none;">whfdev.com</a>
               </p>
@@ -152,14 +149,16 @@ export function renderEmail({
 </body>
 </html>`
 
+  // Plain-text fallback (some clients render this instead of HTML).
+  // Mantemos a lista de anexos aqui pra que o cliente sem suporte a HTML
+  // ainda saiba o que veio anexado. Em HTML não aparece (o email client mostra nativamente).
   const text = `${message}
-
 ${
   attachmentFilenames.length > 0
-    ? `Anexos:\n${attachmentFilenames.map((f) => `  • ${f}`).join('\n')}\n\n`
+    ? `\nAnexos:\n${attachmentFilenames.map((f) => `  • ${f}`).join('\n')}\n`
     : ''
-}—
-${COMPANY_LINE}
+}
+—
 ${CONTACT_EMAIL} · ${SITE}`
 
   return { html, text }
