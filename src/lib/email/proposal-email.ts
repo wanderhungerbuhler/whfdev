@@ -1,6 +1,6 @@
 import 'server-only'
 
-import DOMPurify from 'isomorphic-dompurify'
+import sanitizeHtmlLib from 'sanitize-html'
 
 type RenderArgs = {
   clientName: string
@@ -70,32 +70,37 @@ Best,
 ${SIGNATURE_LINE}`
 }
 
-const ALLOWED_TAGS = [
-  'p',
-  'br',
-  'strong',
-  'b',
-  'em',
-  'i',
-  'u',
-  's',
-  'ul',
-  'ol',
-  'li',
-  'a',
-  'span',
-]
-const ALLOWED_ATTR = ['href', 'target', 'rel']
-
 function isHtml(s: string): boolean {
   return /<\/?[a-z][\s\S]*>/i.test(s)
 }
 
 function sanitizeHtml(html: string): string {
-  return DOMPurify.sanitize(html, {
-    ALLOWED_TAGS,
-    ALLOWED_ATTR,
-    ALLOWED_URI_REGEXP: /^(?:https?:|mailto:|tel:)/i,
+  return sanitizeHtmlLib(html, {
+    allowedTags: [
+      'p',
+      'br',
+      'strong',
+      'b',
+      'em',
+      'i',
+      'u',
+      's',
+      'ul',
+      'ol',
+      'li',
+      'a',
+      'span',
+    ],
+    allowedAttributes: {
+      a: ['href', 'target', 'rel'],
+    },
+    allowedSchemes: ['http', 'https', 'mailto', 'tel'],
+    transformTags: {
+      a: sanitizeHtmlLib.simpleTransform('a', {
+        rel: 'noopener noreferrer',
+        target: '_blank',
+      }),
+    },
   })
 }
 
