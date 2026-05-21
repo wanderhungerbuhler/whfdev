@@ -341,8 +341,8 @@ export function ProposalDetail({
         </section>
       </aside>
 
-      {/* RIGHT — preview */}
-      <main className="flex flex-col gap-3">
+      {/* RIGHT — preview (sticks to viewport while the left column scrolls) */}
+      <main className="flex flex-col gap-3 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:self-start">
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex gap-1 rounded-full border border-rule-soft bg-canvas-elev p-1">
             <TabButton
@@ -387,7 +387,7 @@ export function ProposalDetail({
           )}
         </div>
 
-        <div className="aspect-[1/1.35] w-full overflow-hidden rounded-2xl border border-rule-soft bg-canvas-elev">
+        <div className="aspect-[1/1.35] w-full overflow-hidden rounded-2xl border border-rule-soft bg-canvas-elev lg:aspect-auto lg:min-h-0 lg:flex-1">
           {previewKind === 'email' ? (
             emailHtml ? (
               <iframe
