@@ -7,7 +7,6 @@ import { useParams, useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { startTransition, useEffect, useRef, useState } from 'react'
 
-import LogoMark from '@/assets/logo-mark.svg'
 
 const LOCALES = [
   { code: 'pt-BR', label: 'BR', currency: 'R$' },
@@ -60,7 +59,15 @@ export function Nav() {
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href={`/${locale}`} className="group flex items-center gap-3">
-          <Image src={LogoMark} alt="WHFDEV" width={28} height={28} priority />
+          <Image
+            src="/whfdev.png"
+            alt="WHFDEV"
+            width={28}
+            height={28}
+            quality={100}
+            priority
+            className="rounded-md"
+          />
           <span className="hidden font-mono text-[10px] uppercase tracking-[0.22em] text-ink-muted sm:block">
             Tech Consulting
           </span>

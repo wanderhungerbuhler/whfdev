@@ -9,7 +9,6 @@ import React, { startTransition, useState } from 'react'
 import FlagBRSVG from '@/assets/flag-br.svg'
 import FlagENSVG from '@/assets/flag-en.svg'
 import FlagFRSVG from '@/assets/flag-fr.svg'
-import LogoSvg from '@/assets/logo-white.svg'
 import { Button } from '@/components/ui/moving-border'
 import { cn } from '@/lib/utils'
 
@@ -54,12 +53,13 @@ export const Menu = ({
         )}
       >
         <Image
-          src={LogoSvg}
+          src="/whfdev.png"
           width={40}
           height={40}
           quality={100}
           priority
-          alt="Logo - Coach Guth"
+          alt="WHFDEV"
+          className="rounded-lg"
         />
         {navItems.map((navItem: any, idx: number) => (
           <Link

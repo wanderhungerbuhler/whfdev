@@ -4,8 +4,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useLocale, useTranslations } from 'next-intl'
 
-import LogoMark from '@/assets/logo-mark.svg'
-
 export function Footer() {
   const t = useTranslations('Index.footer')
   const nav = useTranslations('Index.nav')
@@ -32,7 +30,14 @@ export function Footer() {
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 py-12 sm:grid-cols-2 sm:gap-10 sm:px-6 sm:py-16 md:grid-cols-[1.4fr_1fr_1fr]">
         <div className="flex flex-col gap-4 sm:col-span-2 md:col-span-1">
           <div className="flex items-center gap-3">
-            <Image src={LogoMark} alt="WHFDEV" width={28} height={28} />
+            <Image
+              src="/whfdev.png"
+              alt="WHFDEV"
+              width={28}
+              height={28}
+              quality={100}
+              className="rounded-md"
+            />
             <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-muted">
               Tech Consulting
             </span>
