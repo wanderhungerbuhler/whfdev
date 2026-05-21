@@ -192,18 +192,12 @@ export function ProposalDetail({
           <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.18em] text-coral">
             Envio
           </p>
-          <label className="mb-3 flex flex-col gap-1.5">
-            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-soft">
-              Destinatário
-            </span>
-            <input
-              type="email"
-              value={recipient}
-              onChange={(e) => setRecipient(e.target.value)}
-              placeholder="rita@cliente.com"
-              className="rounded-md border border-rule-soft bg-canvas px-3 py-2 text-sm text-ink placeholder:text-ink-dim outline-none focus:border-coral focus:ring-2 focus:ring-coral/30"
-            />
-          </label>
+          <RecipientField
+            proposalId={proposalId}
+            value={recipient}
+            onChange={setRecipient}
+            onPersisted={() => router.refresh()}
+          />
           <label className="mb-3 flex flex-col gap-1.5">
             <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-soft">
               Assunto
@@ -534,6 +528,134 @@ function DeleteProposalModal({
           </button>
         </div>
       </div>
+    </div>
+  )
+}
+
+function RecipientField({
+  proposalId,
+  value,
+  onChange,
+  onPersisted,
+}: {
+  proposalId: string
+  value: string
+  onChange: (v: string) => void
+  onPersisted: () => void
+}) {
+  const [editing, setEditing] = useState(false)
+  const [draft, setDraft] = useState(value)
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  function startEdit() {
+    setDraft(value)
+    setError(null)
+    setEditing(true)
+  }
+
+  function cancel() {
+    setEditing(false)
+    setError(null)
+  }
+
+  async function save() {
+    const next = draft.trim()
+    if (!next) {
+      setError('Informa um e-mail válido.')
+      return
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(next)) {
+      setError('E-mail inválido.')
+      return
+    }
+    if (next === value) {
+      setEditing(false)
+      return
+    }
+    const ok = confirm(
+      `Trocar o destinatário desta proposta?\n\nDe: ${value || '(vazio)'}\nPara: ${next}\n\nA mudança é salva no cliente da proposta.`,
+    )
+    if (!ok) return
+    setSaving(true)
+    setError(null)
+    try {
+      const res = await fetch(`/api/admin/proposals/${proposalId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ clientEmail: next }),
+      })
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        setError(data.error ?? 'Falha ao salvar.')
+        return
+      }
+      onChange(next)
+      setEditing(false)
+      onPersisted()
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  return (
+    <div className="mb-3 flex flex-col gap-1.5">
+      <div className="flex items-center justify-between gap-2">
+        <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-soft">
+          Destinatário
+        </span>
+        {!editing && (
+          <button
+            type="button"
+            onClick={startEdit}
+            className="font-mono text-[10px] uppercase tracking-[0.14em] text-coral transition hover:text-coral-soft"
+          >
+            Trocar →
+          </button>
+        )}
+      </div>
+
+      {editing ? (
+        <>
+          <input
+            type="email"
+            value={draft}
+            onChange={(e) => setDraft(e.target.value)}
+            placeholder="rita@cliente.com"
+            autoFocus
+            className="rounded-md border border-coral bg-canvas px-3 py-2 text-sm text-ink placeholder:text-ink-dim outline-none focus:ring-2 focus:ring-coral/30"
+          />
+          {error && (
+            <p className="text-xs text-red-300">{error}</p>
+          )}
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={cancel}
+              disabled={saving}
+              className="rounded-full border border-rule-soft px-3 py-1 text-xs text-ink-soft transition hover:border-rule hover:text-ink disabled:opacity-40"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              onClick={save}
+              disabled={saving}
+              className="rounded-full bg-coral px-3 py-1 text-xs font-medium text-white transition hover:bg-coral-soft disabled:opacity-60"
+            >
+              {saving ? 'Salvando…' : 'Confirmar'}
+            </button>
+          </div>
+        </>
+      ) : (
+        <div className="flex items-center gap-2 rounded-md border border-rule-soft bg-canvas/60 px-3 py-2">
+          <span className="truncate text-sm text-ink">
+            {value || (
+              <span className="text-ink-muted">sem destinatário</span>
+            )}
+          </span>
+        </div>
+      )}
     </div>
   )
 }
