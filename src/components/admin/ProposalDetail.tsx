@@ -147,22 +147,33 @@ export function ProposalDetail({
   const canSend = !!recipient && status !== 'sending'
 
   const hasBeenSent = history.some((h) => h.status === 'sent')
+  const [deleteOpen, setDeleteOpen] = useState(false)
   const [deleting, setDeleting] = useState(false)
+  const [deleteError, setDeleteError] = useState<string | null>(null)
 
-  async function deleteProposal() {
-    const warning = hasBeenSent
-      ? 'Esta proposta JÁ FOI ENVIADA ao cliente. Apagar vai remover o histórico de envio, anexos e tudo mais — esta ação não pode ser desfeita.\n\nConfirma?'
-      : 'Apagar esta proposta? Os anexos serão removidos permanentemente. Esta ação não pode ser desfeita.'
-    const ok = confirm(warning)
-    if (!ok) return
+  useEffect(() => {
+    if (!deleteOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && !deleting) setDeleteOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [deleteOpen, deleting])
+
+  async function confirmDelete() {
     setDeleting(true)
+    setDeleteError(null)
     try {
       const res = await fetch(`/api/admin/proposals/${proposalId}`, {
         method: 'DELETE',
       })
       const data = await res.json().catch(() => ({}))
       if (!res.ok) {
-        alert(data.error ?? 'Falha ao apagar a proposta.')
+        setDeleteError(data.error ?? 'Falha ao apagar a proposta.')
         return
       }
       router.push('/admin')
@@ -252,7 +263,10 @@ export function ProposalDetail({
             <div className="mt-4 border-t border-rule-soft pt-4">
               <button
                 type="button"
-                onClick={deleteProposal}
+                onClick={() => {
+                  setDeleteError(null)
+                  setDeleteOpen(true)
+                }}
                 disabled={deleting}
                 title="Apagar proposta e todos os anexos"
                 className="w-full rounded-full border border-red-500/40 px-4 py-2 text-xs font-medium text-red-300 transition hover:border-red-500 hover:bg-red-500/10 hover:text-red-200 disabled:cursor-not-allowed disabled:opacity-40"
@@ -403,6 +417,123 @@ export function ProposalDetail({
           )}
         </div>
       </main>
+
+      {deleteOpen && (
+        <DeleteProposalModal
+          hasBeenSent={hasBeenSent}
+          sendCount={history.length}
+          deleting={deleting}
+          error={deleteError}
+          onCancel={() => {
+            if (!deleting) setDeleteOpen(false)
+          }}
+          onConfirm={confirmDelete}
+        />
+      )}
+    </div>
+  )
+}
+
+function DeleteProposalModal({
+  hasBeenSent,
+  sendCount,
+  deleting,
+  error,
+  onCancel,
+  onConfirm,
+}: {
+  hasBeenSent: boolean
+  sendCount: number
+  deleting: boolean
+  error: string | null
+  onCancel: () => void
+  onConfirm: () => void
+}) {
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="delete-proposal-title"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+    >
+      <button
+        type="button"
+        aria-label="Fechar"
+        onClick={onCancel}
+        className="absolute inset-0 bg-black/70 backdrop-blur-sm transition"
+      />
+      <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-rule-soft bg-canvas-elev shadow-2xl">
+        <div className="border-b border-rule-soft px-6 py-5">
+          <div className="mb-2 flex items-center gap-2">
+            <span
+              className={`flex h-8 w-8 items-center justify-center rounded-full ${
+                hasBeenSent ? 'bg-red-500/15 text-red-300' : 'bg-coral/15 text-coral'
+              }`}
+            >
+              !
+            </span>
+            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
+              {hasBeenSent ? 'Ação destrutiva' : 'Confirmação'}
+            </p>
+          </div>
+          <h2
+            id="delete-proposal-title"
+            className="text-lg font-semibold text-ink"
+          >
+            Apagar esta proposta?
+          </h2>
+        </div>
+
+        <div className="px-6 py-5 text-sm text-ink-soft">
+          {hasBeenSent ? (
+            <>
+              <p className="mb-3 text-ink">
+                Esta proposta já foi enviada ao cliente{' '}
+                <span className="text-ink-muted">
+                  ({sendCount} {sendCount === 1 ? 'envio' : 'envios'} no
+                  histórico)
+                </span>
+                .
+              </p>
+              <p>
+                Apagar vai remover o registro de envio, todos os anexos no
+                Storage e a proposta. O e-mail já entregue ao cliente não é
+                afetado, mas o tracking do Resend deixa de aparecer aqui.
+              </p>
+            </>
+          ) : (
+            <p>
+              Todos os anexos serão removidos do Storage. Esta ação não pode ser
+              desfeita.
+            </p>
+          )}
+
+          {error && (
+            <div className="mt-4 rounded-md border border-red-500/40 bg-red-500/10 px-3 py-2 text-xs text-red-300">
+              {error}
+            </div>
+          )}
+        </div>
+
+        <div className="flex items-center justify-end gap-2 border-t border-rule-soft bg-canvas/40 px-6 py-4">
+          <button
+            type="button"
+            onClick={onCancel}
+            disabled={deleting}
+            className="rounded-full border border-rule-soft px-4 py-2 text-sm text-ink-soft transition hover:border-rule hover:text-ink disabled:opacity-40"
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            onClick={onConfirm}
+            disabled={deleting}
+            className="rounded-full bg-red-500 px-5 py-2 text-sm font-medium text-white transition hover:bg-red-400 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {deleting ? 'Apagando…' : 'Apagar definitivamente'}
+          </button>
+        </div>
+      </div>
     </div>
   )
 }
