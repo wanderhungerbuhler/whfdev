@@ -24,7 +24,7 @@ const PHASES = [
   },
   {
     tag: 'Fase 1',
-    cadence: 'Mensal · 2 a 3 meses',
+    cadence: 'Mensal · 4 a 5 meses',
     title: 'MVP Core',
     price: 'R$ 35.000',
     suffix: '/mês',
