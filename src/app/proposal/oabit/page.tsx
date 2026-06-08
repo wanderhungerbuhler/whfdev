@@ -353,7 +353,7 @@ export default function OabitProposalPage() {
               <ul className="mt-4 grid gap-2 text-sm text-ink-soft sm:grid-cols-2 sm:gap-x-8">
                 {[
                   'Identidade visual e criativos para redes sociais',
-                  'Geração de imagens sob medida com IA',
+                  'Criação de imagens e peças gráficas sob medida',
                   'Landing page de campanha para captação',
                   'SEO, Google Analytics e Meta Pixel',
                   'Gestão de Google Ads e Meta Ads',
