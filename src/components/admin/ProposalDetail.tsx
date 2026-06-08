@@ -456,7 +456,8 @@ export function ProposalDetail({
               <iframe
                 srcDoc={emailHtml}
                 title="E-mail preview"
-                className="h-full w-full bg-white"
+                className="block h-full w-full bg-white"
+                style={{ height: '100%', minHeight: '100%', border: 0 }}
               />
             ) : (
               <div className="flex h-full w-full items-center justify-center bg-white text-xs text-ink-muted">
@@ -744,7 +745,8 @@ function AttachmentPreview({
         key={src}
         src={src}
         title={attachment.filename}
-        className="h-full w-full bg-white"
+        className="block h-full w-full bg-white"
+        style={{ height: '100%', minHeight: '100%', border: 0 }}
       />
     )
   }
