@@ -148,6 +148,7 @@
       "success": "Message sent! We’ll reply within 24h on business days.",
       "error": "We couldn’t send right now. Please try again or email talkto@whfdev.com.",
       "privacy": "Your data is used only to reply to this contact.",
+      "privacyLink": "Privacy Policy",
       "types": {
         "crm": "CRM",
         "dashboard": "Dashboard",
@@ -169,7 +170,15 @@
       "privacy": "Privacy Policy",
       "terms": "Terms & Conditions",
       "notice": "Legal Notice",
-      "cookies": "Cookie Policy"
+      "cookies": "Cookie Policy",
+      "manageCookies": "Manage cookies"
+    },
+    "consent": {
+      "title": "Cookies & privacy",
+      "text": "We use Google Analytics and Google AdSense cookies to measure visits and support the site. They are only switched on if you accept, and you can change your mind at any time via “Manage cookies” in the footer.",
+      "policy": "Cookie Policy",
+      "accept": "Accept all",
+      "reject": "Essential only"
     }
   }
 }

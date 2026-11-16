@@ -34,9 +34,6 @@ export function Nav() {
       const oneYear = 60 * 60 * 24 * 365
       document.cookie = `NEXT_LOCALE=${next}; Path=/; Max-Age=${oneYear}; SameSite=Lax`
     }
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('@whfdev-idioms', next)
-    }
     startTransition(() => router.replace(`/${next}`))
   }
 

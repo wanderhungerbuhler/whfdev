@@ -4,6 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useLocale, useTranslations } from 'next-intl'
 
+import { CONSENT_OPEN_EVENT } from '@/components/Consent'
+
 export function Footer() {
   const t = useTranslations('Index.footer')
   const nav = useTranslations('Index.nav')
@@ -73,6 +75,15 @@ export function Footer() {
               {l.label}
             </Link>
           ))}
+          <button
+            type="button"
+            onClick={() =>
+              window.dispatchEvent(new Event(CONSENT_OPEN_EVENT))
+            }
+            className="w-fit text-left text-sm text-ink-soft hover:text-ink"
+          >
+            {t('manageCookies')}
+          </button>
         </div>
       </div>
 

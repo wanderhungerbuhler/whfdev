@@ -1,7 +1,7 @@
 ---
 title: Politique de Cookies
 description: Quels cookies whfdev.com utilise, à quoi ils servent et comment les désactiver.
-updatedAt: 2026-05-15
+updatedAt: 2026-11-16
 ---
 
 Cette politique explique comment **whfdev.com** utilise les cookies et technologies similaires.
@@ -19,16 +19,33 @@ Fonctionnent sans consentement car essentiels au fonctionnement de base :
 | Nom | Finalité | Durée |
 |-----|----------|-------|
 | `NEXT_LOCALE` | Mémoriser la langue choisie (pt-BR, pt-PT, en, fr) | 1 an |
+| `whfdev-consent` | Mémoriser votre choix dans la bannière de cookies (accepter ou refuser) | 6 mois |
 
-### Cookies analytiques
+### Cookies analytiques (avec consentement)
 
-Nous permettent de comprendre comment les visiteurs utilisent le site afin de l'améliorer. Les données sont anonymisées et agrégées.
+Activés uniquement après avoir cliqué sur « Tout accepter » dans la bannière de cookies. D'ici là, Google Analytics fonctionne en mode consentement refusé (Google Consent Mode) : il ne dépose aucun cookie et n'envoie que des signaux agrégés, sans identifiants.
 
-| Fournisseur | Finalité | Durée |
-|-------------|----------|-------|
-| **Google Analytics** (G-B4F22YPY1E) | Statistiques anonymes de trafic, pages populaires et origines de visites | jusqu'à 2 ans |
+| Fournisseur | Cookies | Finalité | Durée |
+|-------------|---------|----------|-------|
+| **Google Analytics** (G-B4F22YPY1E) | `_ga`, `_ga_*` | Statistiques de trafic, pages populaires et origines des visites | jusqu'à 2 ans |
 
-Nous n'utilisons pas de cookies publicitaires, de retargeting ni de profilage comportemental.
+Nous utilisons également **Vercel Web Analytics**, qui n'utilise ni cookies ni identifiants persistants (voir « Statistiques sans cookies »).
+
+### Cookies publicitaires (avec consentement)
+
+Activés uniquement après acceptation dans la bannière. Ils servent à afficher les annonces Google AdSense et à mesurer leur performance.
+
+| Fournisseur | Cookies | Finalité | Durée |
+|-------------|---------|----------|-------|
+| **Google AdSense** | `__gads`, `__gpi`, `IDE`, `test_cookie` (domaines google.com et doubleclick.net) | Diffusion et mesure des annonces | jusqu'à 13 mois |
+
+Découvrez comment Google utilise ces données sur [policies.google.com/technologies/ads](https://policies.google.com/technologies/ads) et réglez vos préférences publicitaires sur [adssettings.google.com](https://adssettings.google.com).
+
+Aucun cookie analytique ou publicitaire n'est déposé avant votre consentement, et refuser ne limite pas l'utilisation du site.
+
+## Gérer votre consentement
+
+Vous pouvez modifier ou retirer votre consentement à tout moment via le lien **« Gérer les cookies »** en pied de page, qui réaffiche la bannière. En cas de refus, les cookies Google Analytics déposés par ce site sont supprimés ; les cookies publicitaires sur les domaines Google ne peuvent être supprimés que dans les paramètres de votre navigateur (ci-dessous) ou sur [adssettings.google.com](https://adssettings.google.com).
 
 ## Gérer les cookies
 
@@ -49,9 +66,9 @@ Instructions pour les navigateurs les plus utilisés :
 
 Bloquer les cookies peut affecter votre expérience de navigation.
 
-## Désactiver Google Analytics
+## Statistiques sans cookies
 
-Vous pouvez installer le [module officiel d'opt-out de Google Analytics](https://tools.google.com/dlpage/gaoptout) pour empêcher la collecte de données par cet outil sur tous les sites que vous visitez.
+Pour comprendre quelles pages sont les plus visitées et de quels pays proviennent les visites, nous utilisons [Vercel Web Analytics](https://vercel.com/docs/analytics/privacy-policy). Cet outil ne dépose aucun cookie, ne conserve pas les adresses IP et ne suit pas les visiteurs entre les sites : chaque visite est associée à un hachage temporaire, supprimé chaque jour, et seules des données agrégées sont conservées. Le traitement est effectué par Vercel Inc. dans le cadre d'un accord de traitement des données avec les clauses contractuelles types de l'UE. N'utilisant ni cookies ni identifiants persistants, il ne requiert pas de consentement préalable.
 
 ## Mises à jour de cette politique
 

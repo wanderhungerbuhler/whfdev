@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useLocale, useTranslations } from 'next-intl'
 import { useState } from 'react'
 
@@ -226,7 +227,15 @@ export function Contact() {
           )}
 
           <div className="flex flex-col-reverse items-start justify-between gap-3 sm:flex-row sm:items-center">
-            <p className="text-xs text-ink-dim">{t('privacy')}</p>
+            <p className="text-xs text-ink-dim">
+              {t('privacy')}{' '}
+              <Link
+                href={`/${locale}/legal/privacy`}
+                className="underline underline-offset-2 transition hover:text-ink"
+              >
+                {t('privacyLink')}
+              </Link>
+            </p>
             <button
               type="submit"
               disabled={sending}

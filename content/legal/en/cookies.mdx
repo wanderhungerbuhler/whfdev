@@ -1,7 +1,7 @@
 ---
 title: Cookie Policy
 description: Which cookies whfdev.com uses, what for, and how you can disable them.
-updatedAt: 2026-05-15
+updatedAt: 2026-11-16
 ---
 
 This policy explains how **whfdev.com** uses cookies and similar technologies.
@@ -19,16 +19,33 @@ These work without consent as they are essential for basic site functionality:
 | Name | Purpose | Duration |
 |------|---------|----------|
 | `NEXT_LOCALE` | Remember the chosen language (pt-BR, pt-PT, en, fr) | 1 year |
+| `whfdev-consent` | Store your choice in the cookie banner (accept or decline) | 6 months |
 
-### Analytics cookies
+### Analytics cookies (with consent)
 
-Allow us to understand how visitors use the site so we can improve it. Data is anonymized and aggregated.
+Only switched on after you click “Accept all” in the cookie banner. Until then, Google Analytics runs in denied consent mode (Google Consent Mode): it sets no cookies and sends only aggregated, identifier-free signals.
 
-| Provider | Purpose | Duration |
-|----------|---------|----------|
-| **Google Analytics** (G-B4F22YPY1E) | Anonymous traffic stats, popular pages, traffic sources | up to 2 years |
+| Provider | Cookies | Purpose | Duration |
+|----------|---------|---------|----------|
+| **Google Analytics** (G-B4F22YPY1E) | `_ga`, `_ga_*` | Traffic statistics, popular pages and traffic sources | up to 2 years |
 
-We do not use advertising, retargeting or behavioral profiling cookies.
+We also use **Vercel Web Analytics**, which uses neither cookies nor persistent identifiers (see “Cookie-free statistics”).
+
+### Advertising cookies (with consent)
+
+Only switched on after you accept in the banner. They serve Google AdSense ads and measure their performance.
+
+| Provider | Cookies | Purpose | Duration |
+|----------|---------|---------|----------|
+| **Google AdSense** | `__gads`, `__gpi`, `IDE`, `test_cookie` (google.com and doubleclick.net domains) | Ad serving and measurement | up to 13 months |
+
+Learn how Google uses this data at [policies.google.com/technologies/ads](https://policies.google.com/technologies/ads) and adjust your ad preferences at [adssettings.google.com](https://adssettings.google.com).
+
+No analytics or advertising cookie is set before you consent, and declining does not limit your use of the site.
+
+## Managing your consent
+
+You can change or withdraw your consent at any time via the **“Manage cookies”** link in the site footer, which shows the banner again. When you decline, the Google Analytics cookies set by this site are deleted; advertising cookies on Google domains can only be removed in your browser settings (below) or at [adssettings.google.com](https://adssettings.google.com).
 
 ## Managing cookies
 
@@ -49,9 +66,9 @@ Instructions for the most-used browsers:
 
 Blocking cookies may affect your browsing experience.
 
-## Opting out of Google Analytics
+## Cookie-free statistics
 
-You can install the official [Google Analytics opt-out add-on](https://tools.google.com/dlpage/gaoptout) to prevent the tool from collecting data on any site you visit.
+To understand which pages are visited most and which countries visits come from, we use [Vercel Web Analytics](https://vercel.com/docs/analytics/privacy-policy). It sets no cookies, stores no IP addresses and does not track across sites: each visit is tied to a temporary hash that is discarded daily, and only aggregated data is kept. Processing is carried out by Vercel Inc. under a data processing agreement with EU standard contractual clauses. Because it uses no cookies or persistent identifiers, no prior consent is required.
 
 ## Updates to this policy
 

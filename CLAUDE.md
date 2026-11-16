@@ -59,9 +59,18 @@ pnpm lint     # ESLint
 ## SEO
 
 - Metadata canônica fica em `src/app/[locale]/layout.tsx` (`generateMetadata`).
-- Tags estendidas (business, theme-color, scripts de tracking) ficam em `src/app/[locale]/head.tsx`.
+- Dados estruturados (JSON-LD) e viewport/theme-color também ficam em `src/app/[locale]/layout.tsx`.
 - OG image padrão: `/og-image.png` (1200×630).
-- GTM ID atual: `G-B4F22YPY1E`.
+
+## Privacidade (RGPD / LGPD)
+
+- Banner de consentimento + Google Consent Mode v2 em `src/components/Consent.tsx` (montado via `SiteScripts.tsx`). O gtag arranca com tudo `denied`; ao aceitar, atualiza o consentimento e só então carrega o AdSense. Textos em `messages/*.json` → `Index.consent`.
+- Google Analytics: `G-B4F22YPY1E`. Google AdSense: `ca-pub-2906000400105513`. Ambos **só colocam cookies depois de o visitante aceitar**.
+- **Vercel Web Analytics** (`@vercel/analytics`) corre sempre: sem cookies nem identificadores persistentes, não precisa de consentimento. Precisa estar ativado no painel da Vercel (Project → Analytics).
+- Cookies próprios do site público: `NEXT_LOCALE` (idioma) e `whfdev-consent` (escolha do banner, 6 meses), ambos estritamente necessários. O `/admin` usa cookies de sessão do NextAuth (área privada).
+- "Gerir cookies" no rodapé reabre o banner (retirar consentimento tem de ser tão fácil como dá-lo). Ao recusar, os cookies `_ga*` são apagados.
+- Qualquer tracker novo (Meta Pixel, Hotjar, etc.) tem de ficar atrás do mesmo banner e ser descrito em `content/legal/*/cookies.mdx`, `privacy.mdx` e `notice.mdx` nos 4 idiomas.
+- Formulário de contacto: link para a Política de Privacidade junto ao botão de envio.
 
 ## Contato (form)
 

@@ -1,7 +1,7 @@
 ---
 title: Política de Cookies
 description: Quais cookies o site whfdev.com utiliza, para qual finalidade, e como você pode desativá-los.
-updatedAt: 2026-05-15
+updatedAt: 2026-11-16
 ---
 
 Esta política explica como o site **whfdev.com** utiliza cookies e tecnologias similares.
@@ -19,16 +19,33 @@ Funcionam sem necessidade de consentimento, pois são essenciais para o funciona
 | Nome | Finalidade | Duração |
 |------|------------|---------|
 | `NEXT_LOCALE` | Lembrar o idioma escolhido (pt-BR, pt-PT, en, fr) | 1 ano |
+| `whfdev-consent` | Guardar sua escolha no banner de cookies (aceitar ou recusar) | 6 meses |
 
-### Cookies analíticos
+### Cookies analíticos (com consentimento)
 
-Permitem entender como os visitantes usam o site para melhorá-lo. Os dados são anonimizados e agregados.
+Só são ativados depois que você clica em “Aceitar todos” no banner de cookies. Até lá, o Google Analytics funciona em modo de consentimento negado (Google Consent Mode): não grava cookies e envia apenas sinais agregados, sem identificadores.
 
-| Provedor | Finalidade | Duração |
-|----------|------------|---------|
-| **Google Analytics** (G-B4F22YPY1E) | Estatísticas anônimas de tráfego, páginas mais vistas e origem de visitas | até 2 anos |
+| Provedor | Cookies | Finalidade | Duração |
+|----------|---------|------------|---------|
+| **Google Analytics** (G-B4F22YPY1E) | `_ga`, `_ga_*` | Estatísticas de tráfego, páginas mais vistas e origem das visitas | até 2 anos |
 
-Não utilizamos cookies de publicidade, retargeting ou perfil comportamental.
+Usamos ainda o **Vercel Web Analytics**, que não utiliza cookies nem identificadores persistentes (ver “Estatísticas sem cookies”).
+
+### Cookies de publicidade (com consentimento)
+
+Só são ativados depois que você aceita no banner. Servem para exibir anúncios do Google AdSense e medir seu desempenho.
+
+| Provedor | Cookies | Finalidade | Duração |
+|----------|---------|------------|---------|
+| **Google AdSense** | `__gads`, `__gpi`, `IDE`, `test_cookie` (domínios google.com e doubleclick.net) | Exibição e medição de anúncios | até 13 meses |
+
+Saiba como o Google usa esses dados em [policies.google.com/technologies/ads](https://policies.google.com/technologies/ads) e ajuste suas preferências de anúncios em [adssettings.google.com](https://adssettings.google.com).
+
+Nenhum cookie analítico ou de publicidade é gravado antes do seu consentimento, e recusar não limita o uso do site.
+
+## Gerenciar seu consentimento
+
+Você pode alterar ou retirar o consentimento a qualquer momento pelo link **“Gerenciar cookies”**, no rodapé do site, que mostra o banner novamente. Ao recusar, os cookies do Google Analytics gravados por este site são excluídos; os cookies de publicidade em domínios do Google só podem ser excluídos nas configurações do navegador (abaixo) ou em [adssettings.google.com](https://adssettings.google.com).
 
 ## Como gerenciar cookies
 
@@ -49,9 +66,9 @@ Instruções para os navegadores mais usados:
 
 Bloquear cookies pode afetar a experiência de navegação no site.
 
-## Desativar o Google Analytics
+## Estatísticas sem cookies
 
-Você pode instalar o complemento oficial de [opt-out do Google Analytics](https://tools.google.com/dlpage/gaoptout) para impedir a coleta de dados pela ferramenta em todos os sites que você visita.
+Para entender quais páginas são mais visitadas e de quais países vêm as visitas, usamos o [Vercel Web Analytics](https://vercel.com/docs/analytics/privacy-policy). Essa ferramenta não grava cookies, não armazena endereços IP e não cruza dados entre sites: cada visita é associada a um hash temporário, descartado diariamente, e só dados agregados são conservados. O tratamento é feito pela Vercel Inc. sob um acordo de tratamento de dados com cláusulas contratuais-padrão da UE. Por não usar cookies nem identificadores persistentes, não exige consentimento prévio.
 
 ## Atualizações desta política
 
