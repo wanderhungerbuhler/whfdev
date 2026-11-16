@@ -8,7 +8,10 @@ import ExpressoIMG from '@/assets/brands/expresso.svg'
 import FuteboladaIMG from '@/assets/brands/futebolada.svg'
 import GeventIMG from '@/assets/brands/gevent.svg'
 import CoachGuth from '@/assets/brands/gh.svg'
+import GrupoReviseIMG from '@/assets/brands/gruporevise.png'
+import ImperioMajestosasIMG from '@/assets/brands/imperiomajestosas.png'
 import JPIMG from '@/assets/brands/jp.svg'
+import MobatoIMG from '@/assets/brands/mobato.png'
 import RiaCasaIMG from '@/assets/brands/riacasa.svg'
 import RJIMG from '@/assets/brands/rj.svg'
 import SeturIMG from '@/assets/brands/secturismo.svg'
@@ -30,6 +33,9 @@ export const BRANDS: Brand[] = [
   { src: ExaminusIMG, alt: 'Examinus', w: 100 },
   { src: FuteboladaIMG, alt: 'Futebolada', w: 90 },
   { src: RiaCasaIMG, alt: 'Ria Casa', w: 90 },
+  { src: MobatoIMG, alt: 'Mobato', w: 100 },
+  { src: GrupoReviseIMG, alt: 'Grupo Revise', w: 80 },
+  { src: ImperioMajestosasIMG, alt: 'Império das Majestosas', w: 70 },
   { src: BCNOutdoorIMG, alt: 'BCN Outdoor', w: 60 },
   { src: CoachGuth, alt: 'Coach Guth', w: 60 },
   { src: GeventIMG, alt: 'geVent', w: 90 },
