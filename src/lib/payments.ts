@@ -30,7 +30,7 @@ export function normalizeLocale(l: string | null | undefined): ProposalLocale {
 export function formatMoney(
   cents: number,
   currency: string,
-  locale: string = 'pt-PT',
+  locale = 'pt-PT',
 ): string {
   return new Intl.NumberFormat(locale, {
     style: 'currency',
