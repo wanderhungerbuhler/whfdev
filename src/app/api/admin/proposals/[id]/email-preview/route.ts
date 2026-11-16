@@ -4,7 +4,12 @@ import { NextResponse } from 'next/server'
 import { requireAdmin } from '@/lib/admin-guard'
 import { db } from '@/lib/db/client'
 import { attachments, proposals } from '@/lib/db/schema'
-import { defaultMessageFor, renderEmail } from '@/lib/email/proposal-email'
+import {
+  ctaFor,
+  defaultMessageFor,
+  renderEmail,
+} from '@/lib/email/proposal-email'
+import { depositCents, formatMoney, publicProposalUrl } from '@/lib/payments'
 
 export const runtime = 'nodejs'
 
@@ -33,11 +38,17 @@ async function render(
   const message =
     messageInput ?? row.emailBody ?? defaultMessageFor(row.clientName, 'pt-PT')
 
+  const deposit = depositCents(row)
   const { html } = renderEmail({
     clientName: row.clientName,
     subject,
     message,
     attachmentFilenames: atts.map((a) => a.filename),
+    cta: ctaFor(
+      row.locale,
+      publicProposalUrl(row.publicToken),
+      deposit ? formatMoney(deposit, row.currency, row.locale) : null,
+    ),
   })
 
   return new Response(html, {

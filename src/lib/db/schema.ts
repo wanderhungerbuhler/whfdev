@@ -79,6 +79,48 @@ export const proposals = pgTable('proposals', {
   createdBy: text('created_by').references(() => users.id, {
     onDelete: 'set null',
   }),
+  /* ---- Pagamento (Stripe) ---- */
+  /** ISO 4217 em minúsculas (eur, usd) */
+  currency: text('currency').notNull().default('eur'),
+  /** Valor total da proposta, em cêntimos. null = sem valor definido */
+  totalAmountCents: integer('total_amount_cents'),
+  /** Percentagem do sinal pedido para aceitar a proposta */
+  depositPercent: integer('deposit_percent').notNull().default(40),
+  /** Idioma do cliente: pt-PT | pt-BR | en | fr (página pública + Checkout) */
+  locale: text('locale').notNull().default('pt-PT'),
+  /** Token da página pública /p/[token] */
+  publicToken: text('public_token')
+    .notNull()
+    .unique()
+    .$defaultFn(() => randomToken()),
+  /** Quando o sinal foi pago (proposta aceite) */
+  acceptedAt: timestamp('accepted_at', { mode: 'date' }),
+  createdAt: timestamp('created_at', { mode: 'date' }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { mode: 'date' }).notNull().defaultNow(),
+})
+
+function randomToken(): string {
+  const bytes = new Uint8Array(18)
+  globalThis.crypto.getRandomValues(bytes)
+  return Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('')
+}
+
+export const payments = pgTable('payments', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  proposalId: uuid('proposal_id')
+    .notNull()
+    .references(() => proposals.id, { onDelete: 'cascade' }),
+  /** deposit (sinal) | milestone (cobrança adicional) */
+  kind: text('kind').notNull().default('deposit'),
+  description: text('description'),
+  amountCents: integer('amount_cents').notNull(),
+  currency: text('currency').notNull().default('eur'),
+  /** pending | processing | paid | failed */
+  status: text('status').notNull().default('pending'),
+  stripeCheckoutSessionId: text('stripe_checkout_session_id'),
+  stripePaymentIntentId: text('stripe_payment_intent_id'),
+  stripePaymentMethod: text('stripe_payment_method'),
+  paidAt: timestamp('paid_at', { mode: 'date' }),
   createdAt: timestamp('created_at', { mode: 'date' }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { mode: 'date' }).notNull().defaultNow(),
 })
@@ -118,3 +160,5 @@ export type Send = typeof sends.$inferSelect
 export type NewSend = typeof sends.$inferInsert
 export type Attachment = typeof attachments.$inferSelect
 export type NewAttachment = typeof attachments.$inferInsert
+export type Payment = typeof payments.$inferSelect
+export type NewPayment = typeof payments.$inferInsert

@@ -6,6 +6,8 @@ import { ProposalDetail } from '@/components/admin/ProposalDetail'
 import { requireAdminPage } from '@/lib/admin-guard'
 import { db } from '@/lib/db/client'
 import { attachments, proposals, sends } from '@/lib/db/schema'
+import { listPayments, publicProposalUrl } from '@/lib/payments'
+import { isStripeConfigured } from '@/lib/stripe'
 
 export const dynamic = 'force-dynamic'
 
@@ -48,6 +50,8 @@ export default async function ProposalPage({
     .where(eq(sends.proposalId, params.id))
     .orderBy(desc(sends.sentAt))
     .limit(50)
+
+  const paymentRows = await listPayments(row.id)
 
   return (
     <div className="flex flex-col gap-6">
@@ -92,6 +96,25 @@ export default async function ProposalPage({
           error: h.error,
           sentAt: h.sentAt.toISOString(),
         }))}
+        payments={{
+          publicUrl: publicProposalUrl(row.publicToken),
+          currency: row.currency,
+          totalAmountCents: row.totalAmountCents,
+          depositPercent: row.depositPercent,
+          stripeConfigured: isStripeConfigured(),
+          items: paymentRows.map((p) => ({
+            id: p.id,
+            kind: p.kind,
+            description: p.description,
+            amountCents: p.amountCents,
+            currency: p.currency,
+            status: p.status,
+            stripePaymentIntentId: p.stripePaymentIntentId,
+            stripePaymentMethod: p.stripePaymentMethod,
+            paidAt: p.paidAt ? p.paidAt.toISOString() : null,
+            createdAt: p.createdAt.toISOString(),
+          })),
+        }}
       />
     </div>
   )

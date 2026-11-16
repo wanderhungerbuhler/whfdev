@@ -72,6 +72,18 @@ pnpm lint     # ESLint
 - Qualquer tracker novo (Meta Pixel, Hotjar, etc.) tem de ficar atrás do mesmo banner e ser descrito em `content/legal/*/cookies.mdx`, `privacy.mdx` e `notice.mdx` nos 4 idiomas.
 - Formulário de contacto: link para a Política de Privacidade junto ao botão de envio.
 
+## Pagamentos (Stripe)
+
+Fluxo: proposta com **valor total + % de sinal** → e-mail com botão "Ver proposta e pagar sinal" → página pública `/p/[token]` (anexos + pagamento) → Stripe Checkout → webhook marca o pagamento como pago e a proposta como `accepted`.
+
+- Conta Stripe: WHFDEV Tech Consulting (PT, live). Métodos ativos na conta: cartão, MB WAY, Multibanco, Link, Klarna, etc. — o Checkout mostra os relevantes (dynamic payment methods); MB WAY/Multibanco só em EUR.
+- Env: `STRIPE_SECRET_KEY` (chave restrita), `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_SITE_URL` (www). Sem a chave, o painel mostra "chave em falta" e a página pública redireciona com `?error=config`.
+- Código: `src/lib/stripe.ts` (cliente), `src/lib/payments.ts` (sinal, Checkout Session, fulfil idempotente, notificação por e-mail), `src/app/api/stripe/webhook/route.ts`, `src/app/api/p/[token]/checkout` (POST do formulário → 303 para o Stripe), `src/app/p/[token]/page.tsx` + `texts.ts` (4 idiomas), `src/components/admin/PaymentsPanel.tsx`.
+- Tabelas: `payments` (kind `deposit` | `milestone`, status `pending` | `processing` | `paid` | `failed`) e colunas novas em `proposals` (`currency`, `total_amount_cents`, `deposit_percent`, `locale`, `public_token`, `accepted_at`) — migração `0003_payments.sql`.
+- Sessões de Checkout expiram em 24h, por isso são criadas no clique (não no envio do e-mail). O regresso do Stripe (`?session_id=`) confirma de imediato; o webhook garante a confirmação mesmo sem regresso. Multibanco paga mais tarde → estado `processing` até `async_payment_succeeded`.
+- Webhook em produção: `https://www.whfdev.com/api/stripe/webhook` com `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`.
+- Faturação certificada (AT) **não** está integrada: o Stripe cobra, a fatura sai à parte (InvoiceXpress/Moloni/Vendus) — pendente.
+
 ## Contato (form)
 
 O formulário da home compõe um e-mail estruturado e envia para `talkto@whfdev.com`. Campos: nome, e-mail, tipo de projeto (CRM, dashboard, landing page, iOS, Android, web app, e-commerce, outro), orçamento estimado, prazo e descrição. Para mudar o destino, ajustar em `src/components/sections/Contact.tsx`.

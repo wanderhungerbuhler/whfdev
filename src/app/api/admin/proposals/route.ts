@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server'
 import { requireAdmin } from '@/lib/admin-guard'
 import { db } from '@/lib/db/client'
 import { proposals } from '@/lib/db/schema'
+import { parseMoneyFields } from '@/lib/proposal-fields'
 
 export const runtime = 'nodejs'
 
@@ -40,6 +41,11 @@ export async function POST(req: Request) {
     )
   }
 
+  const money = parseMoneyFields(body)
+  if ('error' in money) {
+    return NextResponse.json({ error: money.error }, { status: 400 })
+  }
+
   const [inserted] = await db
     .insert(proposals)
     .values({
@@ -49,6 +55,7 @@ export async function POST(req: Request) {
       emailBody: (body.emailBody as string | null) ?? null,
       status: 'draft',
       createdBy: guard.session.user.id,
+      ...money,
     })
     .returning({ id: proposals.id })
 

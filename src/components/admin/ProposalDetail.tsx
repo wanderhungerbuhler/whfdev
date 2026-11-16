@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 
 import { type AttachmentDTO,AttachmentsPanel } from './AttachmentsPanel'
+import { type PaymentDTO, PaymentsPanel } from './PaymentsPanel'
 import { RichTextEditor } from './RichTextEditor'
 
 type Send = {
@@ -24,6 +25,14 @@ type Props = {
   status: string
   attachments: AttachmentDTO[]
   history: Send[]
+  payments: {
+    publicUrl: string
+    currency: string
+    totalAmountCents: number | null
+    depositPercent: number
+    stripeConfigured: boolean
+    items: PaymentDTO[]
+  }
 }
 
 type PreviewKind = 'email' | 'attachment'
@@ -36,6 +45,7 @@ export function ProposalDetail({
   status,
   attachments: initialAttachments,
   history: initialHistory,
+  payments,
 }: Props) {
   const router = useRouter()
 
@@ -295,6 +305,16 @@ export function ProposalDetail({
             </div>
           </div>
         </section>
+
+        <PaymentsPanel
+          proposalId={proposalId}
+          publicUrl={payments.publicUrl}
+          currency={payments.currency}
+          totalAmountCents={payments.totalAmountCents}
+          depositPercent={payments.depositPercent}
+          stripeConfigured={payments.stripeConfigured}
+          initial={payments.items}
+        />
 
         <AttachmentsPanel
           proposalId={proposalId}

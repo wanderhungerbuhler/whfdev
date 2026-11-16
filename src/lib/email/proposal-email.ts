@@ -12,6 +12,11 @@ type RenderArgs = {
    * visible chips in the HTML (the email client shows attachments natively).
    */
   attachmentFilenames: string[]
+  /**
+   * Botão de ação (página pública da proposta: ver documentos, aceitar e
+   * pagar o sinal). Opcional para manter compatibilidade.
+   */
+  cta?: { url: string; label: string; note?: string }
 }
 
 const SIGNATURE_LINE = 'WHFDEV'
@@ -139,11 +144,54 @@ function formatBytes(n: number): string {
   return `${(n / (1024 * 1024)).toFixed(1)} MB`
 }
 
+/** Texto do botão e nota do e-mail, por idioma do cliente. */
+export function ctaFor(
+  locale: string,
+  url: string,
+  depositAmount: string | null,
+): NonNullable<RenderArgs['cta']> {
+  const l = locale.startsWith('pt-BR')
+    ? 'pt-BR'
+    : locale.startsWith('pt')
+      ? 'pt-PT'
+      : locale.startsWith('fr')
+        ? 'fr'
+        : 'en'
+  const T = {
+    'pt-PT': {
+      view: 'Ver proposta online',
+      pay: (a: string) => `Ver proposta e pagar sinal de ${a}`,
+      note: 'Página segura com os documentos e o pagamento por cartão, MB WAY ou Multibanco. Pagamento processado pelo Stripe.',
+    },
+    'pt-BR': {
+      view: 'Ver proposta online',
+      pay: (a: string) => `Ver proposta e pagar sinal de ${a}`,
+      note: 'Página segura com os documentos e o pagamento com cartão. Pagamento processado pelo Stripe.',
+    },
+    en: {
+      view: 'View proposal online',
+      pay: (a: string) => `View proposal and pay ${a} deposit`,
+      note: 'Secure page with the documents and card payment. Payment processed by Stripe.',
+    },
+    fr: {
+      view: 'Voir la proposition en ligne',
+      pay: (a: string) => `Voir la proposition et régler l'acompte de ${a}`,
+      note: 'Page sécurisée avec les documents et le paiement par carte. Paiement traité par Stripe.',
+    },
+  }[l]
+  return {
+    url,
+    label: depositAmount ? T.pay(depositAmount) : T.view,
+    note: depositAmount ? T.note : undefined,
+  }
+}
+
 export function renderEmail({
   clientName,
   subject,
   message,
   attachmentFilenames,
+  cta,
 }: RenderArgs): { html: string; text: string } {
   const htmlMessage = isHtml(message)
     ? inlineStyles(sanitizeHtml(message))
@@ -196,6 +244,34 @@ export function renderEmail({
               </div>
             </td>
           </tr>
+${
+  cta
+    ? `
+          <!-- CTA: página pública da proposta -->
+          <tr>
+            <td style="padding:0 32px 28px 32px;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background:#0A0A0B;border-radius:12px;">
+                <tr>
+                  <td style="padding:20px 24px;">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td style="border-radius:999px;background:#FF4D6D;">
+                          <a href="${escapeHtml(cta.url)}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:12px 22px;font-size:14px;font-weight:600;color:#FFFFFF;text-decoration:none;border-radius:999px;">${escapeHtml(cta.label)} →</a>
+                        </td>
+                      </tr>
+                    </table>
+                    ${
+                      cta.note
+                        ? `<p style="margin:12px 0 0 0;font-size:12px;line-height:1.5;color:#9A9A9A;">${escapeHtml(cta.note)}</p>`
+                        : ''
+                    }
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>`
+    : ''
+}
 
           <!-- Footer: só contato, sem nome pessoal/CNPJ -->
           <tr>
@@ -218,7 +294,7 @@ export function renderEmail({
   // ainda saiba o que veio anexado. Em HTML não aparece (o email client mostra nativamente).
   const plainMessage = isHtml(message) ? htmlToPlainText(message) : message
   const text = `${plainMessage}
-${
+${cta ? `\n${cta.label}: ${cta.url}\n${cta.note ? `${cta.note}\n` : ''}` : ''}${
   attachmentFilenames.length > 0
     ? `\nAnexos:\n${attachmentFilenames.map((f) => `  • ${f}`).join('\n')}\n`
     : ''
@@ -227,6 +303,13 @@ ${
 ${CONTACT_EMAIL} · ${SITE}`
 
   return { html, text }
+}
+
+/** Mensagem da proposta pronta a inserir numa página (sanitizada). */
+export function renderMessageHtml(message: string): string {
+  return isHtml(message)
+    ? sanitizeHtml(message)
+    : escapeHtml(message).replace(/\n/g, '<br/>')
 }
 
 export { formatBytes }

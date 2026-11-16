@@ -44,6 +44,10 @@ export default async function EditProposalPage({
           clientEmail: row.clientEmail,
           emailSubject: row.emailSubject,
           emailBody: row.emailBody,
+          totalAmountCents: row.totalAmountCents,
+          depositPercent: row.depositPercent,
+          currency: row.currency,
+          locale: row.locale,
         }}
       />
     </div>

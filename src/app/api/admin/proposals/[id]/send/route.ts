@@ -4,8 +4,13 @@ import { NextResponse } from 'next/server'
 import { requireAdmin } from '@/lib/admin-guard'
 import { db } from '@/lib/db/client'
 import { attachments, proposals, sends } from '@/lib/db/schema'
-import { defaultMessageFor, renderEmail } from '@/lib/email/proposal-email'
+import {
+  ctaFor,
+  defaultMessageFor,
+  renderEmail,
+} from '@/lib/email/proposal-email'
 import { FROM_EMAIL, REPLY_TO, resend } from '@/lib/email/resend'
+import { depositCents, formatMoney, publicProposalUrl } from '@/lib/payments'
 import { downloadAsBuffer } from '@/lib/supabase/storage'
 
 export const runtime = 'nodejs'
@@ -72,11 +77,17 @@ export async function POST(req: Request, { params }: Ctx) {
     )
   }
 
+  const deposit = depositCents(row)
   const { html, text } = renderEmail({
     clientName: row.clientName,
     subject,
     message,
     attachmentFilenames: atts.map((a) => a.filename),
+    cta: ctaFor(
+      row.locale,
+      publicProposalUrl(row.publicToken),
+      deposit ? formatMoney(deposit, row.currency, row.locale) : null,
+    ),
   })
 
   try {

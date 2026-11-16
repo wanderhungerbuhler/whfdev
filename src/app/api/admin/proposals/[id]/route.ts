@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server'
 import { requireAdmin } from '@/lib/admin-guard'
 import { db } from '@/lib/db/client'
 import { attachments, proposals } from '@/lib/db/schema'
+import { parseMoneyFields } from '@/lib/proposal-fields'
 import { removeObject } from '@/lib/supabase/storage'
 
 export const runtime = 'nodejs'
@@ -37,6 +38,12 @@ export async function PATCH(req: Request, { params }: Ctx) {
   if (body.emailSubject !== undefined) patch.emailSubject = body.emailSubject
   if (body.emailBody !== undefined) patch.emailBody = body.emailBody
   if (body.status !== undefined) patch.status = body.status
+
+  const money = parseMoneyFields(body)
+  if ('error' in money) {
+    return NextResponse.json({ error: money.error }, { status: 400 })
+  }
+  Object.assign(patch, money)
 
   await db.update(proposals).set(patch).where(eq(proposals.id, params.id))
   return NextResponse.json({ ok: true })
