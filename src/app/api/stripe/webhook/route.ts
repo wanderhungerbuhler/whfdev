@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import type Stripe from 'stripe'
 
+import { EBOOK_PROJECT, handleEbookSession } from '@/lib/ebook'
 import { fulfillCheckoutSession, markPaymentFailed } from '@/lib/payments'
 import { stripe } from '@/lib/stripe'
 
@@ -44,6 +45,11 @@ export async function POST(req: Request) {
       case 'checkout.session.completed':
       case 'checkout.session.async_payment_succeeded': {
         const session = event.data.object as Stripe.Checkout.Session
+        // Ebook (project=ebook-ia): fluxo próprio; nunca passa pelas propostas.
+        if (session.metadata?.project === EBOOK_PROJECT || session.payment_link) {
+          const r = await handleEbookSession(session)
+          if (r.action !== 'not_ebook') break
+        }
         await fulfillCheckoutSession(session.id)
         break
       }

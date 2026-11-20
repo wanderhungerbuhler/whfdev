@@ -165,3 +165,12 @@ npx drizzle-kit push    # dev
 ### Skill `whfdev-proposal`
 
 A skill global em `~/.claude/skills/whfdev-proposal/` é o caminho **alternativo** pra gerar PDFs via CLI/conversa. Os componentes React-PDF são duplicados em `src/lib/proposal/` (sincronizados manualmente). Se mexer num lado, replicar no outro.
+
+## Ebook "Seus primeiros agentes de IA" (projeto ebook-ia, nov/2026)
+
+- Produto e Payment Link único multimoeda na conta Stripe WHFDEV (EUR 12,90 padrão + BRL 47; métodos dinâmicos). Plano em `OpenBot/Shared/automacao-ia-ebook/pagamento-stripe-plano-2026-11-20.md`.
+- O webhook `src/app/api/stripe/webhook/route.ts` manda sessões do ebook (`metadata.project=ebook-ia` ou vindas de Payment Link) para `handleEbookSession` (`src/lib/ebook.ts`), antes das propostas.
+- **Bloqueio geo (decisão do Wander):** pagamento em BRL com cartão emitido fora do BR → não entrega, reembolso total (`metadata.reason=geo_price_mismatch`), e-mail `src/lib/email/ebook-email.ts` com link para `/api/ebook/checkout-eur` (Checkout criado na hora, só EUR, adaptive pricing off). Pix e cartões BR seguem normais. Idempotente: reusa o reembolso geo e usa a Idempotency-Key do Resend.
+- `/api/ebook/checkout-eur` só abre com `EBOOK_SALES_OPEN=1` e `EBOOK_PRICE_ID`.
+- A chave Stripe restrita precisa de **Refunds: write** e **Charges: read** além das atuais.
+- A entrega do PDF (link assinado 72 h) ainda não está ligada: falta o PDF final.
