@@ -55,27 +55,6 @@ export function eurCheckoutUrl(): string {
   return `${siteUrl()}/api/ebook/checkout-eur`
 }
 
-/** Cria um Checkout Session em EUR para o ebook (link do e-mail de devolução). */
-export async function createEurCheckoutSession(email?: string | null) {
-  const price = process.env.EBOOK_PRICE_ID
-  if (!price) throw new Error('EBOOK_PRICE_ID is not configured')
-  return stripe().checkout.sessions.create({
-    mode: 'payment',
-    line_items: [{ price, quantity: 1 }],
-    currency: 'eur',
-    adaptive_pricing: { enabled: false },
-    customer_email: email || undefined,
-    customer_creation: 'always',
-    metadata: { project: EBOOK_PROJECT, forced_currency: 'eur' },
-    payment_intent_data: {
-      statement_descriptor_suffix: 'AGENTES IA',
-      metadata: { project: EBOOK_PROJECT, forced_currency: 'eur' },
-    },
-    success_url: `${siteUrl()}/?ebook=obrigado&session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${siteUrl()}/`,
-  })
-}
-
 export type EbookResult =
   | { action: 'not_ebook' }
   | { action: 'not_paid' }

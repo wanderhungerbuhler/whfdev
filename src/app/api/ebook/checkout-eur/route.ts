@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server'
 
-import { createEurCheckoutSession } from '@/lib/ebook'
+import { createLotCheckoutSession } from '@/lib/ebook-checkout'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
 /**
- * GET /api/ebook/checkout-eur: cria na hora um Checkout do ebook SÓ em EUR
- * (link do e-mail de devolução geo). Desligado enquanto EBOOK_SALES_OPEN != 1.
+ * GET /api/ebook/checkout-eur: link do e-mail de devolução geo. Cria na hora um
+ * Checkout SÓ em EUR, no lote vigente. Desligado enquanto EBOOK_SALES_OPEN != 1.
  */
 export async function GET() {
   if (process.env.EBOOK_SALES_OPEN !== '1') {
@@ -17,10 +17,10 @@ export async function GET() {
     })
   }
   try {
-    const session = await createEurCheckoutSession()
+    const session = await createLotCheckoutSession({ forceCurrency: 'eur' })
     return NextResponse.redirect(session.url!, { status: 303, headers: { 'Cache-Control': 'no-store' } })
   } catch (err) {
     console.error('[ebook checkout-eur]', err)
-    return new NextResponse('Erro ao abrir o pagamento. Tente de novo.', { status: 500 })
+    return NextResponse.redirect('https://www.whfdev.com/ebook/comprar', { status: 307 })
   }
 }

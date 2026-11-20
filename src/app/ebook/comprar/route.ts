@@ -1,24 +1,38 @@
 import { NextResponse } from 'next/server'
 
+import { createLotCheckoutSession } from '@/lib/ebook-checkout'
+
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
 /**
  * URL estável de compra do ebook: https://www.whfdev.com/ebook/comprar
- * Redireciona (307, sem cache) para o Payment Link do LOTE VIGENTE
- * (EBOOK_BUY_URL). Virada de lote = trocar EBOOK_BUY_URL (+ EBOOK_PRICE_ID) e
- * redeploy, só com autorização do Wander. Repassa a query (utm_*, prefilled_email).
+ * Cria NA HORA uma Checkout Session com o price do lote vigente (automático,
+ * pela contagem de vendas do Stripe; ver src/lib/ebook-lots.ts) e responde 303.
+ * À prova de falha: se a criação falhar, cai no Payment Link de contingência
+ * (EBOOK_FALLBACK_URL, padrão Lote 1), nunca mostra erro.
  */
-const LOTE1 = 'https://buy.stripe.com/4gMdR99wV7WS0jwc3X8N202'
+const FALLBACK = 'https://buy.stripe.com/4gMdR99wV7WS0jwc3X8N202'
+const PASS = /^(utm_[a-z]+|prefilled_email|client_reference_id)$/
 
 export async function GET(req: Request) {
-  const target = new URL(process.env.EBOOK_BUY_URL || LOTE1)
-  const incoming = new URL(req.url).searchParams
-  incoming.forEach((v, k) => {
-    if (/^(utm_[a-z]+|prefilled_email|client_reference_id|locale)$/.test(k)) target.searchParams.set(k, v)
+  const q = new URL(req.url).searchParams
+  const utm: Record<string, string> = {}
+  q.forEach((v, k) => {
+    if (/^utm_[a-z]+$/.test(k)) utm[k] = v.slice(0, 200)
   })
-  return NextResponse.redirect(target.toString(), {
-    status: 307,
-    headers: { 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex' },
+  const headers = { 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex' }
+  if (process.env.EBOOK_SALES_OPEN === '1') {
+    try {
+      const session = await createLotCheckoutSession({ utm, email: q.get('prefilled_email') })
+      if (session.url) return NextResponse.redirect(session.url, { status: 303, headers })
+    } catch (err) {
+      console.error('[ebook] /ebook/comprar: criação da sessão falhou, usando o link de contingência', err)
+    }
+  }
+  const fb = new URL(process.env.EBOOK_FALLBACK_URL || FALLBACK)
+  q.forEach((v, k) => {
+    if (PASS.test(k)) fb.searchParams.set(k, v)
   })
+  return NextResponse.redirect(fb.toString(), { status: 307, headers })
 }
