@@ -173,4 +173,5 @@ A skill global em `~/.claude/skills/whfdev-proposal/` é o caminho **alternativo
 - **Bloqueio geo (decisão do Wander):** pagamento em BRL com cartão emitido fora do BR → não entrega, reembolso total (`metadata.reason=geo_price_mismatch`), e-mail `src/lib/email/ebook-email.ts` com link para `/api/ebook/checkout-eur` (Checkout criado na hora, só EUR, adaptive pricing off). Pix e cartões BR seguem normais. Idempotente: reusa o reembolso geo e usa a Idempotency-Key do Resend.
 - `/api/ebook/checkout-eur` só abre com `EBOOK_SALES_OPEN=1` e `EBOOK_PRICE_ID`.
 - A chave Stripe restrita precisa de **Refunds: write** e **Charges: read** além das atuais.
-- A entrega do PDF (link assinado 72 h) ainda não está ligada: falta o PDF final.
+- **Entrega:** o PDF fica num Vercel Blob PRIVADO (`whfdev-ebook-private`, `EBOOK_BLOB_PATH`); **nunca no repo, que é PÚBLICO**. Após o pagamento, e-mail com link `/api/ebook/download?t=` (token HMAC `EBOOK_DOWNLOAD_SECRET`, 72 h, `src/lib/ebook-download.ts`). O download e a página `/api/ebook/obrigado?session_id=` (que gera um link novo) só liberam se a sessão estiver paga, sem reembolso e sem bloqueio geo (`canDownload`).
+- **Produção precisa de `STRIPE_SECRET_KEY`** (chave restrita: Checkout Sessions write, Payment Intents read, Charges read, Refunds write). Hoje NÃO está configurada: só o Wander cria.

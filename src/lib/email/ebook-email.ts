@@ -30,3 +30,33 @@ export function ebookGeoRefundEmail({ eurUrl }: { eurUrl: string }) {
 </td></tr></table></body></html>`
   return { subject, html, text }
 }
+
+/** E-mail de entrega: link de download assinado (72 h) + link para gerar outro. */
+export function ebookDeliveryEmail({ downloadUrl, renewUrl }: { downloadUrl: string; renewUrl: string }) {
+  const subject = 'Seu guia: Seus primeiros agentes de IA'
+  const text = [
+    'Olá,',
+    '',
+    'Obrigado pela compra! Seu guia "Seus primeiros agentes de IA: guia prático do zero, sem programar" está pronto.',
+    '',
+    `Baixe o PDF aqui (link válido por 72 horas): ${downloadUrl}`,
+    '',
+    `Se o link expirar, gere um novo aqui: ${renewUrl}`,
+    '',
+    'Dica: salve o PDF no seu computador ou celular logo depois de baixar.',
+    '',
+    'Se tiver alguma dúvida, é só responder a este e-mail.',
+    '',
+    'WHFDEV',
+  ].join('\n')
+  const html = `<!doctype html><html lang="pt-BR"><body style="margin:0;padding:24px;background:#f4f4f6;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#1f1f24">
+<table role="presentation" width="100%" style="max-width:560px;margin:0 auto;background:#fff;border:1px solid #e4e4ea;border-radius:12px"><tr><td style="padding:28px">
+<p style="margin:0 0 14px;font-size:15px;line-height:24px">Olá,</p>
+<p style="margin:0 0 14px;font-size:15px;line-height:24px">Obrigado pela compra! Seu guia <strong>Seus primeiros agentes de IA: guia prático do zero, sem programar</strong> está pronto.</p>
+<p style="margin:24px 0;text-align:center"><a href="${downloadUrl}" style="display:inline-block;background:#121212;color:#fff;text-decoration:none;font-weight:700;padding:13px 26px;border-radius:999px">Baixar o guia (PDF)</a></p>
+<p style="margin:0 0 14px;font-size:13px;line-height:20px;color:#5f5f6b">O link vale por 72 horas. Se expirar, <a href="${renewUrl}" style="color:#1f1f24">gere um novo aqui</a>. Dica: salve o PDF no seu computador ou celular logo depois de baixar.</p>
+<p style="margin:0 0 14px;font-size:15px;line-height:24px">Se tiver alguma dúvida, é só responder a este e-mail.</p>
+<p style="margin:0;font-size:15px;line-height:24px">WHFDEV</p>
+</td></tr></table></body></html>`
+  return { subject, html, text }
+}

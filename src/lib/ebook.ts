@@ -2,7 +2,8 @@ import 'server-only'
 
 import type Stripe from 'stripe'
 
-import { ebookGeoRefundEmail } from '@/lib/email/ebook-email'
+import { createDownloadToken, downloadUrl, thankYouUrl } from '@/lib/ebook-download'
+import { ebookDeliveryEmail, ebookGeoRefundEmail } from '@/lib/email/ebook-email'
 import { FROM_EMAIL, REPLY_TO, resend } from '@/lib/email/resend'
 import { stripe } from '@/lib/stripe'
 
@@ -80,6 +81,7 @@ export type EbookResult =
   | { action: 'not_paid' }
   | { action: 'refunded_geo'; refundId: string; alreadyRefunded: boolean; emailSent: boolean }
   | { action: 'deliver_pending_pdf' }
+  | { action: 'delivered'; emailSent: boolean }
 
 /**
  * Trata um Checkout Session pago do ebook. Idempotente: se o PaymentIntent já
@@ -145,7 +147,45 @@ export async function handleEbookSession(
     return { action: 'refunded_geo', refundId: refund.id, alreadyRefunded: !!prior, emailSent }
   }
 
-  // Entrega do PDF: liga quando houver o arquivo final (EBOOK_PDF_PATH).
-  console.log(`[ebook] pago session=${session.id} pi=${pi.id}: entrega pendente (PDF ainda não configurado)`)
-  return { action: 'deliver_pending_pdf' }
+  // Entrega: e-mail com link assinado (72 h). Sem EBOOK_BLOB_PATH/secret: pendente.
+  if (!process.env.EBOOK_BLOB_PATH || !process.env.EBOOK_DOWNLOAD_SECRET) {
+    console.log(`[ebook] pago session=${session.id} pi=${pi.id}: entrega pendente (PDF não configurado)`)
+    return { action: 'deliver_pending_pdf' }
+  }
+  const to = session.customer_details?.email ?? session.customer_email
+  let emailSent = false
+  if (to && resend) {
+    const { subject, html, text } = ebookDeliveryEmail({
+      downloadUrl: downloadUrl(createDownloadToken(session.id)),
+      renewUrl: thankYouUrl(session.id),
+    })
+    const r = await resend.emails.send(
+      { from: FROM_EMAIL, to, replyTo: REPLY_TO, subject, html, text },
+      { idempotencyKey: `ebook-deliver-${session.id}` },
+    )
+    emailSent = !r.error
+    if (r.error) {
+      console.error('[ebook] e-mail de entrega falhou', r.error)
+      throw new Error('ebook delivery email failed') // 500 → o Stripe tenta de novo
+    }
+  }
+  console.log(`[ebook] entregue session=${session.id} pi=${pi.id} email=${emailSent}`)
+  return { action: 'delivered', emailSent }
+}
+
+/**
+ * Pode baixar? Sessão do ebook, paga, sem reembolso e sem bloqueio geo.
+ * Usado pelo download e pela página de obrigado (gerar novo link).
+ */
+export async function canDownload(sessionId: string): Promise<boolean> {
+  const session = await stripe().checkout.sessions.retrieve(sessionId)
+  if (session.payment_status !== 'paid') return false
+  const piId = typeof session.payment_intent === 'string' ? session.payment_intent : session.payment_intent?.id
+  if (!piId) return false
+  const pi = await stripe().paymentIntents.retrieve(piId, { expand: ['latest_charge'] })
+  if (!isEbookSession(session, pi) || pi.status !== 'succeeded') return false
+  const charge = pi.latest_charge as Stripe.Charge | null
+  if (!charge || charge.refunded || (charge.amount_refunded ?? 0) > 0) return false
+  const d = charge.payment_method_details
+  return geoDecision({ currency: pi.currency, paymentMethodType: d?.type, cardCountry: d?.card?.country }) === 'deliver'
 }
