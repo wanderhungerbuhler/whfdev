@@ -14,9 +14,9 @@ const LOTE1 = 'https://buy.stripe.com/4gMdR99wV7WS0jwc3X8N202'
 export async function GET(req: Request) {
   const target = new URL(process.env.EBOOK_BUY_URL || LOTE1)
   const incoming = new URL(req.url).searchParams
-  for (const [k, v] of incoming) {
+  incoming.forEach((v, k) => {
     if (/^(utm_[a-z]+|prefilled_email|client_reference_id|locale)$/.test(k)) target.searchParams.set(k, v)
-  }
+  })
   return NextResponse.redirect(target.toString(), {
     status: 307,
     headers: { 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex' },
